@@ -11,16 +11,17 @@
         android:id="@+id/chatbot_btn"
         android:layout_width="74dp"
         android:layout_height="58dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="640dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
         android:id="@+id/feed_btn"
         android:layout_width="74dp"
         android:layout_height="58dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginBottom="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/chatbot_btn"
         app:layout_constraintHorizontal_bias="0.437"
@@ -33,18 +34,20 @@
         android:id="@+id/calender_btn"
         android:layout_width="74dp"
         android:layout_height="58dp"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/feed_btn"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="640dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/doggy_dine"
         android:layout_width="256dp"
         android:layout_height="62dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintHorizontal_bias="0.212"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/doggy_dine" />
