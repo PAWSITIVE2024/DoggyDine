@@ -22,6 +22,14 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        ImageButton setting_btn = (ImageButton) findViewById(R.id.setting_btn);
+        setting_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), Setting.class);
+                startActivity(intent);
+            }
+        });
         ImageButton chatbot_btn = (ImageButton) findViewById(R.id.chatbot_btn);
         chatbot_btn.setOnClickListener(new View.OnClickListener(){
             @Override
