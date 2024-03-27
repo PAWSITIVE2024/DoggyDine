@@ -1,21 +1,16 @@
 package com.example.doggydine;
-
 import android.os.Bundle;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         ImageButton chatbot_btn = (ImageButton) findViewById(R.id.chatbot_btn);
         chatbot_btn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -36,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         ImageButton calender_btn = (ImageButton) findViewById(R.id.calender_btn);
         calender_btn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -45,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         ImageButton feed_btn = (ImageButton) findViewById(R.id.feed_btn);
         feed_btn.setOnClickListener(new View.OnClickListener(){
             @Override
