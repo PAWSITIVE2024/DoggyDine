@@ -35,6 +35,13 @@ public class Feeding extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        Button camera_btn = (Button) findViewById(R.id.barcode_btn);
+        camera_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), Camera.class);
+                startActivity(intent);
+            }
+        });
     }
 }
