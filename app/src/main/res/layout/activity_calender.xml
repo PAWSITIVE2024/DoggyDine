@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Calender">
-
     <ImageView
         android:id="@+id/doggy_dine"
         android:layout_width="wrap_content"
@@ -39,7 +38,4 @@
             app:layout_constraintVertical_bias="0.585" />
         />
     </RelativeLayout>
-
-
-
 </RelativeLayout>
