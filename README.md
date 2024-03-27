@@ -10,4 +10,6 @@ PAWSITIVE팀 Doggy Dine
 **정윤지(2020112097)**
 
 반려동물 알러지에 따른 사료 급여 IoT 어플리케이션 제작
-![icon](https://github.com/yunjiJ00/DoggyDine/assets/123616936/69b1ecd0-847b-4423-8f3f-d616511baf76)
+
+![image](https://github.com/yunjiJ00/DoggyDine/assets/123616936/1baaa184-a478-4742-8bef-a143c2bb1946)
+
