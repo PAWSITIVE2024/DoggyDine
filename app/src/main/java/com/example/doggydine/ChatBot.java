@@ -101,7 +101,7 @@ public class ChatBot extends AppCompatActivity {
         JSONObject userMsg = new JSONObject();
         try{
             baseAi.put("role", "user");
-            baseAi.put("content", "You are helpful and kind AI Assistant.");
+            baseAi.put("content", "You are kind AI Assistant.");
             userMsg.put("role", "user");
             userMsg.put("content", question);
             arr.put(baseAi);
@@ -113,7 +113,12 @@ public class ChatBot extends AppCompatActivity {
         JSONObject object = new JSONObject();
         try{
             object.put("model", "gpt-3.5-turbo");
-            object.put("messages", question);
+            JSONObject messageObj = new JSONObject();
+            messageObj.put("role", "user");
+            messageObj.put("content", question);
+            JSONArray messagesArray = new JSONArray();
+            messagesArray.put(messageObj);
+            object.put("messages", messagesArray);
         }catch (JSONException e) {
             e.printStackTrace();
         }
@@ -121,7 +126,7 @@ public class ChatBot extends AppCompatActivity {
         RequestBody body = RequestBody.create(object.toString(), JSON);
         Request request = new Request.Builder()
                 .url("https://api.openai.com/v1/chat/completions")
-                .header("Authorization", "Bearer MY_SECRET_API_KEY")
+                .header("Authorization", "Bearer MY_SECRET_KEY")
                 .post(body)
                 .build();
 
