@@ -6,39 +6,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <RelativeLayout
+        android:id="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:id="@+id/top_layout">
+        android:layout_height="93dp"
+        android:background="@color/white">
+
         <ImageView
             android:id="@+id/doggy_dine"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="-3dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_alignParentStart="true"
             app:srcCompat="@drawable/doggy_dine" />
-        <ImageButton
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/setting_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="135dp"
             android:layout_toEndOf="@id/doggy_dine"
             android:background="@color/white"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/images" />
+            android:contentDescription="환경설정버튼"
+            android:src="@drawable/ic_launcher_background"
+            app:civ_border_color="#90721AFF"
+            app:civ_border_overlay="true"
+            app:civ_border_width="5dp" />
+
     </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_content"
-        android:background="@color/white"
-        android:layout_above="@id/bottom_layout"
-        android:layout_below="@id/top_layout">
-    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -48,6 +50,7 @@
         android:background="@color/white">
         <ImageButton
             android:id="@+id/calender_btn"
+            android:contentDescription="캘린더버튼"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -57,6 +60,7 @@
             app:srcCompat="@drawable/calendar" />
         <ImageButton
             android:id="@+id/feed_btn"
+            android:contentDescription="사료등록버튼"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -66,6 +70,7 @@
             app:srcCompat="@drawable/feed_btn" />
         <ImageButton
             android:id="@+id/chatbot_btn"
+            android:contentDescription="gpt버튼"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -74,5 +79,15 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/gpt" />
 
+
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_content"
+        android:background="@color/white"
+        android:layout_above="@id/bottom_layout"
+        android:layout_below="@id/top_layout">
+    </RelativeLayout>
 </RelativeLayout>

@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Calender">
+    tools:context=".Calender"
+    android:background="@color/white">
     <ImageView
         android:id="@+id/doggy_dine"
         android:layout_width="wrap_content"

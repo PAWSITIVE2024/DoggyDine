@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Feeding">
 
     <ImageView
@@ -16,13 +17,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/doggy_dine" />
-    <RelativeLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/current_food"
+        android:id="@+id/recyclerView"
         android:layout_below="@id/doggy_dine"
         android:layout_above="@id/button_layout">
-    </RelativeLayout>
+    </androidx.recyclerview.widget.RecyclerView>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
