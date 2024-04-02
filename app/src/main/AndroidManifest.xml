@@ -54,6 +54,7 @@
             android:exported="false" />
         <activity
             android:name=".ChatBot"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
