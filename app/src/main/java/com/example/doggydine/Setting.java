@@ -139,7 +139,11 @@ public class Setting extends AppCompatActivity {
     private void uploadImageToFirebase(Uri imageUri) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("profile_images");
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        StorageReference imageRef = storageRef.child(firebaseUser.getUid() + ".jpg");
+
+        // 각 사용자의 UID를 기반으로 파일 이름 생성
+        String imageName = firebaseUser.getUid() + ".jpg";
+
+        StorageReference imageRef = storageRef.child(imageName);
 
         UploadTask uploadTask = imageRef.putFile(imageUri);
         uploadTask.continueWithTask(task -> {
@@ -160,10 +164,6 @@ public class Setting extends AppCompatActivity {
                                 .load(imageUrl)
                                 .placeholder(R.drawable.ic_launcher_background)
                                 .into(circleImageView);
-
-                        // Glide 캐시 삭제
-                        Glide.get(Setting.this).clearDiskCache();
-                        Glide.get(Setting.this).clearMemory();
                     }
                 } else {
                     Toast.makeText(Setting.this, "사진 저장 실패", Toast.LENGTH_SHORT).show();
