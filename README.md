@@ -3,6 +3,8 @@
 
 PAWSITIVE팀 Doggy Dine
 
+https://yunji00.notion.site/Pawsitive-b111d32e909f4a9c99dd6c4c1950b2bb?pvs=4
+
 **안세림(2020112135)**
 
 **이동욱(2019113587)**

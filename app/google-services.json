@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "948994330678",
+    "firebase_url": "https://doggy-dine-default-rtdb.firebaseio.com",
+    "project_id": "doggy-dine",
+    "storage_bucket": "doggy-dine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948994330678:android:2fdf99b6ddbfc6160f0897",
+        "android_client_info": {
+          "package_name": "com.example.doggydine"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUA4AgUWmFSatCIi5sU4jTL8PXTYGuNuM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948994330678:android:4a71a11dfbf8d89e0f0897",
+        "android_client_info": {
+          "package_name": "com.example.login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUA4AgUWmFSatCIi5sU4jTL8PXTYGuNuM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

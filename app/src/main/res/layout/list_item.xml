@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/things"
+        android:layout_width="match_parent"
+        android:layout_height="112dp"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_background" />
+
+        <LinearLayout
+            android:layout_width="76dp"
+            android:layout_height="96dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_height="23dp"
+                android:fontFamily="@font/maplestorybold"
+                android:text="  이름   : " />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/maplestorybold"
+                android:layout_height="23dp"
+                android:text="  평점   : " />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_height="23dp"
+                android:fontFamily="@font/maplestorybold"
+                android:text="  가격   : " />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_height="23dp"
+                android:fontFamily="@font/maplestorybold"
+                android:text="  주원료 : " />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Tv_i_Name"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/maplestorybold"
+                android:layout_height="23dp"
+                android:text=""
+                android:hint="사료 이름"/>
+
+            <TextView
+                android:id="@+id/Tv_i_Score"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/maplestorybold"
+                android:layout_height="23dp"
+                android:text=""
+                android:hint="사료 평점"/>
+
+            <TextView
+                android:id="@+id/Tv_i_Price"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/maplestorybold"
+                android:layout_height="23dp"
+                android:text=""
+                android:hint="사료 가격"/>
+
+            <TextView
+                android:id="@+id/Tv_i_Material"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/maplestorybold"
+                android:layout_height="23dp"
+                android:text=""
+                android:hint="사료 주원료"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
