@@ -81,7 +81,7 @@ public class Feeding extends AppCompatActivity {
                     food.setMaterial(materialMap);
 
                     arrayList.add(food);
-                    // 데이터 확인을 위한 로그
+                    // 데이터 잘가져오는지 확인하기위해서 로그 확인용부분 나중에 없애도 됨!
                     Log.d("FirebaseData", food.toString());
 
                 }
@@ -108,13 +108,13 @@ public class Feeding extends AppCompatActivity {
         });
         Button camera_btn = (Button) findViewById(R.id.barcode_btn);
 
-        /*
+
         camera_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), GetCamera.class);
                 startActivity(intent);
             }
-        });*/
+        });
     }
 }

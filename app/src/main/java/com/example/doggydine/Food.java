@@ -75,7 +75,7 @@ import java.util.Map;
         public void setMaterial(Map<String, Boolean> material) {
             this.material = material;
         }
-        //테스트용
+        //테스트용 ,로그확인용
         public String toString() {
             return "Food{" +
                     "profile='" + profile + '\'' +
