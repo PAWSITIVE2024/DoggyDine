@@ -28,14 +28,8 @@ public class sign_up extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseRef;
-<<<<<<< HEAD
-    private EditText mEtEmail, mEtPwd, mName, mAge, mWeight, mActiveRate, mAllergy ;
-    private ImageView mImageview;
-    private TextView mgo;
-=======
     private EditText mEtEmail, mEtPwd, mName, mAge, mWeight, mActiveRate, mAllergy;
     private ImageView mImageview;
->>>>>>> 7a65570382cf550403ea5f375345d60cc570960a
     private Button mBtnRegister;
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -58,21 +52,7 @@ public class sign_up extends AppCompatActivity {
         mAllergy = findViewById(R.id.Et_s_allergy);
         mBtnRegister = findViewById(R.id.Btn_s_register);
         mImageview = findViewById(R.id.imageView);
-        mgo = findViewById(R.id.Tv_s_go);
 
-<<<<<<< HEAD
-
-        mgo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(sign_up.this, ActivateRate.class);
-                startActivity(intent);
-
-            }
-        });
-
-=======
->>>>>>> 7a65570382cf550403ea5f375345d60cc570960a
         mImageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
