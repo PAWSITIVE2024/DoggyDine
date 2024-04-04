@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ public class sign_up extends AppCompatActivity {
     private EditText mEtEmail, mEtPwd, mName, mAge, mWeight, mActiveRate, mAllergy;
     private ImageView mImageview;
     private Button mBtnRegister;
+    private TextView mTextview;
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
@@ -52,6 +54,16 @@ public class sign_up extends AppCompatActivity {
         mAllergy = findViewById(R.id.Et_s_allergy);
         mBtnRegister = findViewById(R.id.Btn_s_register);
         mImageview = findViewById(R.id.imageView);
+        mTextview = findViewById(R.id.Tv_s_go);
+
+
+        mTextview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(sign_up.this, ActivateRate.class);
+                startActivity(intent);
+            }
+        });
 
         mImageview.setOnClickListener(new View.OnClickListener() {
             @Override
