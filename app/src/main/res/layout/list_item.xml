@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_height="23dp"
+                android:textColor="@color/black"
                 android:fontFamily="@font/maplestorybold"
                 android:text="  이름   : " />
 
@@ -37,6 +38,7 @@
                 android:layout_marginLeft="5dp"
                 android:fontFamily="@font/maplestorybold"
                 android:layout_height="23dp"
+                android:textColor="@color/black"
                 android:text="  평점   : " />
 
             <TextView
@@ -44,6 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_height="23dp"
+                android:textColor="@color/black"
                 android:fontFamily="@font/maplestorybold"
                 android:text="  가격   : " />
 
@@ -52,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_height="23dp"
+                android:textColor="@color/black"
                 android:fontFamily="@font/maplestorybold"
                 android:text="  주원료 : " />
         </LinearLayout>
@@ -67,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:fontFamily="@font/maplestorybold"
                 android:layout_height="23dp"
+                android:textColor="@color/black"
                 android:text=""
                 android:hint="사료 이름"/>
 
@@ -76,19 +81,22 @@
                 android:fontFamily="@font/maplestorybold"
                 android:layout_height="23dp"
                 android:text=""
+                android:textColor="@color/black"
                 android:hint="사료 평점"/>
 
             <TextView
                 android:id="@+id/Tv_i_Price"
                 android:layout_width="match_parent"
-                android:fontFamily="@font/maplestorybold"
                 android:layout_height="23dp"
-                android:text=""
-                android:hint="사료 가격"/>
+                android:textColor="@color/black"
+                android:fontFamily="@font/maplestorybold"
+                android:hint="사료 가격"
+                android:text="" />
 
             <TextView
                 android:id="@+id/Tv_i_Material"
                 android:layout_width="match_parent"
+                android:textColor="@color/black"
                 android:fontFamily="@font/maplestorybold"
                 android:layout_height="23dp"
                 android:text=""
