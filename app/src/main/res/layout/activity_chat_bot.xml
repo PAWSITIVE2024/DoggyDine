@@ -7,29 +7,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChatBot">
-  <ImageView
-      android:id="@+id/doggy_dine"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.12"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/doggy_dine" />
-  <androidx.recyclerview.widget.RecyclerView
+  <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:id="@+id/chat_view"
+      android:layout_height="wrap_content"
       android:layout_above="@id/bottom_layout"
-      android:layout_below="@id/doggy_dine" />
-  <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/welcome_text"
-      android:layout_centerInParent="true"
-      android:text="궁금한것을 물어보세요!\n예)강아지가 사과 먹어도 돼?"
-      android:gravity="center"
-      android:textSize="20dp" />
+      android:layout_below="@id/above_layout">
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/chat_view"
+         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/welcome_text"
+        android:layout_centerInParent="true"
+        android:text="궁금한것을 물어보세요!\n예)강아지가 사과 먹어도 돼?"
+        android:gravity="center"
+        android:textSize="20dp" />
+  </RelativeLayout>
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="80dp"
@@ -59,4 +55,20 @@
         android:background="?attr/selectableItemBackgroundBorderless"
       />
   </RelativeLayout>
+  <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/above_layout">
+    <ImageView
+        android:id="@+id/doggy_dine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/doggy_dine" />
+  </RelativeLayout>
+
 </RelativeLayout>
