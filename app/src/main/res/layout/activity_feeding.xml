@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/doggy_dine" />
 
     <ImageView
-        android:id="@+id/imageButton"
+        android:id="@+id/Iv_go_home"
         android:layout_width="67dp"
         android:layout_height="64dp"
         android:layout_marginLeft="146dp"

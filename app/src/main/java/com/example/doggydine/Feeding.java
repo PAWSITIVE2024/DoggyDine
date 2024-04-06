@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +36,7 @@ public class Feeding extends AppCompatActivity {
     private ArrayList<Food> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private ImageView mImageview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class Feeding extends AppCompatActivity {
         });
 
         recyclerView =findViewById(R.id.recyclerView);
+        mImageview = findViewById(R.id.Iv_go_home);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -90,7 +94,14 @@ public class Feeding extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-
+        mImageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Feeding.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         Button recommend_btn = (Button) findViewById(R.id.recommend_btn);
