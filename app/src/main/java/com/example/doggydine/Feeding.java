@@ -64,9 +64,6 @@ public class Feeding extends AppCompatActivity {
                     Food food = new Food();
                     food.setProfile(snapshot.child("profile").getValue(String.class));
                     food.setName(snapshot.child("name").getValue(String.class));
-                    food.setManu(snapshot.child("manu").getValue(String.class));
-                    food.setNumber(snapshot.child("number").getValue(String.class));
-                    food.setWeight(snapshot.child("weight").getValue(String.class));
                     food.setScore(snapshot.child("score").getValue(String.class));
                     food.setPrice(snapshot.child("price").getValue(String.class));
 
@@ -108,13 +105,13 @@ public class Feeding extends AppCompatActivity {
         });
         Button camera_btn = (Button) findViewById(R.id.barcode_btn);
 
-
+        /*
         camera_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), GetCamera.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 }

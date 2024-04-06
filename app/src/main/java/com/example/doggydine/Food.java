@@ -11,6 +11,7 @@ import java.util.Map;
         private String score;
         private String price;
         private Map<String, Boolean> material;
+        private String kcal;
 
         public String getProfile() {
             return profile;
@@ -75,6 +76,12 @@ import java.util.Map;
         public void setMaterial(Map<String, Boolean> material) {
             this.material = material;
         }
+
+
+        public String getKcal() {return kcal;}
+
+        public void setKcal(String kcal) {this.kcal = kcal;}
+
         //테스트용 ,로그확인용
         public String toString() {
             return "Food{" +

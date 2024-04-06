@@ -1,6 +1,7 @@
 package com.example.doggydine;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
         CustomViewHolder holder = new CustomViewHolder(view);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             int position = holder.getAdapterPosition();
+             if(position != RecyclerView.NO_POSITION) {
+                 Food clickedFood = arrayList.get(position);
+                 String foodName = clickedFood.getName();
+
+                 Intent intent = new Intent(context,FoodDetailsActivity.class);
+                 intent.putExtra("foodName",foodName);
+                 context.startActivity(intent);
+             }
+            }
+        });
+
         return holder;
     }
 
@@ -42,16 +58,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 .load(arrayList.get(position).getProfile())
                 .into(holder.iv_profile);
 
-        // 사용자 아이디 설정
+        // 사료 이름 설정
         holder.tv_name.setText(arrayList.get(position).getName());
 
-        // 사용자 비밀번호 설정
+        // 사료 평점 설정
         holder.tv_score.setText(arrayList.get(position).getScore());
 
-        // 사용자 이름 설정
-        holder.tv_price.setText(arrayList.get(position).getPrice());
+        // 사료 가격 설정
+        holder.tv_price.setText(arrayList.get(position).getPrice()+"원");
 
-        // 재료 설정
+        // 주재료 설정 (true인것만)
         Map<String, Boolean> materialMap = arrayList.get(position).getMaterial();
         StringBuilder materialText = new StringBuilder();
         for (Map.Entry<String, Boolean> entry : materialMap.entrySet()) {

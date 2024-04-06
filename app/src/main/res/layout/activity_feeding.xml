@@ -10,13 +10,26 @@
 
     <ImageView
         android:id="@+id/doggy_dine"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="-3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/doggy_dine" />
+
+    <ImageView
+        android:id="@+id/imageButton"
+        android:layout_width="67dp"
+        android:layout_height="64dp"
+        android:layout_marginLeft="146dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/doggy_dine"
+        android:background="@color/white"
+        android:contentDescription="메인으로이동"
+        app:srcCompat="@drawable/home" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -24,8 +37,8 @@
         android:layout_height="563dp"
         android:layout_above="@id/button_layout"
         android:layout_below="@id/doggy_dine"
-        android:layout_marginTop="69dp"
-        android:layout_marginBottom="-2dp"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginTop="67dp"
+        android:layout_marginBottom="0dp"></androidx.recyclerview.widget.RecyclerView>
 
     <RelativeLayout
         android:id="@+id/button_layout"
@@ -79,4 +92,6 @@
             android:layout_height="48dp"
             android:layout_weight="1" />
     </LinearLayout>
+
+
 </RelativeLayout>

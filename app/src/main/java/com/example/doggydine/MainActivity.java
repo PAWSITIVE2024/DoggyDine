@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
         ImageButton feed_btn = (ImageButton)findViewById(R.id.feed_btn);
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
 
-
-
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ프로필 이미지 가져오기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
 
         //프로필사진 가져오기
