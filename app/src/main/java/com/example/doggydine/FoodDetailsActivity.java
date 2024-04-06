@@ -53,7 +53,7 @@ public class FoodDetailsActivity extends AppCompatActivity {
                             mPrice.setText(food.getPrice() + "원");
                             mScore.setText(food.getScore());
                             mManu.setText(food.getManu());
-                            mKcal.setText(food.getKcal() + "kcal");
+                            mKcal.setText(food.getKcal() + "Kcal");
 
                             // Material 정보 가져오기
                             StringBuilder materialText = new StringBuilder();
