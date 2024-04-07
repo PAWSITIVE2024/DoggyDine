@@ -9,12 +9,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +38,7 @@ public class Feeding extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Food> arrayList;
     private FirebaseDatabase database;
+    private Spinner mspinner;
     private DatabaseReference databaseReference;
     private ImageView mImageview;
 
@@ -112,6 +116,44 @@ public class Feeding extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Spinner에서 선택된 정렬 방법을 감지하는 리스너 구현
+        mspinner = findViewById(R.id.spinner);
+        mspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 1 ) { // 가격 순 선택
+                    Collections.sort(arrayList, new Comparator<Food>() {
+                        @Override
+                        public int compare(Food food1, Food food2) {
+                            // 가격이 null이면 두 음식은 동등하다고 간주
+                            if (food1.getPrice() == null && food2.getPrice() == null) {
+                                return 0;
+                            } else if (food1.getPrice() == null) {
+                                return 1;
+                            } else if (food2.getPrice() == null) {
+                                return -1;
+                            }
+                            // 문자열을 Double로
+                            return Double.compare(Double.parseDouble(food1.getPrice()), Double.parseDouble(food2.getPrice()));
+                        }
+                    });
+                } else if (position == 2) {
+
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // 아무것도 선택되지 않았을 때의 처리
+            }
+        });
+
+
+
+
         Button camera_btn = (Button) findViewById(R.id.barcode_btn);
 
         /*
