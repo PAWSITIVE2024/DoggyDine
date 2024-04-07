@@ -50,10 +50,10 @@ public class FoodDetailsActivity extends AppCompatActivity {
                         Food food = datasnapshot.getValue(Food.class);
                         if (food != null) {
                             mName.setText(food.getName());
-                            mPrice.setText(food.getPrice() + "원");
+                            mPrice.setText("(100g당) "+food.getPrice()+"원");
                             mScore.setText(food.getScore());
                             mManu.setText(food.getManu());
-                            mKcal.setText(food.getKcal() + "Kcal");
+                            mKcal.setText("(250기준) "+food.getKcal() + "Kcal");
 
                             // Material 정보 가져오기
                             StringBuilder materialText = new StringBuilder();

@@ -65,7 +65,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         holder.tv_score.setText(arrayList.get(position).getScore());
 
         // 사료 가격 설정
-        holder.tv_price.setText(arrayList.get(position).getPrice()+"원");
+        holder.tv_price.setText("(100g당) "+arrayList.get(position).getPrice()+"원");
 
         // 주재료 설정 (true인것만)
         Map<String, Boolean> materialMap = arrayList.get(position).getMaterial();

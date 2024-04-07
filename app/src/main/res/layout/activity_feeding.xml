@@ -87,10 +87,14 @@
             android:textColor="@color/black" />
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:theme="@style/SpinnerDropdownStyle"
+            android:backgroundTint="@color/black"
+            android:entries="@array/drop_down_option"/>
     </LinearLayout>
 
 

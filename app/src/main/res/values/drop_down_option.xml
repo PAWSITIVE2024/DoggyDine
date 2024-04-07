@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="drop_down_option">
+        <item><font color="#000000">없음</font></item>
+        <item><font color="#000000">가격순</font></item>
+        <item><font color="#000000">평점순</font></item>
+        <item><font color="#000000">판매순</font></item>
+    </string-array>
+</resources>

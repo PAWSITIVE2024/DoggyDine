@@ -71,8 +71,8 @@
                 android:id="@+id/Tv_i_Name"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:fontFamily="@font/maplestorybold"
-                android:layout_height="23dp"
+                android:fontFamily="@font/maplestorylight"
+                android:layout_height="25dp"
                 android:textColor="@color/black"
                 android:text=""
                 android:hint="사료 이름"/>
@@ -80,7 +80,7 @@
             <TextView
                 android:id="@+id/Tv_i_Score"
                 android:layout_width="match_parent"
-                android:fontFamily="@font/maplestorybold"
+                android:fontFamily="@font/maplestorylight"
                 android:layout_height="23dp"
                 android:text=""
                 android:textColor="@color/black"
@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="23dp"
                 android:textColor="@color/black"
-                android:fontFamily="@font/maplestorybold"
+                android:fontFamily="@font/maplestorylight"
                 android:hint="사료 가격"
                 android:text="" />
 
@@ -99,7 +99,7 @@
                 android:id="@+id/Tv_i_Material"
                 android:layout_width="match_parent"
                 android:textColor="@color/black"
-                android:fontFamily="@font/maplestorybold"
+                android:fontFamily="@font/maplestorylight"
                 android:layout_height="23dp"
                 android:text=""
                 android:hint="사료 주원료"/>
