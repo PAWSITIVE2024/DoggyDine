@@ -71,6 +71,7 @@ public class Feeding extends AppCompatActivity {
                     food.setName(snapshot.child("name").getValue(String.class));
                     food.setScore(snapshot.child("score").getValue(String.class));
                     food.setPrice(snapshot.child("price").getValue(String.class));
+                    food.setSales_Volume(snapshot.child("sales_Volume").getValue(String.class));
 
                     Map<String, Boolean> materialMap = new HashMap<>();
                     DataSnapshot materialSnapshot = snapshot.child("material");
@@ -122,7 +123,11 @@ public class Feeding extends AppCompatActivity {
         mspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 1) { // 가격 순 선택
+                if(position == 0){
+
+                }
+
+                else if (position == 1) { // 가격 순 선택
                     Collections.sort(arrayList, new Comparator<Food>() {
                         @Override
                         public int compare(Food food1, Food food2) {
@@ -134,7 +139,7 @@ public class Feeding extends AppCompatActivity {
                             } else if (food2.getPrice() == null) {
                                 return -1;
                             }
-                            // 문자열을 Double로
+                            // 문자열을 Double로 내림차순
                             return Double.compare(Double.parseDouble(food1.getPrice()), Double.parseDouble(food2.getPrice()));
                         }
                     });
@@ -146,8 +151,28 @@ public class Feeding extends AppCompatActivity {
                             if (food1.getScore().equals(food2.getScore())) {
                                 return food1.getName().compareTo(food2.getName());
                             }
-                            // 평점을 Double로
+                            // 평점을 Double로 오름차순
                             return Double.compare(Double.parseDouble(food2.getScore()), Double.parseDouble(food1.getScore()));
+                        }
+                    });
+                } else if (position == 3) { // 판매량 순 선택
+                    Collections.sort(arrayList, new Comparator<Food>() {
+                        @Override
+                        public int compare(Food food1, Food food2) {
+                            // sale_Volume이 null이면 두 음식은 동등하다고 간주
+                            if (food1.getSales_Volume() == null && food2.getSales_Volume() == null) {
+                                return food1.getName().compareTo(food2.getName());
+                            } else if (food1.getSales_Volume() == null) {
+                                return 1;
+                            } else if (food2.getSales_Volume() == null) {
+                                return -1;
+                            }
+                            // 판매량이 같으면 이름 순으로 정렬
+                            if (food1.getSales_Volume().equals(food2.getSales_Volume())) {
+                                return food1.getName().compareTo(food2.getName());
+                            }
+                            // 문자열을 Integer로 오름차순
+                            return Integer.compare(Integer.parseInt(food2.getSales_Volume()), Integer.parseInt(food1.getSales_Volume()));
                         }
                     });
                 }

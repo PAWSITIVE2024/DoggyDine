@@ -4,6 +4,7 @@ import java.util.Map;
 
     public class Food {
         private String profile;
+        private String sales_Volume;
         private String name;
         private String manu;
         private String number;
@@ -77,6 +78,13 @@ import java.util.Map;
             this.material = material;
         }
 
+        public String getSales_Volume() {
+            return sales_Volume;
+        }
+
+        public void setSales_Volume(String sales_Volume) {
+            this.sales_Volume = sales_Volume;
+        }
 
         public String getKcal() {return kcal;}
 
@@ -92,6 +100,7 @@ import java.util.Map;
                     ", weight='" + weight + '\'' +
                     ", score='" + score + '\'' +
                     ", price='" + price + '\'' +
+                    ", sales_Volume='" + sales_Volume + '\'' +
                     ", material=" + material +
                     '}';
         }
