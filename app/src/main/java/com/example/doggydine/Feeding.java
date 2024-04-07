@@ -37,6 +37,7 @@ public class Feeding extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Food> arrayList;
+    private ArrayList<Food> originList;
     private FirebaseDatabase database;
     private Spinner mspinner;
     private DatabaseReference databaseReference;
@@ -59,12 +60,14 @@ public class Feeding extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
+        originList = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("DoggyDine").child("Food");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 arrayList.clear();
+                originList.clear();
                 for (DataSnapshot snapshot : datasnapshot.getChildren()){
                     Food food = new Food();
                     food.setProfile(snapshot.child("profile").getValue(String.class));
@@ -84,6 +87,7 @@ public class Feeding extends AppCompatActivity {
                     food.setMaterial(materialMap);
 
                     arrayList.add(food);
+                    originList.add(food);
                     // 데이터 잘가져오는지 확인하기위해서 로그 확인용부분 나중에 없애도 됨!
                     Log.d("FirebaseData", food.toString());
 
@@ -123,8 +127,10 @@ public class Feeding extends AppCompatActivity {
         mspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0){
-
+                if (position == 0) { // 원본 상태 선택
+                    arrayList.clear();
+                    arrayList.addAll(originList);
+                    adapter.notifyDataSetChanged();
                 }
 
                 else if (position == 1) { // 가격 순 선택
