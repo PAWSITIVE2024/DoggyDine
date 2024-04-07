@@ -122,7 +122,7 @@ public class Feeding extends AppCompatActivity {
         mspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 1 ) { // 가격 순 선택
+                if (position == 1) { // 가격 순 선택
                     Collections.sort(arrayList, new Comparator<Food>() {
                         @Override
                         public int compare(Food food1, Food food2) {
@@ -138,8 +138,18 @@ public class Feeding extends AppCompatActivity {
                             return Double.compare(Double.parseDouble(food1.getPrice()), Double.parseDouble(food2.getPrice()));
                         }
                     });
-                } else if (position == 2) {
-
+                } else if (position == 2) { // 평점 순 선택
+                    Collections.sort(arrayList, new Comparator<Food>() {
+                        @Override
+                        public int compare(Food food1, Food food2) {
+                            // 평점이 같으면 이름 순으로 정렬
+                            if (food1.getScore().equals(food2.getScore())) {
+                                return food1.getName().compareTo(food2.getName());
+                            }
+                            // 평점을 Double로
+                            return Double.compare(Double.parseDouble(food2.getScore()), Double.parseDouble(food1.getScore()));
+                        }
+                    });
                 }
 
                 adapter.notifyDataSetChanged();
@@ -150,6 +160,8 @@ public class Feeding extends AppCompatActivity {
                 // 아무것도 선택되지 않았을 때의 처리
             }
         });
+
+
 
 
 
