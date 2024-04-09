@@ -1,9 +1,16 @@
 package com.example.doggydine;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,11 +41,14 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
+
 public class ChatBot extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView welcomeTextView;
     EditText messageEditText;
     ImageButton sendButton;
+    ImageButton bottomButton;
     List<Message> messageList;
     MessageAdapter messageAdapter;
     public static final MediaType JSON = MediaType.get("application/json");
@@ -78,6 +88,14 @@ public class ChatBot extends AppCompatActivity {
                 .writeTimeout(120, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .build();
+
+        bottomButton = findViewById(R.id.bottom_sheet);
+        bottomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showBottomDialog();
+            }
+        });
     }
     void addToChat(String message, String sentBy){
         runOnUiThread(new Runnable() {
@@ -126,7 +144,7 @@ public class ChatBot extends AppCompatActivity {
         RequestBody body = RequestBody.create(object.toString(), JSON);
         Request request = new Request.Builder()
                 .url("https://api.openai.com/v1/chat/completions")
-                .header("Authorization", "Bearer MY_SECRET_KEY")
+                .header("Authorization", "Bearer OPENAI_API_KEY")
                 .post(body)
                 .build();
 
@@ -153,5 +171,55 @@ public class ChatBot extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void showBottomDialog(){
+        final Dialog dialog= new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottomsheetlayout);
+
+        LinearLayout asklayout = dialog.findViewById(R.id.how_to_ask);
+        LinearLayout firstlayout = dialog.findViewById(R.id.doggyfruit);
+        LinearLayout secondlayout = dialog.findViewById(R.id.doggyallergy);
+        ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+
+        asklayout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                dialog.dismiss();
+                String response = "이 페이지에서는 무엇이든 자유롭게 물어볼 수 있습니다! \n강아지한테 바나나 줘도 돼? 라고 물어보세요!";
+                addToChat(response, Message.SENT_BY_BOT);
+            }
+        });
+        firstlayout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                dialog.dismiss();
+                String response = "강아지에게 다양한 과일을 줘도 괜찮습니다. \n다만 항상 소량만 급여해야 한다는 것을 잊지 마세요!";
+                addToChat(response, Message.SENT_BY_BOT);
+            }
+        });
+        secondlayout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                dialog.dismiss();
+                String response = "강아지에게는 다양한 알러지 요인이 있습니다! 아래 그림을 참고해 보세요";
+                addToChat(response, Message.SENT_BY_BOT);
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+
+
+
     }
 }

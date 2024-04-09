@@ -6,11 +6,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ChatBot">
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_above="@id/bottom_layout"
+      android:layout_above="@id/bottom_sheet"
       android:layout_below="@id/above_layout">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -26,6 +27,16 @@
         android:gravity="center"
         android:textSize="20dp" />
   </RelativeLayout>
+  <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:background="@drawable/dialogbg"
+      android:layout_centerInParent="true"
+      android:id="@+id/bottom_sheet"
+      android:src="@drawable/ic_round_remove_50"
+      android:layout_above="@id/bottom_layout">
+
+  </com.google.android.material.bottomsheet.BottomSheetDragHandleView>
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="80dp"
@@ -38,7 +49,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/meeage_edit_text"
         android:layout_centerInParent="true"
-        android:hint="Write here"
+        android:hint=" 궁금한 것을 물어보세요! "
         android:padding="16dp"
         android:layout_toLeftOf="@id/send_btn"
         android:background="@drawable/rounder_coner"
