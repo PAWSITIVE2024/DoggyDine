@@ -89,7 +89,7 @@ public class ChatBot extends AppCompatActivity {
                 .readTimeout(60, TimeUnit.SECONDS)
                 .build();
 
-        bottomButton = findViewById(R.id.bottom_sheet);
+        bottomButton = findViewById(R.id.sheet_btn);
         bottomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +98,7 @@ public class ChatBot extends AppCompatActivity {
         });
     }
     void addToChat(String message, String sentBy){
+        welcomeTextView.setVisibility(View.GONE);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -217,9 +218,5 @@ public class ChatBot extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
-
-
-
-
     }
 }

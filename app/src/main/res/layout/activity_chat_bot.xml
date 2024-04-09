@@ -11,7 +11,7 @@
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_above="@id/bottom_sheet"
+      android:layout_above="@id/sheet_layout"
       android:layout_below="@id/above_layout">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -27,19 +27,33 @@
         android:gravity="center"
         android:textSize="20dp" />
   </RelativeLayout>
-  <com.google.android.material.bottomsheet.BottomSheetDragHandleView
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:background="@drawable/dialogbg"
-      android:layout_centerInParent="true"
-      android:id="@+id/bottom_sheet"
-      android:src="@drawable/ic_round_remove_50"
-      android:layout_above="@id/bottom_layout">
-
-  </com.google.android.material.bottomsheet.BottomSheetDragHandleView>
   <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="80dp"
+      android:layout_height="60dp"
+      android:id="@+id/sheet_layout"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:layout_above="@id/bottom_layout">
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sheet_btn"
+        android:src="@drawable/baseline_arrow_drop_up_24"
+        android:layout_above="@id/bottom_sheet"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_centerInParent="true"/>
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/dialogbg"
+        android:layout_centerInParent="true"
+        android:id="@+id/bottom_sheet"
+        android:src="@drawable/ic_round_remove_50"/>
+
+  </RelativeLayout>
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="70dp"
       android:layout_alignParentBottom="true"
       app:layout_constraintBottom_toBottomOf="parent"
       android:padding="8dp"
