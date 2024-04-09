@@ -1,9 +1,12 @@
 package com.example.doggydine;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -25,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +47,7 @@ public class Feeding extends AppCompatActivity {
     private Spinner mspinner;
     private DatabaseReference databaseReference;
     private ImageView mImageview;
-
+    Button btn_scan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,20 +197,30 @@ public class Feeding extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-        Button camera_btn = (Button) findViewById(R.id.barcode_btn);
-
-        /*
-        camera_btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), GetCamera.class);
-                startActivity(intent);
-            }
-        });*/
+        btn_scan = findViewById(R.id.barcode_btn);
+        btn_scan.setOnClickListener(v->{
+            scanCode();
+        });
     }
+    private void scanCode(){
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Volume up to flash on");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        barLauncher.launch(options);
+    }
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result->{
+        if(result.getContents() != null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(Feeding.this);
+            builder.setTitle("Result");
+            builder.setMessage(result.getContents());
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            }).show();
+        }
+    });
 }

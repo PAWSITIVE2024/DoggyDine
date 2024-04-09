@@ -23,9 +23,6 @@
             android:name=".FoodDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".GetCamera"
-            android:exported="false" />
-        <activity
             android:name=".CaptureAct"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
