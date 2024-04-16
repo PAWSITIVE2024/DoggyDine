@@ -209,7 +209,7 @@ public class ChatBot extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 dialog.dismiss();
-                String text = "어떻게 강아지가 먹어도 되는 과일 알려주세요.";
+                String text = "강아지가 먹어도 되는 과일 알려주세요.";
                 String response = "강아지에게 다양한 과일을 줘도 괜찮습니다. \n다만 항상 적정량만 급여해야 한다는 것을 잊지 마세요! \n만약 얼마나 줘야 하는지 궁금하면 채팅으로 물어보세요!🙂\n 예) 5kg 소형견한테 사과 얼마나 줘야 해?";
                 addToChat(text, Message.SENT_BY_ME);
                 addToChat(response, Message.SENT_BY_BOT);
@@ -220,10 +220,7 @@ public class ChatBot extends AppCompatActivity {
             public void onClick(View view){
                 dialog.dismiss();
                 String text = "강아지 알러지 요인 알려주세요.";
-                String response = "강아지에게는 다양한 알러지 요인이 있습니다! \n강아지에게 식이 알러지는 눈물, 피부 가려움, 부음, 설사 등을 부작용을 동반합니다.\n가장 대표적으로 소고기와 닭고기, 양고기 등 있습니다. \n 만약 알러지 요인을 모르신다면 다양한 사료를 통해 찾으시는 것을 추천드립니다.";
-//                Drawable drawable = getResources().getDrawable(R.drawable.allergy);
-//                ImageView imageView = new ImageView(getApplicationContext());
-//                imageView.setImageDrawable(drawable);
+                String response = "강아지에게는 다양한 알러지 요인이 있습니다! \n강아지에게 식이 알러지는 눈물, 피부 가려움, 부움, 설사 등을 부작용을 동반합니다.\n가장 대표적으로 소고기와 닭고기, 양고기 등 있습니다. \n 만약 알러지 요인을 모르신다면 다양한 사료를 통해 찾으시는 것을 추천드립니다.";
                 addToChat(text, Message.SENT_BY_ME);
                 addToChat(response, Message.SENT_BY_BOT);
             }
