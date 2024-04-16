@@ -3,6 +3,7 @@ package com.example.doggydine;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -108,6 +109,17 @@ public class ChatBot extends AppCompatActivity {
             }
         });
     }
+    void addToChat(String message, String sentBy, ImageView imageView){
+        welcomeTextView.setVisibility(View.GONE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                messageList.add(new Message(message, sentBy, imageView));
+                messageAdapter.notifyDataSetChanged();
+                recyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
+            }
+        });
+    }
     void addResponse(String response){
         messageList.remove(messageList.size()-1);
         addToChat(response, Message.SENT_BY_BOT);
@@ -120,7 +132,7 @@ public class ChatBot extends AppCompatActivity {
         JSONObject userMsg = new JSONObject();
         try{
             baseAi.put("role", "user");
-            baseAi.put("content", "You are kind AI Assistant.");
+            baseAi.put("content", "You are kind and sweet AI Assistant. I'm going to ask you about dogs. Please answer in Korean");
             userMsg.put("role", "user");
             userMsg.put("content", question);
             arr.put(baseAi);
@@ -145,7 +157,7 @@ public class ChatBot extends AppCompatActivity {
         RequestBody body = RequestBody.create(object.toString(), JSON);
         Request request = new Request.Builder()
                 .url("https://api.openai.com/v1/chat/completions")
-                .header("Authorization", "Bearer OPENAI_API_KEY")
+                .header("Authorization", "Bearer OPENAI_SECRET_KEY")
                 .post(body)
                 .build();
 
@@ -181,13 +193,15 @@ public class ChatBot extends AppCompatActivity {
         LinearLayout asklayout = dialog.findViewById(R.id.how_to_ask);
         LinearLayout firstlayout = dialog.findViewById(R.id.doggyfruit);
         LinearLayout secondlayout = dialog.findViewById(R.id.doggyallergy);
-        ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+        ImageView downButton = dialog.findViewById(R.id.down_btn);
 
         asklayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 dialog.dismiss();
+                String text = "어떻게 질문하면 되나요?";
                 String response = "이 페이지에서는 무엇이든 자유롭게 물어볼 수 있습니다! \n강아지한테 바나나 줘도 돼? 라고 물어보세요!";
+                addToChat(text, Message.SENT_BY_ME);
                 addToChat(response, Message.SENT_BY_BOT);
             }
         });
@@ -195,7 +209,9 @@ public class ChatBot extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 dialog.dismiss();
-                String response = "강아지에게 다양한 과일을 줘도 괜찮습니다. \n다만 항상 소량만 급여해야 한다는 것을 잊지 마세요!";
+                String text = "어떻게 강아지가 먹어도 되는 과일 알려주세요.";
+                String response = "강아지에게 다양한 과일을 줘도 괜찮습니다. \n다만 항상 적정량만 급여해야 한다는 것을 잊지 마세요! \n만약 얼마나 줘야 하는지 궁금하면 채팅으로 물어보세요!🙂\n 예) 5kg 소형견한테 사과 얼마나 줘야 해?";
+                addToChat(text, Message.SENT_BY_ME);
                 addToChat(response, Message.SENT_BY_BOT);
             }
         });
@@ -203,11 +219,16 @@ public class ChatBot extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 dialog.dismiss();
-                String response = "강아지에게는 다양한 알러지 요인이 있습니다! 아래 그림을 참고해 보세요";
+                String text = "강아지 알러지 요인 알려주세요.";
+                String response = "강아지에게는 다양한 알러지 요인이 있습니다! \n강아지에게 식이 알러지는 눈물, 피부 가려움, 부음, 설사 등을 부작용을 동반합니다.\n가장 대표적으로 소고기와 닭고기, 양고기 등 있습니다. \n 만약 알러지 요인을 모르신다면 다양한 사료를 통해 찾으시는 것을 추천드립니다.";
+//                Drawable drawable = getResources().getDrawable(R.drawable.allergy);
+//                ImageView imageView = new ImageView(getApplicationContext());
+//                imageView.setImageDrawable(drawable);
+                addToChat(text, Message.SENT_BY_ME);
                 addToChat(response, Message.SENT_BY_BOT);
             }
         });
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        downButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();

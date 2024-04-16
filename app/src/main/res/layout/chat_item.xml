@@ -16,8 +16,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/left_chat_text_view"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="14sp"
             />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/left_chat_Image_view"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -33,9 +37,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/right_chat_text_view"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="14sp"
             />
     </LinearLayout>
-
-
 </RelativeLayout>
