@@ -19,6 +19,13 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class DogSignUp extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -27,6 +34,12 @@ public class DogSignUp extends AppCompatActivity {
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5;
     private Button mBtnRegister;
     private TextView mTextview;
+    private ImageButton activeButton;
+    private ImageButton calenarButton;
+    private TextView activeTextView;
+    private TextView selectedDateTextView;
+    private Calendar calendar;
+
 
     private Uri selectedImageUri;
     private Uri selectedImageUrl_1;
@@ -41,8 +54,8 @@ public class DogSignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_dog_sign_up);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        setContentView(R.layout.dog_sign_up);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.DogInfo), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -53,7 +66,7 @@ public class DogSignUp extends AppCompatActivity {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine");
 
         mName = findViewById(R.id.Et_d_s_name);
-        mAge = findViewById(R.id.Et_d_s_age);
+        // mAge = findViewById(R.id.Et_d_s_age);
         mWeight = findViewById(R.id.Et_d_s_weight);
         mActiveRate = findViewById(R.id.Et_d_s_allergy);
 
@@ -64,8 +77,26 @@ public class DogSignUp extends AppCompatActivity {
         mImageview5 = findViewById(R.id.imageView5);
 
         mBtnRegister = findViewById(R.id.Btn_d_s_register);
-        mTextview = findViewById(R.id.Tv_d_s_go);
+        // mTextview = findViewById(R.id.Tv_d_s_go);
 
+        activeButton = findViewById(R.id.active_btn);
+        calenarButton = findViewById(R.id.selectDate);
+        activeTextView = findViewById(R.id.active_text);
+        selectedDateTextView = findViewById(R.id.selectedDateTextView);
+        calendar = Calendar.getInstance();
+
+        activeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showActivationDialog();
+            }
+        });
+        calenarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
         mTextview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,31 +132,41 @@ public class DogSignUp extends AppCompatActivity {
                 openGalleryForImageView5();
             }
         });
-
-
-
-
+    }
+    private void showActivationDialog() {
+        ActivationDialog activationDialog = new ActivationDialog();
+        activationDialog.show(getSupportFragmentManager(), "activation_dialog");
+    }
+    private void showDatePickerDialog() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        String selectedDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        selectedDateTextView.setText(selectedDate);
+                    }
+                }, year, month, dayOfMonth);
+        datePickerDialog.show();
     }
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
-
     private void openGalleryForImageView2() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST + 1);
     }
-
     private void openGalleryForImageView3() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST + 2);
     }
-
     private void openGalleryForImageView4() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST + 3);
     }
-
     private void openGalleryForImageView5() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST + 4);
@@ -161,6 +202,4 @@ public class DogSignUp extends AppCompatActivity {
             }
         }
     }
-
-
 }

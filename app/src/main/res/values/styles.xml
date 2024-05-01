@@ -9,4 +9,9 @@
     <style name="SpinnerDropdownStyle" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@color/white</item> <!-- 드롭다운 목록의 배경색을 흰색으로 설정합니다 -->
     </style>
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/underline</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
