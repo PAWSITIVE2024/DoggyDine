@@ -80,8 +80,9 @@
       />
   </RelativeLayout>
   <RelativeLayout
-      android:layout_width="wrap_content"
+      android:layout_width="300dp"
       android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
       android:id="@+id/above_layout">
     <ImageView
         android:id="@+id/doggy_dine"
