@@ -16,9 +16,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.widget.DatePicker;
@@ -202,4 +209,36 @@ public class DogSignUp extends AppCompatActivity {
             }
         }
     }
+    /* 구현중
+    private Task<String> uploadImageToFirebase(Uri imageUri) {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = firebaseUser.getUid();
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference profileImagesRef = storageRef.child("profile_images").child(userId);
+
+        // 이미지 파일 이름 생성
+        String imageFileName = "image"; // 기본 이름
+        int count = 1;
+
+        // 사용자의 UID를 기반으로 이미지 파일 이름 생성
+        String imageFileName = firebaseUser.getUid() + ".jpg";
+
+        // 이미지 파일 이름으로 새로운 참조 생성
+        StorageReference imageRef = storageRef.child(imageFileName);
+
+        UploadTask uploadTask = imageRef.putFile(imageUri);
+        return uploadTask.continueWithTask(task -> {
+            if (!task.isSuccessful()) {
+                throw task.getException();
+            }
+            // 이미지 업로드가 성공하면 URL을 가져와서 문자열로 반환
+            return imageRef.getDownloadUrl().continueWith(taskUri -> {
+                if (!taskUri.isSuccessful()) {
+                    throw taskUri.getException();
+                }
+                return taskUri.getResult().toString();
+            });
+        });
+    }*/
+
 }
