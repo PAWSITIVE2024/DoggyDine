@@ -11,6 +11,7 @@
         android:id="@+id/ask_diet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="다이어트가 필요한가요?"/>
 
 
