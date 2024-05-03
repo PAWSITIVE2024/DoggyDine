@@ -18,12 +18,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -35,7 +37,9 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DogSignUp extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -78,7 +82,7 @@ public class DogSignUp extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         String uid = mFirebaseAuth.getCurrentUser().getUid();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid);
 
         mName = findViewById(R.id.Et_d_s_name);
         // mAge = findViewById(R.id.Et_d_s_age);
@@ -144,6 +148,8 @@ public class DogSignUp extends AppCompatActivity {
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String pet_name = mName.getText().toString();
+
                 // 첫번째 사진 올리기
                 Task<String> uploadTask1 = uploadImageToFirebase(selectedImageUrl_1);
                 // 두번째 사진 올리기
@@ -169,18 +175,29 @@ public class DogSignUp extends AppCompatActivity {
                                     imageuri_4 = uploadTask4.getResult();
                                     imageuri_5 = uploadTask5.getResult();
 
-                                    // UserAccount 객체 생성 및 데이터베이스에 추가
-                                    UserAccount account = new UserAccount();
-                                    // account.setXXX() 메소드로 필요한 정보 설정
-                                    // mDatabaseRef.push().setValue(account);
+                                    Map<String, Object> petInfo = new HashMap<>();
+                                    petInfo.put("dog_name", pet_name);
+                                    petInfo.put("profile_1", imageuri_1);
+                                    petInfo.put("profile_2", imageuri_2);
+                                    petInfo.put("profile_3", imageuri_3);
+                                    petInfo.put("profile_4", imageuri_4);
+                                    petInfo.put("profile_5", imageuri_5);
+
+
+                                    //DB에 저장한다
+                                    mDatabaseRef.child("pet").child(pet_name).updateChildren(petInfo)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Toast.makeText(DogSignUp.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                 } else {
                                     // 업로드 작업 중 실패한 경우
                                     Toast.makeText(DogSignUp.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-
-
             }
         });
 
@@ -270,13 +287,13 @@ public class DogSignUp extends AppCompatActivity {
     private Task<String> uploadImageToFirebase(Uri imageUri) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = firebaseUser.getUid();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference profileImagesRef = storageRef.child("profile_images").child(userId);
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("profile_images").child(userId);
+
 
         // 이미지 파일 이름 생성
-
-        // 사용자의 UID를 기반으로 이미지 파일 이름 생성
         String imageFileName = "image" + count + ".jpg";
+        count++;
+
 
         // 이미지 파일 이름으로 새로운 참조 생성
         StorageReference imageRef = storageRef.child(imageFileName);

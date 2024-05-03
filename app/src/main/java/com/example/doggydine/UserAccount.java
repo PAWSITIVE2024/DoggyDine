@@ -7,13 +7,13 @@ public class UserAccount {
     private String idToken;
     private String emailId;
     private String password;
-    private String pet;
     private String dog_name;
     private String dog_age;
     private String dog_weight;
     private String active_rate;
     private String allergy;
-    private String profile;
+    private String profile; //이건 userface
+    private String profile1; //profile1,2,3,4,5 부터는 강아지 사진입니다
     private String profile2;
     private String profile3;
     private String profile4;
@@ -90,5 +90,11 @@ public class UserAccount {
         this.profile5 = profile5;
     }
 
+    public String getProfile1() {
+        return profile1;
+    }
 
+    public void setProfile1(String profile1) {
+        this.profile1 = profile1;
+    }
 }
