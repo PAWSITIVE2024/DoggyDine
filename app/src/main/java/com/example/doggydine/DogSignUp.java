@@ -13,10 +13,12 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -150,6 +152,18 @@ public class DogSignUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                AppCompatDialog dialog = new AppCompatDialog(DogSignUp.this, R.style.TransparentDialog);
+                dialog.setContentView(R.layout.loading); // 다이얼로그의 커스텀 레이아웃 설정
+                dialog.setCancelable(true); // 다이얼로그를 취소할 수 있도록 설정
+                ImageView gifImageView = dialog.findViewById(R.id.iv_frame_loading);
+
+                // Glide를 사용하여 GIF 이미지 로드 및 표시
+                Glide.with(DogSignUp.this)
+                        .asGif()
+                        .load(R.raw.loading_animation) // loading_animation은 res/raw 디렉토리에 있는 GIF 파일입니다. 원하는 GIF 파일의 경로를 지정하세요.
+                        .into(gifImageView);
+                dialog.show();
+
 
                 // 입력필드에서 text를 가져오는 부분 입니다
                 String pet_name = mName.getText().toString();
@@ -201,6 +215,8 @@ public class DogSignUp extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void unused) {
                                                     Toast.makeText(DogSignUp.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                                                    dialog.dismiss();
+                                                    finish();
                                                 }
                                             });
                                 } else {

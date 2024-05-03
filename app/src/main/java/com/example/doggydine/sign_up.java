@@ -1,5 +1,6 @@
 package com.example.doggydine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,7 +32,8 @@ public class sign_up extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseRef;
-    private EditText mEtEmail, mEtPwd, mName, mAge, mWeight, mActiveRate, mAllergy;
+    private EditText mEtEmail, mEtPwd, mName;
+
     private ImageView mImageview;
     private Button mBtnRegister;
     private TextView mTextview;
@@ -50,10 +54,6 @@ public class sign_up extends AppCompatActivity {
         mEtEmail = findViewById(R.id.Et_s_id);
         mEtPwd = findViewById(R.id.Et_s_pw);
         mName = findViewById(R.id.Et_s_name);
-        mAge = findViewById(R.id.Et_s_age);
-        mWeight = findViewById(R.id.Et_s_weight);
-        mActiveRate = findViewById(R.id.Et_s_ar);
-        mAllergy = findViewById(R.id.Et_s_allergy);
         mBtnRegister = findViewById(R.id.Btn_s_register);
         mImageview = findViewById(R.id.imageView);
         mTextview = findViewById(R.id.Tv_s_go);
@@ -77,14 +77,13 @@ public class sign_up extends AppCompatActivity {
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 // 입력한 텍스트들 가져오기
                 String strEmail = mEtEmail.getText().toString();
                 String strPwd = mEtPwd.getText().toString();
                 String strName = mName.getText().toString();
-                String strAge = mAge.getText().toString();
-                String strWeight = mWeight.getText().toString();
-                String strActiveRate = mActiveRate.getText().toString();
-                String strAllergy = mAllergy.getText().toString();
+
 
                 // 인증 절차 진행
                 mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(sign_up.this, new OnCompleteListener<AuthResult>() {
@@ -104,14 +103,8 @@ public class sign_up extends AppCompatActivity {
                                         account.setIdToken(firebaseUser.getUid());
                                         account.setEmailId(firebaseUser.getEmail());
                                         account.setPassword(strPwd);
-
-
-                                        /*account.setDog_name(strName);
-                                        account.setDog_age(strAge);
-                                        account.setDog_weight(strWeight);
-                                        account.setActive_rate(strActiveRate);
-                                        account.setAllergy(strAllergy);
-                                        account.setProfile(imageUrl);*/
+                                        account.setUsername(strName);
+                                        account.setProfile(imageUrl);
 
                                         // setValue: database에 insert
                                         // UserModel에 담은 정보를 database에 set한다 (userid(token)을 key로)
@@ -138,6 +131,7 @@ public class sign_up extends AppCompatActivity {
         });
 
     }
+
 
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
