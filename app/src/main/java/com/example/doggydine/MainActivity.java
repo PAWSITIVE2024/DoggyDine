@@ -37,7 +37,18 @@ public class MainActivity extends AppCompatActivity {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine");
         CircleImageView settingBtn = findViewById(R.id.setting_btn);
         ImageButton feed_btn = (ImageButton)findViewById(R.id.feed_btn);
+        Button mTest = (Button)findViewById(R.id.button_test) ;
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+
+
+        //잠깐 test용으로 하나 만들었습니다!!
+        mTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (MainActivity.this,DogSignUp.class);
+                startActivity(intent);
+            }
+        });
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ프로필 이미지 가져오기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
 

@@ -40,7 +40,6 @@ public class DogSignUp extends AppCompatActivity {
     private EditText  mName, mAge, mWeight, mActiveRate, mAllergy;
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5;
     private Button mBtnRegister;
-    private TextView mTextview;
     private ImageButton activeButton;
     private ImageButton calenarButton;
     private TextView activeTextView;
@@ -104,13 +103,8 @@ public class DogSignUp extends AppCompatActivity {
                 showDatePickerDialog();
             }
         });
-        mTextview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DogSignUp.this, ActivateRate.class);
-                startActivity(intent);
-            }
-        });
+
+        //Imageview clickListener 설정
         mImageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,6 +152,8 @@ public class DogSignUp extends AppCompatActivity {
                 }, year, month, dayOfMonth);
         datePickerDialog.show();
     }
+
+    //openGlaaery()
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
@@ -189,22 +185,27 @@ public class DogSignUp extends AppCompatActivity {
                 case PICK_IMAGE_REQUEST:
                     mImageview.setImageURI(selectedImageUri);
                     selectedImageUrl_1 = selectedImageUri;
+                    mImageview.setImageURI(selectedImageUrl_1);
                     break;
                 case PICK_IMAGE_REQUEST + 1:
                     mImageview2.setImageURI(selectedImageUri);
                     selectedImageUrl_2 = selectedImageUri;
+                    mImageview2.setImageURI(selectedImageUrl_2);
                     break;
                 case PICK_IMAGE_REQUEST + 2:
                     mImageview3.setImageURI(selectedImageUri);
                     selectedImageUrl_3 = selectedImageUri;
+                    mImageview3.setImageURI(selectedImageUrl_3);
                     break;
                 case PICK_IMAGE_REQUEST + 3:
                     mImageview4.setImageURI(selectedImageUri);
                     selectedImageUrl_4 = selectedImageUri;
+                    mImageview4.setImageURI(selectedImageUrl_4);
                     break;
                 case PICK_IMAGE_REQUEST + 4:
                     mImageview5.setImageURI(selectedImageUri);
                     selectedImageUrl_5 = selectedImageUri;
+                    mImageview5.setImageURI(selectedImageUrl_5);
                     break;
             }
         }
