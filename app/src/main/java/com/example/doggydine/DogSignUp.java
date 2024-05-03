@@ -11,11 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +35,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class DogSignUp extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -46,6 +49,11 @@ public class DogSignUp extends AppCompatActivity {
     private TextView selectedDateTextView;
     private Calendar calendar;
 
+    private String imageuri_1;
+    private String imageuri_2;
+    private String imageuri_3;
+    private String imageuri_4;
+    private String imageuri_5;
 
     private Uri selectedImageUri;
     private Uri selectedImageUrl_1;
@@ -53,6 +61,7 @@ public class DogSignUp extends AppCompatActivity {
     private Uri selectedImageUrl_3;
     private Uri selectedImageUrl_4;
     private Uri selectedImageUrl_5;
+    private int count = 1;
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -75,7 +84,6 @@ public class DogSignUp extends AppCompatActivity {
         // mAge = findViewById(R.id.Et_d_s_age);
         mWeight = findViewById(R.id.Et_d_s_weight);
         mActiveRate = findViewById(R.id.Et_d_s_allergy);
-
         mImageview = findViewById(R.id.imageView);
         mImageview2 = findViewById(R.id.imageView2);
         mImageview3 = findViewById(R.id.imageView3);
@@ -83,7 +91,6 @@ public class DogSignUp extends AppCompatActivity {
         mImageview5 = findViewById(R.id.imageView5);
 
         mBtnRegister = findViewById(R.id.Btn_d_s_register);
-        // mTextview = findViewById(R.id.Tv_d_s_go);
 
         activeButton = findViewById(R.id.active_btn);
         calenarButton = findViewById(R.id.selectDate);
@@ -133,6 +140,50 @@ public class DogSignUp extends AppCompatActivity {
                 openGalleryForImageView5();
             }
         });
+
+        mBtnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 첫번째 사진 올리기
+                Task<String> uploadTask1 = uploadImageToFirebase(selectedImageUrl_1);
+                // 두번째 사진 올리기
+                Task<String> uploadTask2 = uploadImageToFirebase(selectedImageUrl_2);
+                // 세번째 사진 올리기
+                Task<String> uploadTask3 = uploadImageToFirebase(selectedImageUrl_3);
+                // 네번째 사진 올리기
+                Task<String> uploadTask4 = uploadImageToFirebase(selectedImageUrl_4);
+                // 다섯번째 사진 올리기
+                Task<String> uploadTask5 = uploadImageToFirebase(selectedImageUrl_5);
+
+                // 모든 업로드 작업이 완료될 때까지 기다림
+                Tasks.whenAllComplete(uploadTask1, uploadTask2, uploadTask3, uploadTask4, uploadTask5)
+                        .addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
+                            @Override
+                            public void onComplete(@NonNull Task<List<Task<?>>> task) {
+                                if (task.isSuccessful()) {
+                                    // 모든 업로드 작업이 성공적으로 완료된 경우
+                                    // 이미지 URL 가져오기
+                                    imageuri_1 = uploadTask1.getResult();
+                                    imageuri_2 = uploadTask2.getResult();
+                                    imageuri_3 = uploadTask3.getResult();
+                                    imageuri_4 = uploadTask4.getResult();
+                                    imageuri_5 = uploadTask5.getResult();
+
+                                    // UserAccount 객체 생성 및 데이터베이스에 추가
+                                    UserAccount account = new UserAccount();
+                                    // account.setXXX() 메소드로 필요한 정보 설정
+                                    // mDatabaseRef.push().setValue(account);
+                                } else {
+                                    // 업로드 작업 중 실패한 경우
+                                    Toast.makeText(DogSignUp.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+
+            }
+        });
+
     }
     private void showActivationDialog() {
         ActivationDialog activationDialog = new ActivationDialog();
@@ -153,7 +204,12 @@ public class DogSignUp extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    //openGlaaery()
+
+
+
+
+
+    //openGallery()
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
@@ -210,7 +266,7 @@ public class DogSignUp extends AppCompatActivity {
             }
         }
     }
-    /* 구현중
+
     private Task<String> uploadImageToFirebase(Uri imageUri) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = firebaseUser.getUid();
@@ -218,11 +274,9 @@ public class DogSignUp extends AppCompatActivity {
         StorageReference profileImagesRef = storageRef.child("profile_images").child(userId);
 
         // 이미지 파일 이름 생성
-        String imageFileName = "image"; // 기본 이름
-        int count = 1;
 
         // 사용자의 UID를 기반으로 이미지 파일 이름 생성
-        String imageFileName = firebaseUser.getUid() + ".jpg";
+        String imageFileName = "image" + count + ".jpg";
 
         // 이미지 파일 이름으로 새로운 참조 생성
         StorageReference imageRef = storageRef.child(imageFileName);
@@ -240,6 +294,6 @@ public class DogSignUp extends AppCompatActivity {
                 return taskUri.getResult().toString();
             });
         });
-    }*/
+    }
 
 }

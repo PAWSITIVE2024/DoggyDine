@@ -7,7 +7,7 @@ public class UserAccount {
     private String idToken;
     private String emailId;
     private String password;
-    private String dog_info;
+    private String pet;
     private String dog_name;
     private String dog_age;
     private String dog_weight;
@@ -89,4 +89,6 @@ public class UserAccount {
     public void setProfile5(String profile5) {
         this.profile5 = profile5;
     }
+
+
 }

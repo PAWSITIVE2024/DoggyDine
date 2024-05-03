@@ -37,8 +37,10 @@ public class sign_up extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
@@ -99,16 +101,17 @@ public class sign_up extends AppCompatActivity {
                                         String imageUrl = task.getResult();
                                         UserAccount account = new UserAccount();
                                         // 여기서 유저 id, 비밀번호, token 생성
-                                        // 나중에 여기에 다른 정보를 입력해줘야 함
                                         account.setIdToken(firebaseUser.getUid());
                                         account.setEmailId(firebaseUser.getEmail());
                                         account.setPassword(strPwd);
-                                        account.setDog_name(strName);
+
+
+                                        /*account.setDog_name(strName);
                                         account.setDog_age(strAge);
                                         account.setDog_weight(strWeight);
                                         account.setActive_rate(strActiveRate);
                                         account.setAllergy(strAllergy);
-                                        account.setProfile(imageUrl);
+                                        account.setProfile(imageUrl);*/
 
                                         // setValue: database에 insert
                                         // UserModel에 담은 정보를 database에 set한다 (userid(token)을 key로)
