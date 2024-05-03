@@ -44,7 +44,7 @@ import java.util.Map;
 public class DogSignUp extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseRef;
-    private EditText  mName, mAge, mWeight, mActiveRate, mAllergy;
+    private EditText  mName, mWeight, mActiveRate, mAllergy;
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5;
     private Button mBtnRegister;
     private ImageButton activeButton;
@@ -85,7 +85,6 @@ public class DogSignUp extends AppCompatActivity {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid);
 
         mName = findViewById(R.id.Et_d_s_name);
-        // mAge = findViewById(R.id.Et_d_s_age);
         mWeight = findViewById(R.id.Et_d_s_weight);
         mActiveRate = findViewById(R.id.Et_d_s_allergy);
         mImageview = findViewById(R.id.imageView);
@@ -93,6 +92,7 @@ public class DogSignUp extends AppCompatActivity {
         mImageview3 = findViewById(R.id.imageView3);
         mImageview4 = findViewById(R.id.imageView4);
         mImageview5 = findViewById(R.id.imageView5);
+        mAllergy = findViewById(R.id.Et_d_s_allergy);
 
         mBtnRegister = findViewById(R.id.Btn_d_s_register);
 
@@ -101,6 +101,7 @@ public class DogSignUp extends AppCompatActivity {
         activeTextView = findViewById(R.id.active_text);
         selectedDateTextView = findViewById(R.id.selectedDateTextView);
         calendar = Calendar.getInstance();
+
 
         activeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +149,15 @@ public class DogSignUp extends AppCompatActivity {
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                // 입력필드에서 text를 가져오는 부분 입니다
                 String pet_name = mName.getText().toString();
+                String pet_age = selectedDateTextView.getText().toString();
+                String pet_weight = mWeight.getText().toString();
+                //활동수치 부분은 만드시는중인거 같아서 그대로 뒀습니다!!
+                String pet_allergy = mAllergy.getText().toString();
+
 
                 // 첫번째 사진 올리기
                 Task<String> uploadTask1 = uploadImageToFirebase(selectedImageUrl_1);
@@ -175,17 +184,19 @@ public class DogSignUp extends AppCompatActivity {
                                     imageuri_4 = uploadTask4.getResult();
                                     imageuri_5 = uploadTask5.getResult();
 
-                                    Map<String, Object> petInfo = new HashMap<>();
-                                    petInfo.put("dog_name", pet_name);
-                                    petInfo.put("profile_1", imageuri_1);
-                                    petInfo.put("profile_2", imageuri_2);
-                                    petInfo.put("profile_3", imageuri_3);
-                                    petInfo.put("profile_4", imageuri_4);
-                                    petInfo.put("profile_5", imageuri_5);
-
+                                    PetAccount pet_account = new PetAccount();
+                                    pet_account.setDog_name(pet_name);
+                                    pet_account.setDog_age(pet_age);
+                                    pet_account.setDog_weight(pet_weight);
+                                    pet_account.setAllergy(pet_allergy);
+                                    pet_account.setProfile1(imageuri_1);
+                                    pet_account.setProfile2(imageuri_2);
+                                    pet_account.setProfile3(imageuri_3);
+                                    pet_account.setProfile4(imageuri_4);
+                                    pet_account.setProfile5(imageuri_5);
 
                                     //DB에 저장한다
-                                    mDatabaseRef.child("pet").child(pet_name).updateChildren(petInfo)
+                                    mDatabaseRef.child("pet").child(pet_name).setValue(pet_account)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
