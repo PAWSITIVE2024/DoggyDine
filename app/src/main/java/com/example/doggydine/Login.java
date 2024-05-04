@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class login extends AppCompatActivity {
+public class Login extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseRef;
     private EditText mEtEmail,mEtPwd;
@@ -29,10 +29,12 @@ public class login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         LottieAnimationView lottieAnimationView = findViewById(R.id.lottieAnimationView);
         lottieAnimationView.setAnimation(R.raw.background); // .json 파일을 로드
         lottieAnimationView.loop(true);
         lottieAnimationView.playAnimation();
+
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -47,7 +49,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                AppCompatDialog dialog = new AppCompatDialog(login.this, R.style.TransparentDialog);
+                AppCompatDialog dialog = new AppCompatDialog(Login.this, R.style.TransparentDialog);
                 dialog.setContentView(R.layout.loading);
                 dialog.setCancelable(true); // 다이얼로그를 취소할 수 있도록 설정
 
@@ -62,16 +64,16 @@ public class login extends AppCompatActivity {
                 String strEmail = mEtEmail.getText().toString();
                 String strPwd = mEtPwd.getText().toString();
 
-                mFirebaseAuth.signInWithEmailAndPassword(strEmail,strPwd).addOnCompleteListener(login.this, new OnCompleteListener<AuthResult>() {
+                mFirebaseAuth.signInWithEmailAndPassword(strEmail,strPwd).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Intent intent = new Intent(login.this,MainActivity.class);
+                            Intent intent = new Intent(Login.this,MainActivity.class);
                             startActivity(intent);
                             finish();
 
                         }else {
-                            Toast.makeText(login.this,"로그인실패",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this,"로그인실패",Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
 
                         }
@@ -88,7 +90,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //회원가입으로 이동
-                Intent intent = new Intent(login.this,sign_up.class);
+                Intent intent = new Intent(Login.this, Sign_up.class);
                 startActivity(intent);
             }
         });

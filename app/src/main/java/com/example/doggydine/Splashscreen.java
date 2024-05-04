@@ -10,9 +10,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.doggydine.R;
-import com.example.doggydine.login;
-
 public class Splashscreen extends Activity {
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -49,7 +46,7 @@ public class Splashscreen extends Activity {
                         waited +=100;
                     }
                     Intent intent = new Intent(Splashscreen.this,
-                            login.class);
+                            Login.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     Splashscreen.this.finish();

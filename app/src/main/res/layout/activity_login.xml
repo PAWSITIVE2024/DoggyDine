@@ -6,8 +6,9 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".login"
+    tools:context=".Login"
     android:orientation="vertical" >
+
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
@@ -22,6 +23,7 @@
         android:layout_marginTop="170dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/doggy_dine_removebg"/>
+
 
     <LinearLayout
         android:id="@+id/Id_layout"

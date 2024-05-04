@@ -1,6 +1,5 @@
 package com.example.doggydine;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialog;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +26,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class sign_up extends AppCompatActivity {
+public class Sign_up extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseRef;
@@ -62,7 +60,7 @@ public class sign_up extends AppCompatActivity {
         mTextview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(sign_up.this, ActivateRate.class);
+                Intent intent = new Intent(Sign_up.this, ActivateRate.class);
                 startActivity(intent);
             }
         });
@@ -86,7 +84,7 @@ public class sign_up extends AppCompatActivity {
 
 
                 // 인증 절차 진행
-                mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(sign_up.this, new OnCompleteListener<AuthResult>() {
+                mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(Sign_up.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -110,20 +108,20 @@ public class sign_up extends AppCompatActivity {
                                         // UserModel에 담은 정보를 database에 set한다 (userid(token)을 key로)
                                         mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
 
-                                        Toast toast = Toast.makeText(sign_up.this, "회원가입 성공!", Toast.LENGTH_SHORT);
+                                        Toast toast = Toast.makeText(Sign_up.this, "회원가입 성공!", Toast.LENGTH_SHORT);
                                         toast.setGravity(Gravity.TOP, 0, 0);
                                         toast.show();
-                                        Intent intent = new Intent(sign_up.this, login.class);
+                                        Intent intent = new Intent(Sign_up.this, Login.class);
                                         startActivity(intent);
                                         finish();
                                     } else {
-                                        Toast.makeText(sign_up.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Sign_up.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
 
                         } else {
-                            Toast.makeText(sign_up.this, "회원가입에 실패하셨습니다", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Sign_up.this, "회원가입에 실패하셨습니다", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
