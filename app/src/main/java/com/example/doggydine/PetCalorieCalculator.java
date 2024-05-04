@@ -1,5 +1,18 @@
 package com.example.doggydine;
 
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+
+
 public class PetCalorieCalculator {
 
     // 기초대사량 계산 메서드
@@ -46,6 +59,7 @@ public class PetCalorieCalculator {
     }
 }
 
+
 // 몸무게를 받아오는 클래스 예시
 class WeightCalculator {
     public static double getWeight() {
@@ -53,6 +67,70 @@ class WeightCalculator {
         return 10;
     }
 }
+
+/*  <Read.me>
+    1.이렇게 만든이유
+    :그냥 간단히 DB에서 data를 가져오면 되는줄 알았는데,
+     db가 비동기적방식이여서 바로 return을 통해 외부로 값을전달하면안되고 callback함수한테 줘야한다고했다
+     그래서 그냥 instance변수를 만들어서 여기에 넘기도록했다
+
+    2.사용방법 :
+     2-1) 객체생성 (생성자가 강아지 이름을 받게 했습니다) ->WeightCalculator2 pet1 = new WeightCalculator2("강아지이름");
+     2-2) DB로부터 data 가져오기 ->pet1.setWeightFromDB()
+     2-3) 가져온 Data 사용하기 double weight = pet1.getWeight();
+
+     *정리 :
+     1. 2-2) , 2-3) 순서를 꼭지켜야할것같다
+     2. 일단test해보구 잘된다면 age는 참조값만 바꾸면 됩니다.(금방 할수있습니다)
+
+  */
+class WeightCalculator2 {
+    private double weight;
+    private String name;
+    WeightCalculator2(String pet_name) {
+        this.name = pet_name;
+    }
+
+    //클래스 변수 weight를 설정하는곳
+    //그냥 간단히 가져오면 되는줄 알았는데 무슨 DB가 비동기적이여서 바로 외부로 return을 못하고 callback에 넘겨줘야한다고했다.
+    //그래서 그냥 Instance 변수에 넣어두는 형식으로하고
+    public void setWeightFromDB() {
+        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+            DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine")
+                    .child("UserAccount")
+                    .child(uid)
+                    .child("pet")
+                    .child(WeightCalculator2.this.name);
+            mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                    PetAccount pet = datasnapshot.getValue(PetAccount.class);
+                    if (pet != null) {
+                        String weightStr = pet.getDog_weight();
+                        double pet_weight = Double.parseDouble(weightStr);
+                        WeightCalculator2.this.weight = pet_weight;
+                    } else {
+                        // 데이터가 없을 경우에 대한 처리
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // 취소될 경우 예외 처리
+                }
+            });
+        }
+    }
+
+    public double getWeight() {
+        return this.weight;
+    }
+}
+
+
 
 // 나이를 받아오는 클래스 예시
 class AgeCalculator {
