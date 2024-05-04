@@ -7,10 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -28,6 +29,12 @@ public class login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        LottieAnimationView lottieAnimationView = findViewById(R.id.lottieAnimationView);
+        lottieAnimationView.setAnimation(R.raw.background); // .json 파일을 로드
+        lottieAnimationView.loop(true);
+        lottieAnimationView.playAnimation();
+
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine");
 
@@ -39,6 +46,18 @@ public class login extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                AppCompatDialog dialog = new AppCompatDialog(login.this, R.style.TransparentDialog);
+                dialog.setContentView(R.layout.loading);
+                dialog.setCancelable(true); // 다이얼로그를 취소할 수 있도록 설정
+
+                // 다이얼로그의 레이아웃에서 LottieAnimationView 가져오기
+                LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_loading_animation);
+                lottieAnimationView.setAnimation(R.raw.loading_animation); // .json 파일을 로드
+                lottieAnimationView.loop(true);
+                lottieAnimationView.playAnimation();
+
+                dialog.show();
                 //로그인 요청
                 String strEmail = mEtEmail.getText().toString();
                 String strPwd = mEtPwd.getText().toString();
@@ -53,6 +72,7 @@ public class login extends AppCompatActivity {
 
                         }else {
                             Toast.makeText(login.this,"로그인실패",Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
 
                         }
 

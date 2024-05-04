@@ -18,7 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.bumptech.glide.Glide;
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -27,21 +27,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DogSignUp extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -153,16 +149,17 @@ public class DogSignUp extends AppCompatActivity {
             public void onClick(View view) {
 
                 AppCompatDialog dialog = new AppCompatDialog(DogSignUp.this, R.style.TransparentDialog);
-                dialog.setContentView(R.layout.loading); // 다이얼로그의 커스텀 레이아웃 설정
+                dialog.setContentView(R.layout.loading);
                 dialog.setCancelable(true); // 다이얼로그를 취소할 수 있도록 설정
-                ImageView gifImageView = dialog.findViewById(R.id.iv_frame_loading);
 
-                // Glide를 사용하여 GIF 이미지 로드 및 표시
-                Glide.with(DogSignUp.this)
-                        .asGif()
-                        .load(R.raw.loading_animation) // loading_animation은 res/raw 디렉토리에 있는 GIF 파일입니다. 원하는 GIF 파일의 경로를 지정하세요.
-                        .into(gifImageView);
+                // 다이얼로그의 레이아웃에서 LottieAnimationView 가져오기
+                LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_loading_animation);
+                lottieAnimationView.setAnimation(R.raw.loading_animation); // .json 파일을 로드
+                lottieAnimationView.loop(true);
+                lottieAnimationView.playAnimation();
+
                 dialog.show();
+
 
 
                 // 입력필드에서 text를 가져오는 부분 입니다
