@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -23,6 +24,8 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,6 +62,7 @@ public class Feeding extends AppCompatActivity {
             return insets;
         });
 
+
         recyclerView =findViewById(R.id.recyclerView);
         mImageview = findViewById(R.id.Iv_go_home);
         recyclerView.setHasFixedSize(true);
@@ -73,6 +77,7 @@ public class Feeding extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 arrayList.clear();
                 originList.clear();
+
                 for (DataSnapshot snapshot : datasnapshot.getChildren()){
                     Food food = new Food();
                     food.setProfile(snapshot.child("profile").getValue(String.class));

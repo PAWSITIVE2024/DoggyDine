@@ -157,9 +157,7 @@ public class DogSignUp extends AppCompatActivity {
                 lottieAnimationView.setAnimation(R.raw.loading_animation); // .json 파일을 로드
                 lottieAnimationView.loop(true);
                 lottieAnimationView.playAnimation();
-
                 dialog.show();
-
 
 
                 // 입력필드에서 text를 가져오는 부분 입니다

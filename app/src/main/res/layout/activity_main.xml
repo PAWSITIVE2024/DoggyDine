@@ -92,13 +92,21 @@
         android:layout_marginBottom="-6dp"
         android:background="@color/white">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/LT_dog_sleep"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="237dp"
+            android:scaleType="centerCrop" />
+
         <Button
             android:id="@+id/button_test"
-            android:layout_marginTop="300dp"
-            android:layout_width="wrap_content"
+            android:layout_width="119dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="171dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginEnd="134dp"
             android:text="Test" />
     </RelativeLayout>
 </RelativeLayout>
