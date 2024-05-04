@@ -62,7 +62,6 @@ public class Feeding extends AppCompatActivity {
             return insets;
         });
 
-
         recyclerView =findViewById(R.id.recyclerView);
         mImageview = findViewById(R.id.Iv_go_home);
         recyclerView.setHasFixedSize(true);
@@ -73,10 +72,12 @@ public class Feeding extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("DoggyDine").child("Food");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 arrayList.clear();
                 originList.clear();
+
 
                 for (DataSnapshot snapshot : datasnapshot.getChildren()){
                     Food food = new Food();
@@ -103,11 +104,14 @@ public class Feeding extends AppCompatActivity {
 
                 }
                 adapter.notifyDataSetChanged();
+
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
         });
         adapter = new CustomAdapter(arrayList,this);
         recyclerView.setAdapter(adapter);
