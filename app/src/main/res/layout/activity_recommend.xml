@@ -41,12 +41,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="70dp"
+            android:elevation="10dp"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -55,12 +58,12 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/photato_icon"
+                        android:id="@+id/potato_icon"
                         android:layout_width="match_parent"
                         android:layout_height="31dp"
-                        android:background="@color/white"
+                        android:background="@drawable/rounder_coner"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/photato_icon" />
+                        app:srcCompat="@drawable/potato_icon" />
 
                     <TextView
                         android:id="@+id/textView28"
@@ -101,12 +104,12 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/sweetphotato_icon"
+                        android:id="@+id/sweetpotato_icon"
                         android:layout_width="match_parent"
                         android:layout_height="31dp"
                         android:background="@color/white"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/sweetphoatato_icon" />
+                        app:srcCompat="@drawable/sweetpotato_icon" />
 
                     <TextView
                         android:id="@+id/textView30"
@@ -124,12 +127,12 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/wheet_icon"
+                        android:id="@+id/wheat_icon"
                         android:layout_width="match_parent"
                         android:layout_height="31dp"
                         android:background="@color/white"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/wheet_icon" />
+                        app:srcCompat="@drawable/wheat_icon" />
 
                     <TextView
                         android:id="@+id/textView31"
@@ -494,7 +497,7 @@
                     android:layout_marginLeft="20dp"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/pumpkin_icon"
                         android:layout_width="match_parent"
                         android:layout_height="31dp"
@@ -517,7 +520,7 @@
                     android:layout_marginLeft="20dp"
                     android:orientation="vertical">>
 
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/ginseng_icon"
                         android:layout_width="match_parent"
                         android:layout_height="31dp"
