@@ -35,6 +35,10 @@ public class Login extends AppCompatActivity {
         lottieAnimationView.loop(true);
         lottieAnimationView.playAnimation();
 
+        LottieAnimationView lottieAnimationView2 = findViewById(R.id.Lt_dog_1);
+        lottieAnimationView2.setAnimation(R.raw.dog_sitting_1); // .json 파일을 로드
+        lottieAnimationView2.loop(true);
+        lottieAnimationView2.playAnimation();
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();
