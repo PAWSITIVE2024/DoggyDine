@@ -74,6 +74,9 @@ public class Recommend extends AppCompatActivity {
                 if(isChecked){
                     selectAll();
                 }
+                else{
+                    resetAll();
+                }
             }
         });
 
@@ -123,9 +126,14 @@ public class Recommend extends AppCompatActivity {
         isSelected = !isSelected;
         updateUI(view, isSelected);
     }
-    // 모든 이미지 버튼의 선택 상태를 true로 변경하는 메서드
+
+
     private void selectAll() {
         updateSelectionState(true);
+    }
+
+    private void resetAll() {
+        updateSelectionState(false);
     }
     private void updateSelectionState(boolean isSelected) {
         updateUI(mPotato, isSelected);

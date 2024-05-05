@@ -49,6 +49,7 @@ public class Feeding extends AppCompatActivity {
     private FirebaseDatabase database;
     private Spinner mspinner;
     private DatabaseReference databaseReference;
+
     private ImageView mImageview;
     Button btn_scan;
     @Override
@@ -61,6 +62,7 @@ public class Feeding extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
 
         recyclerView =findViewById(R.id.recyclerView);
         mImageview = findViewById(R.id.Iv_go_home);
@@ -198,6 +200,7 @@ public class Feeding extends AppCompatActivity {
                 }
 
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -211,6 +214,7 @@ public class Feeding extends AppCompatActivity {
             scanCode();
         });
     }
+
     private void scanCode(){
         ScanOptions options = new ScanOptions();
         options.setPrompt("Volume up to flash on");

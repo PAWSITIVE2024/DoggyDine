@@ -57,6 +57,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         //아이템 매칭
         // Glide를 사용하여 프로필 이미지 설정
 
+
         Glide.with(holder.itemView)
                 .load(arrayList.get(position).getProfile())
                 .into(holder.iv_profile);
