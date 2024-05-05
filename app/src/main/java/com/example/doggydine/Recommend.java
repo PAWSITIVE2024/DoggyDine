@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,6 +34,7 @@ public class Recommend extends AppCompatActivity {
     private ImageButton mSunFlower;
     private ImageButton mPumpkin;
     private ImageButton mGinseng;
+    private Button mBtn_adpat;
 
 
     @Override
@@ -62,7 +64,13 @@ public class Recommend extends AppCompatActivity {
         mPumpkin = findViewById(R.id.pumpkin_icon);
         mGinseng = findViewById(R.id.ginseng_icon);
 
-
+        mBtn_adpat = findViewById(R.id.btn_adapt);
+        mBtn_adpat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveSelectionStates();
+            }
+        });
 
         // 이전 선택 상태 복원
         restoreSelectionStates();
@@ -100,7 +108,6 @@ public class Recommend extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         boolean isSelected = preferences.getBoolean(PREF_KEY_PREFIX + foodName, false);
         isSelected = !isSelected;
-        preferences.edit().putBoolean(PREF_KEY_PREFIX + foodName, isSelected).apply();
         updateUI(view, isSelected);
     }
 
@@ -146,5 +153,39 @@ public class Recommend extends AppCompatActivity {
         } else {
             view.setBackgroundResource(R.drawable.rounder_coner);
         }
+    }
+
+    private void saveSelectionStates() {
+        SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        // 각 ImageButton의 선택 상태를 SharedPreferences에 저장
+        editor.putBoolean(PREF_KEY_PREFIX + "potato", isSelected(mPotato));
+        editor.putBoolean(PREF_KEY_PREFIX + "crab", isSelected(mCrab));
+        editor.putBoolean(PREF_KEY_PREFIX + "sweetpotato", isSelected(mSweetPotato));
+        editor.putBoolean(PREF_KEY_PREFIX + "wheat", isSelected(mWheat));
+        editor.putBoolean(PREF_KEY_PREFIX + "insect", isSelected(mInsect));
+        editor.putBoolean(PREF_KEY_PREFIX + "chicken", isSelected(mChicken));
+        editor.putBoolean(PREF_KEY_PREFIX + "carrot", isSelected(mCarrot));
+        editor.putBoolean(PREF_KEY_PREFIX + "pig", isSelected(mPig));
+        editor.putBoolean(PREF_KEY_PREFIX + "shrimp", isSelected(mShrimp));
+        editor.putBoolean(PREF_KEY_PREFIX + "cow", isSelected(mCow));
+        editor.putBoolean(PREF_KEY_PREFIX + "sheep", isSelected(mSheep));
+        editor.putBoolean(PREF_KEY_PREFIX + "salmon", isSelected(mSalmon));
+        editor.putBoolean(PREF_KEY_PREFIX + "duck", isSelected(mDuck));
+        editor.putBoolean(PREF_KEY_PREFIX + "milk", isSelected(mMilk));
+        editor.putBoolean(PREF_KEY_PREFIX + "cheese", isSelected(mCheese));
+        editor.putBoolean(PREF_KEY_PREFIX + "turkey", isSelected(mTurkey));
+        editor.putBoolean(PREF_KEY_PREFIX + "bean", isSelected(mBean));
+        editor.putBoolean(PREF_KEY_PREFIX + "sunflower", isSelected(mSunFlower));
+        editor.putBoolean(PREF_KEY_PREFIX + "pumpkin", isSelected(mPumpkin));
+        editor.putBoolean(PREF_KEY_PREFIX + "ginseng", isSelected(mGinseng));
+        editor.apply();
+    }
+
+    // ImageButton의 선택 상태를 확인하는 메서드
+    private boolean isSelected(ImageButton imageButton) {
+        // 선택된 경우 true를 반환하고, 그렇지 않으면 false를 반환
+        return imageButton.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.rounder_coner_background_selected).getConstantState());
     }
 }
