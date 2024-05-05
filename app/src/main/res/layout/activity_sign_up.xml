@@ -161,6 +161,7 @@
                 android:ems="10"
                 android:fontFamily="@font/maplestorylight"
                 android:hint="유저이름"
+                android:textColor="@color/black"
                 android:inputType="text"
                 android:textColorHint="#90000000" />
         </LinearLayout>

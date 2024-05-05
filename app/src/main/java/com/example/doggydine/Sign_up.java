@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -98,6 +99,17 @@ public class Sign_up extends AppCompatActivity {
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AppCompatDialog dialog = new AppCompatDialog(Sign_up.this, R.style.TransparentDialog);
+                dialog.setContentView(R.layout.loading);
+                dialog.setCancelable(true); // 다이얼로그를 취소할 수 있도록 설정
+
+                // 다이얼로그의 레이아웃에서 LottieAnimationView 가져오기
+                LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_loading_animation);
+                lottieAnimationView.setAnimation(R.raw.loading_animation); // .json 파일을 로드
+                lottieAnimationView.loop(true);
+                lottieAnimationView.playAnimation();
+
+                dialog.show();
                 // 입력한 텍스트들 가져오기
                 String strEmail = mEtEmail.getText().toString();
                 String strPwd = mEtPwd.getText().toString();
@@ -143,6 +155,7 @@ public class Sign_up extends AppCompatActivity {
 
                         } else {
                             Toast.makeText(Sign_up.this, "회원가입에 실패하셨습니다", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                         }
                     }
                 });
