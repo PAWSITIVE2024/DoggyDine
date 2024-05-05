@@ -215,6 +215,29 @@ public class Feeding extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            // Intent에 포함된 문자열 목록 가져오기
+            ArrayList<String> selectedIngredients = intent.getStringArrayListExtra("selectedIngredients");
+            if (selectedIngredients != null) {
+                // 전송된 문자열 목록 로그로 출력
+                Log.d("ReceivedIngredients", "Received selected ingredients:");
+                for (String ingredient : selectedIngredients) {
+                    Log.d("ReceivedIngredients", ingredient);
+                }
+            } else {
+                Log.d("ReceivedIngredients", "No selected ingredients received.");
+            }
+        } else {
+            Log.d("ReceivedIngredients", "No Intent received.");
+        }
+    }
+
+
     private void scanCode(){
         ScanOptions options = new ScanOptions();
         options.setPrompt("Volume up to flash on");
