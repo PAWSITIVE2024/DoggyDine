@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,6 +37,7 @@ public class Recommend extends AppCompatActivity {
     private ImageButton mPumpkin;
     private ImageButton mGinseng;
     private Button mBtn_adpat;
+    private CheckBox mCheckBox;
 
 
     @Override
@@ -63,6 +66,17 @@ public class Recommend extends AppCompatActivity {
         mSunFlower = findViewById(R.id.sunflower_icon);
         mPumpkin = findViewById(R.id.pumpkin_icon);
         mGinseng = findViewById(R.id.ginseng_icon);
+
+        mCheckBox = findViewById(R.id.cb_total_select);
+        mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    selectAll();
+                }
+            }
+        });
+
 
         mBtn_adpat = findViewById(R.id.btn_adapt);
         mBtn_adpat.setOnClickListener(new View.OnClickListener() {
@@ -102,13 +116,38 @@ public class Recommend extends AppCompatActivity {
     }
 
 
-
     // 선택 상태를 전환하는 메서드
     private void toggleSelection(View view, String foodName) {
         SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         boolean isSelected = preferences.getBoolean(PREF_KEY_PREFIX + foodName, false);
         isSelected = !isSelected;
         updateUI(view, isSelected);
+    }
+    // 모든 이미지 버튼의 선택 상태를 true로 변경하는 메서드
+    private void selectAll() {
+        updateSelectionState(true);
+    }
+    private void updateSelectionState(boolean isSelected) {
+        updateUI(mPotato, isSelected);
+        updateUI(mCrab, isSelected);
+        updateUI(mSweetPotato, isSelected);
+        updateUI(mWheat, isSelected);
+        updateUI(mInsect, isSelected);
+        updateUI(mChicken, isSelected);
+        updateUI(mCarrot, isSelected);
+        updateUI(mPig, isSelected);
+        updateUI(mShrimp, isSelected);
+        updateUI(mCow, isSelected);
+        updateUI(mSheep, isSelected);
+        updateUI(mSalmon, isSelected);
+        updateUI(mDuck, isSelected);
+        updateUI(mMilk, isSelected);
+        updateUI(mCheese, isSelected);
+        updateUI(mTurkey, isSelected);
+        updateUI(mBean, isSelected);
+        updateUI(mSunFlower, isSelected);
+        updateUI(mPumpkin, isSelected);
+        updateUI(mGinseng, isSelected);
     }
 
 
@@ -182,6 +221,8 @@ public class Recommend extends AppCompatActivity {
         editor.putBoolean(PREF_KEY_PREFIX + "ginseng", isSelected(mGinseng));
         editor.apply();
     }
+
+
 
     // ImageButton의 선택 상태를 확인하는 메서드
     private boolean isSelected(ImageButton imageButton) {

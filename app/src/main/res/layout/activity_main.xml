@@ -85,11 +85,11 @@
     <RelativeLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="545dp"
         android:layout_above="@id/bottom_layout"
         android:layout_below="@id/top_layout"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="-6dp"
+        android:layout_marginTop="-8dp"
+        android:layout_marginBottom="1dp"
         android:background="@color/white">
 
         <com.airbnb.lottie.LottieAnimationView
