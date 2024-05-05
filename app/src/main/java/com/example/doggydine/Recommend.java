@@ -1,21 +1,21 @@
 package com.example.doggydine;
 
-import android.graphics.Color;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 
 public class Recommend extends AppCompatActivity {
+    private static final String PREF_NAME = "FoodSelectionPref";
+    private static final String PREF_KEY_PREFIX = "food_selected_";
+
+    // 음식 아이콘(ImageButton) 정의
     private ImageButton mPotato;
     private ImageButton mCrab;
-    private ImageButton mSweatPotato;
+    private ImageButton mSweetPotato;
     private ImageButton mWheat;
     private ImageButton mInsect;
     private ImageButton mChicken;
@@ -34,19 +34,16 @@ public class Recommend extends AppCompatActivity {
     private ImageButton mPumpkin;
     private ImageButton mGinseng;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_recommend);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        // ImageButton 초기화
         mPotato = findViewById(R.id.potato_icon);
         mCrab = findViewById(R.id.crab_icon);
-        mSweatPotato = findViewById(R.id.sweetpotato_icon);
+        mSweetPotato = findViewById(R.id.sweetpotato_icon);
         mWheat = findViewById(R.id.wheat_icon);
         mInsect = findViewById(R.id.insect_icon);
         mChicken = findViewById(R.id.chicken_icon);
@@ -65,317 +62,89 @@ public class Recommend extends AppCompatActivity {
         mPumpkin = findViewById(R.id.pumpkin_icon);
         mGinseng = findViewById(R.id.ginseng_icon);
 
-        //클릭리스너 달아주기
-        mPotato.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mPotato.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mPotato.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
 
 
-        mCrab.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mCrab.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mCrab.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
+        // 이전 선택 상태 복원
+        restoreSelectionStates();
 
 
-        mSweatPotato.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
 
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mSweatPotato.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mSweatPotato.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
+        // 각 ImageButton에 클릭 리스너 설정
+        mPotato.setOnClickListener(v -> toggleSelection(v, "potato"));
+        mCrab.setOnClickListener(v -> toggleSelection(v, "crab"));
+        mSweetPotato.setOnClickListener(v -> toggleSelection(v, "sweetpotato"));
+        mWheat.setOnClickListener(v -> toggleSelection(v, "wheat"));
+        mInsect.setOnClickListener(v -> toggleSelection(v, "insect"));
+        mChicken.setOnClickListener(v -> toggleSelection(v, "chicken"));
+        mCarrot.setOnClickListener(v -> toggleSelection(v, "carrot"));
+        mPig.setOnClickListener(v -> toggleSelection(v, "pig"));
+        mShrimp.setOnClickListener(v -> toggleSelection(v, "shrimp"));
+        mCow.setOnClickListener(v -> toggleSelection(v, "cow"));
+        mSheep.setOnClickListener(v -> toggleSelection(v, "sheep"));
+        mSalmon.setOnClickListener(v -> toggleSelection(v, "salmon"));
+        mDuck.setOnClickListener(v -> toggleSelection(v, "duck"));
+        mMilk.setOnClickListener(v -> toggleSelection(v, "milk"));
+        mCheese.setOnClickListener(v -> toggleSelection(v, "cheese"));
+        mTurkey.setOnClickListener(v -> toggleSelection(v, "turkey"));
+        mBean.setOnClickListener(v -> toggleSelection(v, "bean"));
+        mSunFlower.setOnClickListener(v -> toggleSelection(v, "sunflower"));
+        mPumpkin.setOnClickListener(v -> toggleSelection(v, "pumpkin"));
+        mGinseng.setOnClickListener(v -> toggleSelection(v, "ginseng"));
 
-
-        mWheat.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mWheat.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mWheat.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
+    }
 
 
-        mInsect.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
 
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mInsect.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mInsect.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
+    // 선택 상태를 전환하는 메서드
+    private void toggleSelection(View view, String foodName) {
+        SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        boolean isSelected = preferences.getBoolean(PREF_KEY_PREFIX + foodName, false);
+        isSelected = !isSelected;
+        preferences.edit().putBoolean(PREF_KEY_PREFIX + foodName, isSelected).apply();
+        updateUI(view, isSelected);
+    }
 
 
-        mChicken.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
+    // 이전 선택 상태 복원
+    private void restoreSelectionStates() {
+        SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mChicken.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mChicken.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mCarrot.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
+        // 각 ImageButton의 선택 상태를 복원합니다.
+        restoreSelectionState(mPotato, preferences, "potato");
+        restoreSelectionState(mCrab, preferences, "crab");
+        restoreSelectionState(mSweetPotato, preferences, "sweetpotato");
+        restoreSelectionState(mWheat, preferences, "wheat");
+        restoreSelectionState(mInsect, preferences, "insect");
+        restoreSelectionState(mChicken, preferences, "chicken");
+        restoreSelectionState(mCarrot, preferences, "carrot");
+        restoreSelectionState(mPig, preferences, "pig");
+        restoreSelectionState(mShrimp, preferences, "shrimp");
+        restoreSelectionState(mCow, preferences, "cow");
+        restoreSelectionState(mSheep, preferences, "sheep");
+        restoreSelectionState(mSalmon, preferences, "salmon");
+        restoreSelectionState(mDuck, preferences, "duck");
+        restoreSelectionState(mMilk, preferences, "milk");
+        restoreSelectionState(mCheese, preferences, "cheese");
+        restoreSelectionState(mTurkey, preferences, "turkey");
+        restoreSelectionState(mBean, preferences, "bean");
+        restoreSelectionState(mSunFlower, preferences, "sunflower");
+        restoreSelectionState(mPumpkin, preferences, "pumpkin");
+        restoreSelectionState(mGinseng, preferences, "ginseng");
 
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mCarrot.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mCarrot.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mPig.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
+    }
 
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mPig.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mPig.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mShrimp.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
+    // 각 ImageButton의 이전 선택 상태를 복원하는 메서드
+    private void restoreSelectionState(ImageButton imageButton, SharedPreferences preferences, String foodName) {
+        boolean isSelected = preferences.getBoolean(PREF_KEY_PREFIX + foodName, false);
+        updateUI(imageButton, isSelected);
+    }
 
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mShrimp.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mShrimp.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mCow.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mCow.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mCow.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mSheep.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mSheep.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mSheep.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mSalmon.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mSalmon.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mSalmon.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mDuck.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mDuck.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mDuck.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mMilk.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mMilk.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mMilk.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mCheese.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mCheese.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mCheese.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mTurkey.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mTurkey.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mTurkey.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mBean.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mBean.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mBean.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mSunFlower.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mSunFlower.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mSunFlower.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mPumpkin.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mPumpkin.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mPumpkin.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-        mGinseng.setOnClickListener(new View.OnClickListener() {
-            boolean isSelected = false; // 선택 여부를 저장하는 변수
-
-            @Override
-            public void onClick(View view) {
-                isSelected = !isSelected; // 선택 상태를 토글
-                if (isSelected) {
-                    // 선택된 상태일 때
-                    mGinseng.setBackgroundResource(R.drawable.rounder_coner_background_selected);
-                } else {
-                    // 선택이 해제된 상태일 때
-                    mGinseng.setBackgroundResource(R.drawable.rounder_coner);
-                }
-            }
-        });
-
-
+    // UI 업데이트를 위한 메서드
+    private void updateUI(View view, boolean isSelected) {
+        if (isSelected) {
+            view.setBackgroundResource(R.drawable.rounder_coner_background_selected);
+        } else {
+            view.setBackgroundResource(R.drawable.rounder_coner);
+        }
     }
 }
