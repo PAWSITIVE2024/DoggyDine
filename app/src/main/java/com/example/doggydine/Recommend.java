@@ -121,9 +121,7 @@ public class Recommend extends AppCompatActivity {
 
     // 선택 상태를 전환하는 메서드
     private void toggleSelection(View view, String foodName) {
-        SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        boolean isSelected = preferences.getBoolean(PREF_KEY_PREFIX + foodName, false);
-        isSelected = !isSelected;
+        boolean isSelected = !isSelected((ImageButton) view);
         updateUI(view, isSelected);
     }
 
@@ -193,6 +191,7 @@ public class Recommend extends AppCompatActivity {
         updateUI(imageButton, isSelected);
     }
 
+
     // UI 업데이트를 위한 메서드
     private void updateUI(View view, boolean isSelected) {
         if (isSelected) {
@@ -201,6 +200,7 @@ public class Recommend extends AppCompatActivity {
             view.setBackgroundResource(R.drawable.rounder_coner);
         }
     }
+
 
     private void saveSelectionStates() {
         SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);

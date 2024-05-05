@@ -33,12 +33,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="367dp"
+        android:layout_height="488dp"
         android:layout_above="@id/button_layout"
         android:layout_below="@id/doggy_dine"
-        android:layout_marginTop="67dp"
-        android:layout_marginBottom="0dp"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/rounder_coner"
+        android:elevation="10dp"></androidx.recyclerview.widget.RecyclerView>
 
     <RelativeLayout
         android:id="@+id/button_layout"
@@ -71,6 +74,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/doggy_dine"
@@ -78,18 +82,20 @@
 
         <TextView
             android:id="@+id/textView7"
-            android:layout_width="311dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="10dp"
             android:fontFamily="@font/maplestorybold"
-            android:textSize="25dp"
-            android:text="상품순위 : "
-            android:textColor="@color/black" />
+            android:text="상품순위:"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_width="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:theme="@style/SpinnerDropdownStyle"
