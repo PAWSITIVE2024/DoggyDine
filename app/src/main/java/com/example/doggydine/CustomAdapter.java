@@ -32,6 +32,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
         CustomViewHolder holder = new CustomViewHolder(view);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +58,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         //아이템 매칭
         // Glide를 사용하여 프로필 이미지 설정
-
 
         Glide.with(holder.itemView)
                 .load(arrayList.get(position).getProfile())
@@ -83,6 +84,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             }
         }
         holder.tv_material.setText(materialText.toString());
+
     }
 
     @Override
