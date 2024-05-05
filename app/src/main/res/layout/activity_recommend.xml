@@ -6,6 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Recommend">
 
     <ImageView
@@ -22,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/doggy_dine"
-        android:layout_marginTop="32dp"
         android:background="@color/white">
 
         <TextView
@@ -32,6 +32,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/maplestorybold"
             android:text="*알레르기"
+            android:layout_marginLeft="20dp"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
