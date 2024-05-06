@@ -98,6 +98,7 @@
             android:text="추천보기"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </RelativeLayout>
 
     <LinearLayout

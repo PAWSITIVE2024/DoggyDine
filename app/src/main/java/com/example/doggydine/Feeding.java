@@ -224,6 +224,7 @@ public class Feeding extends AppCompatActivity {
         });
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -271,21 +272,26 @@ public class Feeding extends AppCompatActivity {
                             mLt_empty.setAnimation(R.raw.dog_sleep); // .json 파일을 로드
                             mLt_empty.loop(true);
                             mLt_empty.playAnimation();
-                            barcodeButton.setVisibility(View.GONE);
-                            init_btn.setText("돌아가기");
-                            init_btn.setOnClickListener(new View.OnClickListener() {
+                            barcodeButton.setText("돌아가기");
+
+                            barcodeButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    finish();
+                                    Intent intent = new Intent(Feeding.this, Feeding.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
                                 }
                             });
+
                         } else {
-                            barcodeButton.setVisibility(View.GONE);
-                            init_btn.setText("돌아가기");
-                            init_btn.setOnClickListener(new View.OnClickListener() {
+                            barcodeButton.setText("돌아가기");
+                            barcodeButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    finish();
+
+                                    Intent intent = new Intent(Feeding.this, Feeding.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
                                 }
                             });
                         }
@@ -300,8 +306,6 @@ public class Feeding extends AppCompatActivity {
             }
         }
     }
-
-
 
 
 

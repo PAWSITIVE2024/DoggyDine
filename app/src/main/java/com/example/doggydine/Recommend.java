@@ -1,7 +1,9 @@
 package com.example.doggydine;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -78,6 +80,8 @@ public class Recommend extends AppCompatActivity {
         mPumpkin = findViewById(R.id.pumpkin_icon);
         mGinseng = findViewById(R.id.ginseng_icon);
 
+
+
         mCheckBox = findViewById(R.id.cb_total_select);
         mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -108,8 +112,10 @@ public class Recommend extends AppCompatActivity {
             }
         });
 
-        // 이전 선택 상태 복원
-        restoreSelectionStates();
+
+
+        // 이전 선택 상태 복원 필요없을것 같아 주석처리
+        //restoreSelectionStates();
 
 
 
