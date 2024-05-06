@@ -221,21 +221,46 @@ public class Feeding extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            // Intent에 포함된 문자열 목록 가져오기
             ArrayList<String> selectedIngredients = intent.getStringArrayListExtra("selectedIngredients");
             if (selectedIngredients != null) {
-                // 전송된 문자열 목록 로그로 출력
-                Log.d("ReceivedIngredients", "Received selected ingredients:");
-                for (String ingredient : selectedIngredients) {
-                    Log.d("ReceivedIngredients", ingredient);
-                }
-            } else {
-                Log.d("ReceivedIngredients", "No selected ingredients received.");
+
+                // Firebase에서 조건을 충족하는 데이터를 가져와서 RecyclerView에 표시
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                        arrayList.clear();
+                        for (DataSnapshot snapshot : datasnapshot.getChildren()) {
+                            Food food = snapshot.getValue(Food.class);
+
+                            // 모든 선택된 재료가 있는지 확인
+                            boolean allIngredientsMatched = true;
+                            for (String ingredient : selectedIngredients) {
+                                if (!food.getMaterial().containsKey(ingredient) || !food.getMaterial().get(ingredient)) {
+                                    allIngredientsMatched = false;
+                                    break;
+                                }
+                            }
+
+                            // 모든 재료가 매칭되면 RecyclerView에 추가
+                            if (allIngredientsMatched) {
+                                arrayList.add(food);
+                            }
+                        }
+                        // RecyclerView 갱신
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // 쿼리 취소 시 처리할 내용
+                    }
+                });
             }
-        } else {
-            Log.d("ReceivedIngredients", "No Intent received.");
         }
     }
+
+
+
 
 
     private void scanCode(){
