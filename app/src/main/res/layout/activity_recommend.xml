@@ -387,8 +387,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="5dp">>
+                    android:orientation="vertical">
 
                     <ImageButton
                         android:id="@+id/duck_icon"
@@ -411,7 +410,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="25dp"
                     android:orientation="vertical">
 
                     <ImageButton
@@ -457,7 +456,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="23dp"
                     android:orientation="vertical">
 
                     <ImageButton
@@ -480,7 +479,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="17dp"
                     android:orientation="vertical">
 
                     <ImageButton
@@ -511,6 +510,7 @@
                         android:id="@+id/sunflower_icon"
                         android:layout_width="match_parent"
                         android:layout_height="31dp"
+                        android:layout_marginLeft="5dp"
                         android:background="@color/white"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/sunflower_icon" />
