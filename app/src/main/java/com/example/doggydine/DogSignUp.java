@@ -39,6 +39,8 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class DogSignUp extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseRef;
@@ -64,7 +66,7 @@ public class DogSignUp extends AppCompatActivity {
     private Uri selectedImageUrl_4;
     private Uri selectedImageUrl_5;
     private int count = 1;
-
+    private CircleImageView mAddButton;
     private static final int PICK_IMAGE_REQUEST = 1;
 
     @Override
@@ -81,7 +83,14 @@ public class DogSignUp extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         String uid = mFirebaseAuth.getCurrentUser().getUid();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid);
-
+        //mAddButton = findViewById(R.id.adding_btn);
+       /* mAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 추가 버튼 클릭 시 새로운 항목 추가
+                mAdapter.addItem(R.layout.dog_sign_up);
+            }
+        });*/
         mName = findViewById(R.id.Et_d_s_name);
         mWeight = findViewById(R.id.Et_d_s_weight);
         mActiveRate = findViewById(R.id.Et_d_s_allergy);

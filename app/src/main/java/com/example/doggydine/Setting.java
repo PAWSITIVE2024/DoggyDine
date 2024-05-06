@@ -39,15 +39,12 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Setting extends AppCompatActivity {
-    private DatabaseReference mDatabaseRef;
-    private FirebaseAuth mFirebaseAuth;
-    private CircleImageView circleImageView;
-    private EditText etName, etAge, etWeight, etActiveRate, etAllergy;
-    private TextView tvGo;
+   // private DatabaseReference mDatabaseRef;
+   // private FirebaseAuth mFirebaseAuth;
     private String imageUrl = null;
-    private static final int PICK_IMAGE_REQUEST = 1;
+
     private RecyclerView mRecyclerView;
-    private ImageButton mAddButton;
+    private CircleImageView mAddButton;
     private DogInfoAdapter mAdapter;
 
     @Override
@@ -56,7 +53,7 @@ public class Setting extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         mRecyclerView = findViewById(R.id.DogInfoEdit);
-        mAddButton = findViewById(R.id.adding_btn);
+        //mAddButton = findViewById(R.id.adding_btn);
 
         mAdapter = new DogInfoAdapter();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -65,12 +62,12 @@ public class Setting extends AppCompatActivity {
 
         mAdapter.addItem(R.layout.dog_sign_up);
 
-        mAddButton.setOnClickListener(new View.OnClickListener() {
+        /*mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 추가 버튼 클릭 시 새로운 항목 추가
                 mAdapter.addItem(R.layout.dog_sign_up);
             }
-        });
+        });*/
     }
 }

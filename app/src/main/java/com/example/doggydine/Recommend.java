@@ -183,7 +183,7 @@ public class Recommend extends AppCompatActivity {
 
 
     // 이전 선택 상태 복원
-    private void restoreSelectionStates() {
+    /*private void restoreSelectionStates() {
         SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
         // 각 ImageButton의 선택 상태를 복원합니다.
@@ -215,7 +215,7 @@ public class Recommend extends AppCompatActivity {
         boolean isSelected = preferences.getBoolean(PREF_KEY_PREFIX + foodName, false);
         updateUI(imageButton, isSelected);
     }
-
+*/
 
     // UI 업데이트를 위한 메서드
     private void updateUI(View view, boolean isSelected) {
