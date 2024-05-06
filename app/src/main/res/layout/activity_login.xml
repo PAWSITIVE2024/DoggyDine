@@ -93,6 +93,7 @@
         android:id="@+id/btn_layer"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:layout_centerInParent="true"
         android:layout_below="@id/passward_layer">

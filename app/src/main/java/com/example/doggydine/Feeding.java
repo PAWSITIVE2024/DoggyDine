@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -133,10 +134,12 @@ public class Feeding extends AppCompatActivity {
         recommend_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), Recommend.class);
+                Intent intent = new Intent(Feeding.this, Recommend.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_stay); // 애니메이션 설정
             }
         });
+
 
         // Spinner에서 선택된 정렬 방법을 감지하는 리스너 구현
         mspinner = findViewById(R.id.spinner);
@@ -218,6 +221,10 @@ public class Feeding extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Button init_btn = findViewById(R.id.recommend_btn);
+        Button barcodeButton = findViewById(R.id.barcode_btn);
+        TextView tvRanking = findViewById(R.id.tv_ranking);
+        tvRanking.setText("맞춤 상품 리스트");
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -240,13 +247,20 @@ public class Feeding extends AppCompatActivity {
                                     break;
                                 }
                             }
-
                             // 모든 재료가 매칭되면 RecyclerView에 추가
                             if (allIngredientsMatched) {
                                 arrayList.add(food);
                             }
                         }
                         // RecyclerView 갱신
+                        barcodeButton.setVisibility(View.GONE);
+                        init_btn.setText("초기화");
+                        init_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                finish();
+                            }
+                        });
                         adapter.notifyDataSetChanged();
                     }
 

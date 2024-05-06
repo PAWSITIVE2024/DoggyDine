@@ -4,52 +4,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     tools:context=".Recommend">
 
-    <ImageView
-        android:id="@+id/doggy_dine"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/doggy_dine" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/doggy_dine"
-        android:background="@color/white">
+        android:background="@drawable/rounder_coner"
+        android:elevation="10dp">
 
         <TextView
             android:id="@+id/textView21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/maplestorybold"
-            android:text="*알레르기"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/black"
-            android:textSize="15dp" />
+            android:text="맞춤 검색"
+            android:textColor="#6750A4"
+            android:textSize="20dp"
+            android:layout_marginLeft="125dp"/>
+
+
 
         <LinearLayout
             android:id="@+id/material_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/rounder_coner"
-            android:elevation="10dp"
             android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#6750A4"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/maplestorybold"
                 android:text="주원료 선택(중복 선택 가능)"
@@ -64,14 +58,15 @@
 
                 <CheckBox
                     android:id="@+id/cb_total_select"
-                    android:layout_width="20dp"
+                    android:layout_width="25dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="15dp" />
+                    android:buttonTint="@color/black"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
                     android:fontFamily="@font/maplestorylight"
                     android:text="전체 선택"
@@ -99,8 +94,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginLeft="5dp">
 
                     <ImageButton
                         android:id="@+id/potato_icon"
@@ -239,14 +234,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginLeft="5dp">>
 
                     <ImageButton
                         android:id="@+id/carrot_icon"
@@ -360,7 +355,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="17dp"
                     android:orientation="vertical">
 
                     <ImageButton
@@ -386,14 +381,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginLeft="5dp">>
 
                     <ImageButton
                         android:id="@+id/duck_icon"
@@ -416,7 +411,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
+                    android:layout_marginLeft="20dp"
                     android:orientation="vertical">
 
                     <ImageButton
@@ -508,7 +503,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="13dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="3dp"
                     android:orientation="vertical">
 
                     <ImageButton
@@ -525,6 +521,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/maplestorybold"
                         android:text="해바라기"
+                        android:textSize="12dp"
                         android:textColor="@color/black" />
                 </LinearLayout>
             </LinearLayout>
@@ -532,14 +529,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:orientation="horizontal">
 
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="5dp"
                     android:orientation="vertical">
 
                     <ImageButton
@@ -562,7 +559,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="25dp"
                     android:orientation="vertical">>
 
                     <ImageButton
@@ -586,10 +583,11 @@
                     android:id="@+id/btn_adapt"
                     android:layout_width="74dp"
                     android:layout_height="36dp"
+                    android:background="@drawable/rounded_button"
                     android:layout_below="@id/material_filter"
-                    android:layout_marginLeft="160dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/maplestorybold"
+                    android:layout_marginLeft="155dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/maplestorylight"
                     android:text="적용"
                     android:textColor="@color/black" />
             </LinearLayout>

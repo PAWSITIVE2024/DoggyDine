@@ -26,9 +26,6 @@
             android:name=".DogSignUp"
             android:exported="false" />
         <activity
-            android:name=".DogRegister"
-            android:exported="false" />
-        <activity
             android:name=".FoodDetailsActivity"
             android:exported="false" />
         <activity
@@ -67,7 +64,8 @@
             android:exported="false" />
         <activity
             android:name=".Recommend"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/DialogTheme"/>
         <activity
             android:name=".Feeding"
             android:exported="false" />

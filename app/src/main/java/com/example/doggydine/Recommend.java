@@ -3,12 +3,18 @@ package com.example.doggydine;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.AbstractMap;
@@ -96,6 +102,7 @@ public class Recommend extends AppCompatActivity {
                 // 선택된 재료 목록을 Feeding 액티비티로 전달
                 intent.putExtra("selectedIngredients", selectedIngredients);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 finish();
 
             }
