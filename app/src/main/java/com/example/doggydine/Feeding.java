@@ -50,6 +50,8 @@ public class Feeding extends AppCompatActivity {
     private FirebaseDatabase database;
     private Spinner mspinner;
     private DatabaseReference databaseReference;
+    private LottieAnimationView mLt_empty;
+    private TextView mTv_emty;
 
     private ImageView mImageview;
     Button btn_scan;
@@ -72,6 +74,10 @@ public class Feeding extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
         originList = new ArrayList<>();
+        mLt_empty = findViewById(R.id.Lt_empty);
+        mLt_empty.setVisibility(View.INVISIBLE);
+        mTv_emty = findViewById(R.id.tv_empty);
+        mTv_emty.setVisibility(View.INVISIBLE);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("DoggyDine").child("Food");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -221,6 +227,10 @@ public class Feeding extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mLt_empty = findViewById(R.id.Lt_empty);
+        mLt_empty.setVisibility(View.INVISIBLE);
+        mTv_emty = findViewById(R.id.tv_empty);
+        mTv_emty.setVisibility(View.INVISIBLE);
         Button init_btn = findViewById(R.id.recommend_btn);
         Button barcodeButton = findViewById(R.id.barcode_btn);
         TextView tvRanking = findViewById(R.id.tv_ranking);
@@ -236,6 +246,7 @@ public class Feeding extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                         arrayList.clear();
+                        boolean dataFound = false; // 데이터가 있는지 여부를 나타내는 플래그
                         for (DataSnapshot snapshot : datasnapshot.getChildren()) {
                             Food food = snapshot.getValue(Food.class);
 
@@ -250,17 +261,34 @@ public class Feeding extends AppCompatActivity {
                             // 모든 재료가 매칭되면 RecyclerView에 추가
                             if (allIngredientsMatched) {
                                 arrayList.add(food);
+                                dataFound = true; // 데이터가 발견되었음을 표시
                             }
                         }
-                        // RecyclerView 갱신
-                        barcodeButton.setVisibility(View.GONE);
-                        init_btn.setText("초기화");
-                        init_btn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                finish();
-                            }
-                        });
+                        // 데이터가 없으면
+                        if (!dataFound || arrayList.isEmpty()) {
+                            mLt_empty.setVisibility(View.VISIBLE);
+                            mTv_emty.setVisibility(View.VISIBLE);
+                            mLt_empty.setAnimation(R.raw.dog_sleep); // .json 파일을 로드
+                            mLt_empty.loop(true);
+                            mLt_empty.playAnimation();
+                            barcodeButton.setVisibility(View.GONE);
+                            init_btn.setText("돌아가기");
+                            init_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    finish();
+                                }
+                            });
+                        } else {
+                            barcodeButton.setVisibility(View.GONE);
+                            init_btn.setText("돌아가기");
+                            init_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    finish();
+                                }
+                            });
+                        }
                         adapter.notifyDataSetChanged();
                     }
 
@@ -272,6 +300,7 @@ public class Feeding extends AppCompatActivity {
             }
         }
     }
+
 
 
 

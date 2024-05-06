@@ -32,6 +32,28 @@
         android:contentDescription="메인으로이동"
         app:srcCompat="@drawable/home" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/Lt_empty"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="347dp"
+        android:layout_marginLeft="100dp"
+        android:scaleType="centerCrop"
+        android:elevation="10.2dp"/>
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="150dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginLeft="130dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/maplestorybold"
+        android:text="텅"
+        android:elevation="10.01dp"
+        />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
