@@ -223,20 +223,6 @@ public class Feeding extends AppCompatActivity {
         btn_scan.setOnClickListener(v->{
             scanCode();
         });
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mLt_empty = findViewById(R.id.Lt_empty);
-        mLt_empty.setVisibility(View.INVISIBLE);
-        mTv_emty = findViewById(R.id.tv_empty);
-        mTv_emty.setVisibility(View.INVISIBLE);
-        Button init_btn = findViewById(R.id.recommend_btn);
-        Button barcodeButton = findViewById(R.id.barcode_btn);
-        TextView tvRanking = findViewById(R.id.tv_ranking);
-        tvRanking.setText("맞춤 상품 리스트");
 
         Intent intent = getIntent();
         if (intent != null && intent.getBooleanExtra("fromRecommend", true)) {
@@ -267,16 +253,19 @@ public class Feeding extends AppCompatActivity {
                         }
                         // 데이터가 없으면
                         if (!dataFound || arrayList.isEmpty()) {
+                            TextView tvRanking = findViewById(R.id.tv_ranking);
+                            tvRanking.setText("맞춤 상품 리스트");
                             mLt_empty.setVisibility(View.VISIBLE);
                             mTv_emty.setVisibility(View.VISIBLE);
                             mLt_empty.setAnimation(R.raw.dog_sleep); // .json 파일을 로드
                             mLt_empty.loop(true);
                             mLt_empty.playAnimation();
-                            barcodeButton.setText("돌아가기");
+                            btn_scan.setText("돌아가기");
 
-                            barcodeButton.setOnClickListener(new View.OnClickListener() {
+                            btn_scan.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
+                                    tvRanking.setText("상품 순위 : ");
                                     Intent intent = new Intent(Feeding.this, Feeding.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
@@ -284,11 +273,13 @@ public class Feeding extends AppCompatActivity {
                             });
 
                         } else {
-                            barcodeButton.setText("돌아가기");
-                            barcodeButton.setOnClickListener(new View.OnClickListener() {
+                            TextView tvRanking = findViewById(R.id.tv_ranking);
+                            tvRanking.setText("맞춤 상품 리스트");
+                            btn_scan.setText("돌아가기");
+                            btn_scan.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-
+                                    tvRanking.setText("상품 순위 : ");
                                     Intent intent = new Intent(Feeding.this, Feeding.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
@@ -306,8 +297,6 @@ public class Feeding extends AppCompatActivity {
             }
         }
     }
-
-
 
 
     private void scanCode(){
