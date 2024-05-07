@@ -42,6 +42,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Feeding extends AppCompatActivity {
+    private String barcode_num;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -320,6 +321,10 @@ public class Feeding extends AppCompatActivity {
     }
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result->{
         if(result.getContents() != null){
+            // 바코드 결과를 변수에 저장
+            barcode_num = result.getContents();
+            //Test용
+            Log.d("Barcode", "Scanned Barcode Number: " + barcode_num);
             AlertDialog.Builder builder = new AlertDialog.Builder(Feeding.this);
             builder.setTitle("Result");
             builder.setMessage(result.getContents());
