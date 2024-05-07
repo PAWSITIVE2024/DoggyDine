@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -225,7 +226,9 @@ public class Feeding extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null && intent.getBooleanExtra("fromRecommend", true)) {
+
+        //추천 intent 처리용 //
+        if (intent != null && intent.getBooleanExtra("fromRecommend", false)) {
             ArrayList<String> selectedIngredients = intent.getStringArrayListExtra("selectedIngredients");
             if (selectedIngredients != null) {
                 // Firebase에서 조건을 충족하는 데이터를 가져와서 RecyclerView에 표시
@@ -295,6 +298,9 @@ public class Feeding extends AppCompatActivity {
                     }
                 });
             }
+        } else if (intent != null && intent.getBooleanExtra("FromBarcode", false)){
+            //여기에 바코드 intent 처리
+            Log.d("Barcode", "Receives Success");
         }
     }
 
@@ -313,6 +319,12 @@ public class Feeding extends AppCompatActivity {
             barcode_num = result.getContents();
             //Test용
             Log.d("Barcode", "Scanned Barcode Number: " + barcode_num);
+
+            Intent intent = new Intent();
+            intent.putExtra("FromBarcode",true);
+            intent.putExtra("Barcode_num",barcode_num);
+
+
             AlertDialog.Builder builder = new AlertDialog.Builder(Feeding.this);
             builder.setTitle("Result");
             builder.setMessage(result.getContents());
@@ -320,6 +332,8 @@ public class Feeding extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
+                    //일단여기에 test용으로 달아두자
+                    startActivity(intent);
                 }
             }).show();
         }
