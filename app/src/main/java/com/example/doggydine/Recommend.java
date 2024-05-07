@@ -103,6 +103,7 @@ public class Recommend extends AppCompatActivity {
                 saveSelectionStates();
                 ArrayList<String> selectedIngredients = getSelectedIngredients();
                 Intent intent = new Intent(Recommend.this, Feeding.class);
+                intent.putExtra("fromRecommend", true);
                 // 선택된 재료 목록을 Feeding 액티비티로 전달
                 intent.putExtra("selectedIngredients", selectedIngredients);
                 startActivity(intent);

@@ -239,10 +239,9 @@ public class Feeding extends AppCompatActivity {
         tvRanking.setText("맞춤 상품 리스트");
 
         Intent intent = getIntent();
-        if (intent != null) {
+        if (intent != null && intent.getBooleanExtra("fromRecommend", true)) {
             ArrayList<String> selectedIngredients = intent.getStringArrayListExtra("selectedIngredients");
             if (selectedIngredients != null) {
-
                 // Firebase에서 조건을 충족하는 데이터를 가져와서 RecyclerView에 표시
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
