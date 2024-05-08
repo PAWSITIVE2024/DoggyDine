@@ -76,9 +76,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="190dp"
+                    android:layout_marginLeft="180dp"
                     android:fontFamily="@font/maplestorybold"
-                    android:text="포함"
+                    android:text="미포함"
                     android:textColor="@color/black"
                     android:textSize="16dp" />
 

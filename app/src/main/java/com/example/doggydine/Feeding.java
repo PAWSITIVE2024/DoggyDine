@@ -226,36 +226,45 @@ public class Feeding extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-
-        //추천 intent 처리용 //
+        //테스트
         if (intent != null && intent.getBooleanExtra("fromRecommend", false)) {
             ArrayList<String> selectedIngredients = intent.getStringArrayListExtra("selectedIngredients");
             if (selectedIngredients != null) {
-                // Firebase에서 조건을 충족하는 데이터를 가져와서 RecyclerView에 표시
+                Log.d("SelectedIngredients", selectedIngredients.toString());
+            }
+        }
+
+        //추천 intent 처리용 //
+        // 선택된 재료가 모두 포함되지 않은 경우를 처리
+        if (intent != null && intent.getBooleanExtra("fromRecommend", false)) {
+            ArrayList<String> selectedIngredients = intent.getStringArrayListExtra("selectedIngredients");
+            if (selectedIngredients != null) {
+                // Firebase에서 조건을 충족하지 않는 데이터를 가져와서 RecyclerView에 표시
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         arrayList.clear();
                         boolean dataFound = false; // 데이터가 있는지 여부를 나타내는 플래그
-                        for (DataSnapshot snapshot : datasnapshot.getChildren()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Food food = snapshot.getValue(Food.class);
 
-                            // 모든 선택된 재료가 있는지 확인
-                            boolean allIngredientsMatched = true;
+                            // 모든 선택된 재료가 false인지 확인
+                            boolean allIngredientsFalse = true;
                             for (String ingredient : selectedIngredients) {
-                                if (!food.getMaterial().containsKey(ingredient) || !food.getMaterial().get(ingredient)) {
-                                    allIngredientsMatched = false;
+                                if (food.getMaterial().containsKey(ingredient) && food.getMaterial().get(ingredient)) {
+                                    allIngredientsFalse = false;
                                     break;
                                 }
                             }
-                            // 모든 재료가 매칭되면 RecyclerView에 추가
-                            if (allIngredientsMatched) {
+                            // 모든 재료가 false이면 RecyclerView에 추가
+                            if (allIngredientsFalse) {
                                 arrayList.add(food);
                                 dataFound = true; // 데이터가 발견되었음을 표시
                             }
                         }
                         // 데이터가 없으면
                         if (!dataFound || arrayList.isEmpty()) {
+                            // 비어 있는 상태를 표시
                             TextView tvRanking = findViewById(R.id.tv_ranking);
                             tvRanking.setText("맞춤 상품 리스트");
                             mLt_empty.setVisibility(View.VISIBLE);
@@ -276,6 +285,7 @@ public class Feeding extends AppCompatActivity {
                             });
 
                         } else {
+                            // 데이터가 있는 경우 RecyclerView 갱신
                             TextView tvRanking = findViewById(R.id.tv_ranking);
                             tvRanking.setText("맞춤 상품 리스트");
                             btn_scan.setText("돌아가기");
@@ -298,7 +308,8 @@ public class Feeding extends AppCompatActivity {
                     }
                 });
             }
-        } else if (intent != null && intent.getBooleanExtra("FromBarcode", false)){
+
+    } else if (intent != null && intent.getBooleanExtra("FromBarcode", false)){
             //여기에 바코드 intent 처리
             Log.d("Barcode", "Receives Success");
         }

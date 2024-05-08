@@ -159,7 +159,7 @@ public class Recommend extends AppCompatActivity {
     private void resetAll() {
         updateSelectionState(false);
     }
-    private void updateSelectionState(boolean isSelected) {
+    private void updateSelectionState(boolean isSelected) { //isSelected 값을 인자로 받고 이 인자에따라 ui변경
         updateUI(mPotato, isSelected);
         updateUI(mCrab, isSelected);
         updateUI(mSweetPotato, isSelected);
@@ -182,41 +182,6 @@ public class Recommend extends AppCompatActivity {
         updateUI(mGinseng, isSelected);
     }
 
-
-    // 이전 선택 상태 복원
-    /*private void restoreSelectionStates() {
-        SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-
-        // 각 ImageButton의 선택 상태를 복원합니다.
-        restoreSelectionState(mPotato, preferences, "감자");
-        restoreSelectionState(mCrab, preferences, "게껍질");
-        restoreSelectionState(mSweetPotato, preferences, "고구마");
-        restoreSelectionState(mWheat, preferences, "곡류");
-        restoreSelectionState(mInsect, preferences, "곤충");
-        restoreSelectionState(mChicken, preferences, "닭고기");
-        restoreSelectionState(mCarrot, preferences, "당근");
-        restoreSelectionState(mPig, preferences, "돼지고기");
-        restoreSelectionState(mShrimp, preferences, "새우");
-        restoreSelectionState(mCow, preferences, "소고기");
-        restoreSelectionState(mSheep, preferences, "양고기");
-        restoreSelectionState(mSalmon, preferences, "연어");
-        restoreSelectionState(mDuck, preferences, "오리고기");
-        restoreSelectionState(mMilk, preferences, "우유");
-        restoreSelectionState(mCheese, preferences, "치즈");
-        restoreSelectionState(mTurkey, preferences, "칠면조");
-        restoreSelectionState(mBean, preferences, "콩류");
-        restoreSelectionState(mSunFlower, preferences, "해바라기씨");
-        restoreSelectionState(mPumpkin, preferences, "호박씨");
-        restoreSelectionState(mGinseng, preferences, "홍삼");
-
-    }
-
-    // 각 ImageButton의 이전 선택 상태를 복원하는 메서드
-    private void restoreSelectionState(ImageButton imageButton, SharedPreferences preferences, String foodName) {
-        boolean isSelected = preferences.getBoolean(PREF_KEY_PREFIX + foodName, false);
-        updateUI(imageButton, isSelected);
-    }
-*/
 
     // UI 업데이트를 위한 메서드
     private void updateUI(View view, boolean isSelected) {
