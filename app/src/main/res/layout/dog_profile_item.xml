@@ -5,33 +5,45 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:background="@drawable/rounder_coner_doginfo"
-        android:elevation="10dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
 
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:background="@drawable/rounder_coner_doginfo"
+            android:elevation="5dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/cv_dog_profile"
-            android:layout_width="70dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_launcher_background"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/d_p_dogname"
-            android:fontFamily="@font/maplestorybold"
-            android:text="강아지 이름"
-            android:textSize="30dp"
-            android:textColor="@color/black"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="25dp"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cv_dog_profile"
+                android:layout_width="70dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_launcher_background"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/d_p_dogname"
+                android:fontFamily="@font/maplestorybold"
+                android:text="강아지 이름"
+                android:textSize="30dp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"/>
 
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
     </LinearLayout>
 
 </LinearLayout>
