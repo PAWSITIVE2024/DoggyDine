@@ -48,7 +48,6 @@ public class DogInfoAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (holder instanceof FooterViewHolder) {
             FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
             // Footer ViewHolder에 대한 처리
-            // 여기에 필요한 작업을 수행하세요.
         }
     }
 
@@ -78,7 +77,7 @@ public class DogInfoAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         public void bind(PetAccount pet) {
-            // 데이터를 뷰에 바인딩하는 작업을 수행합니다.
+            // 데이터를 뷰에 바인딩하는 작업
             Glide.with(context).load(pet.getProfile1()).into(iv_dog_profile);
             tv_dog_name.setText(pet.getDog_name());
         }
@@ -88,7 +87,6 @@ public class DogInfoAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public FooterViewHolder(@NonNull View itemView) {
             super(itemView);
             // Footer ViewHolder에 대한 처리
-            // 여기에 필요한 작업을 수행하세요.
         }
     }
 }
