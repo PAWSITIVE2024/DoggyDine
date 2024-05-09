@@ -93,7 +93,7 @@
         android:background="@color/white">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/LT_dog_sleep"
+            android:id="@+id/LT_s_dog_sleep"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="150dp"

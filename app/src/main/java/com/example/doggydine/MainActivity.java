@@ -5,24 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LottieAnimationView lottieAnimationView = findViewById(R.id.LT_dog_sleep);
+        LottieAnimationView lottieAnimationView = findViewById(R.id.LT_s_dog_sleep);
         lottieAnimationView.setAnimation(R.raw.dog_sleep); // .json 파일을 로드
         lottieAnimationView.loop(true);
         lottieAnimationView.playAnimation();
@@ -51,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         mTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (MainActivity.this,Setting2.class);
+                Intent intent = new Intent (MainActivity.this, Setting.class);
                 startActivity(intent);
             }
         });

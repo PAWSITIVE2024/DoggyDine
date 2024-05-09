@@ -1,66 +1,84 @@
 package com.example.doggydine;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.util.Log;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Setting extends AppCompatActivity {
-   // private DatabaseReference mDatabaseRef;
-   // private FirebaseAuth mFirebaseAuth;
-    private String imageUrl = null;
-
-    private RecyclerView mRecyclerView;
-    private CircleImageView mAddButton;
-    private DogInfoAdapter mAdapter;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<PetAccount> arrayList;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_setting);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        LottieAnimationView lottieAnimationView = findViewById(R.id.LT_s_dog_sleep);
+        lottieAnimationView.setAnimation(R.raw.dog_sleep); // .json 파일을 로드
+        lottieAnimationView.loop(true);
+        lottieAnimationView.playAnimation();
 
-        mRecyclerView = findViewById(R.id.DogInfoEdit);
-        //mAddButton = findViewById(R.id.adding_btn);
+        recyclerView = findViewById(R.id.DogInfoEdit);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        arrayList = new ArrayList<>();
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        String uid = mFirebaseAuth.getCurrentUser().getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid).child("pet");
 
-        mAdapter = new DogInfoAdapter();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                arrayList.clear();
 
-        mAdapter.addItem(R.layout.dog_profile_item);
+                for(DataSnapshot snapshot : datasnapshot.getChildren()){
+                    PetAccount petaccount = new PetAccount();
+                    petaccount.setProfile1(snapshot.child("profile1").getValue(String.class));
+                    petaccount.setDog_name(snapshot.child("dog_name").getValue(String.class));
+                    arrayList.add(petaccount); // 데이터를 리스트에 추가
+                    Log.d("PetAccount", petaccount.toString());
+                }
+                adapter.notifyDataSetChanged(); // 데이터 변경을 어댑터에 알림
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        adapter = new DogInfoAdapter(arrayList,this);
+        recyclerView.setAdapter(adapter);
+
+
 
     }
 }
