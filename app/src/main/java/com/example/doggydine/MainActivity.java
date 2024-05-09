@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (MainActivity.this,DogSignUp.class);
+                Intent intent = new Intent (MainActivity.this,Setting2.class);
                 startActivity(intent);
             }
         });

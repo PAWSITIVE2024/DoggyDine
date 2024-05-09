@@ -6,7 +6,9 @@
     android:id="@+id/Plus_btn">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounder_coner_setting"
+        >
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/adding_btn"
             android:layout_width="40dp"

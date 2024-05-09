@@ -20,6 +20,9 @@
         android:theme="@style/Theme.DoggyDine"
         tools:targetApi="31">
         <activity
+            android:name=".Setting2"
+            android:exported="false" />
+        <activity
             android:name=".DogProfile"
             android:exported="false" />
         <activity
