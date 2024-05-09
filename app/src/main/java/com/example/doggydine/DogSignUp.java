@@ -170,15 +170,15 @@ public class DogSignUp extends AppCompatActivity {
 
 
                 // 첫번째 사진 올리기
-                Task<String> uploadTask1 = uploadImageToFirebase(selectedImageUrl_1);
+                Task<String> uploadTask1 = uploadImageToFirebase(selectedImageUrl_1,pet_name);
                 // 두번째 사진 올리기
-                Task<String> uploadTask2 = uploadImageToFirebase(selectedImageUrl_2);
+                Task<String> uploadTask2 = uploadImageToFirebase(selectedImageUrl_2,pet_name);
                 // 세번째 사진 올리기
-                Task<String> uploadTask3 = uploadImageToFirebase(selectedImageUrl_3);
+                Task<String> uploadTask3 = uploadImageToFirebase(selectedImageUrl_3,pet_name);
                 // 네번째 사진 올리기
-                Task<String> uploadTask4 = uploadImageToFirebase(selectedImageUrl_4);
+                Task<String> uploadTask4 = uploadImageToFirebase(selectedImageUrl_4,pet_name);
                 // 다섯번째 사진 올리기
-                Task<String> uploadTask5 = uploadImageToFirebase(selectedImageUrl_5);
+                Task<String> uploadTask5 = uploadImageToFirebase(selectedImageUrl_5,pet_name);
 
                 // 모든 업로드 작업이 완료될 때까지 기다림
                 Tasks.whenAllComplete(uploadTask1, uploadTask2, uploadTask3, uploadTask4, uploadTask5)
@@ -307,14 +307,14 @@ public class DogSignUp extends AppCompatActivity {
         }
     }
 
-    private Task<String> uploadImageToFirebase(Uri imageUri) {
+    private Task<String> uploadImageToFirebase(Uri imageUri,String dog_name ) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = firebaseUser.getUid();
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("profile_images").child(userId);
 
 
         // 이미지 파일 이름 생성
-        String imageFileName = "image" + count + ".jpg";
+        String imageFileName = dog_name+"_"+"image" + count + ".jpg";
         count++;
 
 

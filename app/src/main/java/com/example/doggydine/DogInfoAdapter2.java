@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class DogInfoAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_ITEM = 0;
     private static final int VIEW_TYPE_FOOTER = 1;
@@ -84,8 +86,19 @@ public class DogInfoAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
+        CircleImageView madding_btn;
         public FooterViewHolder(@NonNull View itemView) {
             super(itemView);
+            madding_btn = itemView.findViewById(R.id.adding_btn);
+            madding_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), DogSignUp.class);
+                    view.getContext().startActivity(intent);
+
+                }
+            });
+
             // Footer ViewHolder에 대한 처리
         }
     }
