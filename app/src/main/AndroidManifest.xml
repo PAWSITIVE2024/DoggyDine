@@ -19,8 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoggyDine"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".DogProfile"
+            android:exported="false" />
         <activity
             android:name=".Activation"
             android:exported="false" />
@@ -67,7 +68,7 @@
         <activity
             android:name=".Recommend"
             android:exported="false"
-            android:theme="@style/DialogTheme"/>
+            android:theme="@style/DialogTheme" />
         <activity
             android:name=".Feeding"
             android:exported="false" />

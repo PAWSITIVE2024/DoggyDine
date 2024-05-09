@@ -60,7 +60,7 @@ public class Setting extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        mAdapter.addItem(R.layout.dog_sign_up);
+        mAdapter.addItem(R.layout.dog_profile_item);
 
         /*mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -83,14 +83,6 @@ public class DogSignUp extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         String uid = mFirebaseAuth.getCurrentUser().getUid();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid);
-        //mAddButton = findViewById(R.id.adding_btn);
-       /* mAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 추가 버튼 클릭 시 새로운 항목 추가
-                mAdapter.addItem(R.layout.dog_sign_up);
-            }
-        });*/
         mName = findViewById(R.id.Et_d_s_name);
         mWeight = findViewById(R.id.Et_d_s_weight);
         mActiveRate = findViewById(R.id.Et_d_s_allergy);
