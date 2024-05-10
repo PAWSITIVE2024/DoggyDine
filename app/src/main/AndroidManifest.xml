@@ -20,6 +20,9 @@
         android:theme="@style/Theme.DoggyDine"
         tools:targetApi="31">
         <activity
+            android:name=".SelectDogFood"
+            android:exported="false" />
+        <activity
             android:name=".Setting"
             android:exported="false" />
         <activity

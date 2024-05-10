@@ -1,9 +1,11 @@
 package com.example.doggydine;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,8 +68,13 @@ public class DogSignUp extends AppCompatActivity {
     private Uri selectedImageUrl_4;
     private Uri selectedImageUrl_5;
     private int count = 1;
-    private CircleImageView mAddButton;
+    private ImageView dog_food;
+    private TextView dog_food_text;
+    private String dog_food_string;
     private static final int PICK_IMAGE_REQUEST = 1;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +86,7 @@ public class DogSignUp extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         String uid = mFirebaseAuth.getCurrentUser().getUid();
@@ -92,7 +100,8 @@ public class DogSignUp extends AppCompatActivity {
         mImageview4 = findViewById(R.id.imageView4);
         mImageview5 = findViewById(R.id.imageView5);
         mAllergy = findViewById(R.id.Et_d_s_allergy);
-
+        dog_food = findViewById(R.id.dog_food_btn);
+        dog_food_text = findViewById(R.id.dog_food_text);
         mBtnRegister = findViewById(R.id.Btn_d_s_register);
 
         activeButton = findViewById(R.id.active_btn);
@@ -101,6 +110,25 @@ public class DogSignUp extends AppCompatActivity {
         selectedDateTextView = findViewById(R.id.selectedDateTextView);
         calendar = Calendar.getInstance();
 
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("foodName")) {
+            String foodName = intent.getStringExtra("foodName");
+            dog_food_string = foodName;
+        }
+        Log.d("FoodName_2", "dog_food_string: " + dog_food_string);
+        dog_food_text.setText(dog_food_string);
+
+
+
+
+
+        dog_food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DogSignUp.this,SelectDogFood.class);
+                startActivity(intent);
+            }
+        });
 
         activeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,6 +253,9 @@ public class DogSignUp extends AppCompatActivity {
         });
 
     }
+
+
+
     private void showActivationDialog() {
         ActivationDialog activationDialog = new ActivationDialog();
         activationDialog.show(getSupportFragmentManager(), "activation_dialog");

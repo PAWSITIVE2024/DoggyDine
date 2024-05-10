@@ -56,7 +56,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/d_f_recyclerView"
         android:layout_width="367dp"
         android:layout_height="488dp"
         android:layout_above="@id/button_layout"
@@ -109,7 +109,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_ranking"
+            android:id="@+id/tv_d_f_ranking"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

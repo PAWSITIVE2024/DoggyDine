@@ -63,7 +63,7 @@ public class Feeding extends AppCompatActivity {
         });
 
 
-        recyclerView =findViewById(R.id.recyclerView);
+        recyclerView =findViewById(R.id.d_f_recyclerView);
         mImageview = findViewById(R.id.Iv_go_home);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -259,7 +259,7 @@ public class Feeding extends AppCompatActivity {
                         // 데이터가 없으면
                         if (!dataFound || arrayList.isEmpty()) {
                             // 비어 있는 상태를 표시
-                            TextView tvRanking = findViewById(R.id.tv_ranking);
+                            TextView tvRanking = findViewById(R.id.tv_d_f_ranking);
                             tvRanking.setText("맞춤 상품 리스트");
                             mLt_empty.setVisibility(View.VISIBLE);
                             mTv_emty.setVisibility(View.VISIBLE);
@@ -280,7 +280,7 @@ public class Feeding extends AppCompatActivity {
 
                         } else {
                             // 데이터가 있는 경우 RecyclerView 갱신
-                            TextView tvRanking = findViewById(R.id.tv_ranking);
+                            TextView tvRanking = findViewById(R.id.tv_d_f_ranking);
                             tvRanking.setText("맞춤 상품 리스트");
                             btn_scan.setText("돌아가기");
                             btn_scan.setOnClickListener(new View.OnClickListener() {
