@@ -1,7 +1,6 @@
 package com.example.doggydine;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -40,8 +39,6 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DogSignUp extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -91,23 +88,23 @@ public class DogSignUp extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         String uid = mFirebaseAuth.getCurrentUser().getUid();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid);
-        mName = findViewById(R.id.Et_d_s_name);
-        mWeight = findViewById(R.id.Et_d_s_weight);
-        mActiveRate = findViewById(R.id.Et_d_s_allergy);
+        mName = findViewById(R.id.Et_dt_name);
+        mWeight = findViewById(R.id.Et_dt_weight);
+        mActiveRate = findViewById(R.id.Et_dt_allergy);
         mImageview = findViewById(R.id.imageView);
         mImageview2 = findViewById(R.id.imageView2);
         mImageview3 = findViewById(R.id.imageView3);
         mImageview4 = findViewById(R.id.imageView4);
         mImageview5 = findViewById(R.id.imageView5);
-        mAllergy = findViewById(R.id.Et_d_s_allergy);
+        mAllergy = findViewById(R.id.Et_dt_allergy);
         dog_food = findViewById(R.id.dog_food_btn);
-        dog_food_text = findViewById(R.id.dog_food_text);
+        dog_food_text = findViewById(R.id.dogfood_dt_text);
         mBtnRegister = findViewById(R.id.Btn_d_s_register);
 
         activeButton = findViewById(R.id.active_btn);
         calenarButton = findViewById(R.id.selectDate);
-        activeTextView = findViewById(R.id.active_text);
-        selectedDateTextView = findViewById(R.id.selectedDateTextView);
+        activeTextView = findViewById(R.id.active_dt_text);
+        selectedDateTextView = findViewById(R.id.dt_selectedDateTextView);
         calendar = Calendar.getInstance();
 
         Intent intent = getIntent();
@@ -194,7 +191,9 @@ public class DogSignUp extends AppCompatActivity {
                 String pet_age = selectedDateTextView.getText().toString();
                 String pet_weight = mWeight.getText().toString();
                 //활동수치 부분은 만드시는중인거 같아서 그대로 뒀습니다!!
+                //활동수치 등록 필요!!!!!
                 String pet_allergy = mAllergy.getText().toString();
+                String pet_food = dog_food_text.getText().toString();
 
 
                 // 첫번째 사진 올리기
@@ -227,11 +226,14 @@ public class DogSignUp extends AppCompatActivity {
                                     pet_account.setDog_age(pet_age);
                                     pet_account.setDog_weight(pet_weight);
                                     pet_account.setAllergy(pet_allergy);
+                                    pet_account.setDog_food(pet_food);
+                                    //활동수치 등록 필요!!!!!
                                     pet_account.setProfile1(imageuri_1);
                                     pet_account.setProfile2(imageuri_2);
                                     pet_account.setProfile3(imageuri_3);
                                     pet_account.setProfile4(imageuri_4);
                                     pet_account.setProfile5(imageuri_5);
+
 
                                     //DB에 저장한다
                                     mDatabaseRef.child("pet").child(pet_name).setValue(pet_account)

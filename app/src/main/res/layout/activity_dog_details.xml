@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:id="@+id/DogInfo"
+    tools:context=".DogDetailsActivity"
     android:background="@color/white">
-
+    <ImageView
+        android:id="@+id/doggy_dine"
+        android:layout_width="193dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="218dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/doggy_dine" />
     <LinearLayout
         android:id="@+id/imagelayout"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content"
         android:background="@color/white">
-        <ImageView
-            android:id="@+id/doggy_dine"
-            android:layout_width="193dp"
-            android:layout_height="47dp"
-            android:layout_marginEnd="218dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/doggy_dine" />
+
         <TextView
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
@@ -30,7 +32,7 @@
             android:textColor="#000000"
             android:layout_marginLeft="5dp"
             android:fontFamily="@font/maplestorybold"
-            android:text="*사진을 등록해 주세요" />
+            android:text="*사진" />
         <LinearLayout
             android:id="@+id/Imagelayout"
             android:layout_width="match_parent"
@@ -102,11 +104,12 @@
     <LinearLayout
         android:id="@+id/EditInfo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="537dp"
         android:layout_below="@id/imagelayout"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
         android:orientation="vertical"
-        android:textColor="#000000"
-        android:background="@color/white">
+        android:textColor="#000000">
 
         <TextView
             android:id="@+id/textView15"
@@ -120,24 +123,24 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="520dp"
+            android:layout_height="510dp"
             android:background="@color/white">
 
             <LinearLayout
                 android:id="@+id/petinfo"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="15dp"
                 android:layout_width="310dp"
                 android:layout_height="450dp"
-                android:orientation="vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/rounder_coner_doginfo"
-                android:elevation="10dp">
+                android:elevation="10dp"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_marginTop="20dp"
                     android:id="@+id/firstlayer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -170,12 +173,12 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
                     android:id="@+id/secondlayer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@color/white">
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/petweight"
@@ -203,13 +206,14 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginTop="10dp"
                     android:id="@+id/birth"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:background="@color/white">
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView17"
@@ -246,12 +250,12 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
                     android:id="@+id/activity_point"
                     android:layout_width="230dp"
                     android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:background="@color/white">
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView19"
@@ -286,12 +290,12 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
                     android:id="@+id/dog_food"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:background="@color/white">
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView23"
@@ -321,26 +325,26 @@
                         android:id="@+id/dog_food_btn"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:scaleType="centerCrop"
                         android:layout_alignParentRight="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:src="@drawable/dog_food"/>
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/dog_food" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/thirdlayer"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/allergy"
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp">
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp">
 
                         <TextView
                             android:id="@+id/textView18"
@@ -363,6 +367,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -370,21 +375,34 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/Btn_d_s_delete"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="75dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="130dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rounded_button"
+                        android:fontFamily="@font/maplestorybold"
+                        android:text="DEL"
+                        android:textColor="#000000"
+                        android:textSize="10dp" />
+
+                    <Button
                         android:id="@+id/Btn_d_s_register"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="75dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="200dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
+                        android:background="@drawable/rounded_button"
                         android:fontFamily="@font/maplestorybold"
                         android:text="SAVE"
-                        android:textSize="10dp"
-                        android:background="@drawable/rounded_button"
-                        android:textColor="#000000" />
+                        android:textColor="#000000"
+                        android:textSize="10dp" />
 
                 </LinearLayout>
             </LinearLayout>
-
         </RelativeLayout>
     </LinearLayout>
+
 </LinearLayout>

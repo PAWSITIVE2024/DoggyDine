@@ -2,6 +2,7 @@ package com.example.doggydine;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class DogInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dog_profile_item, parent, false);
             return new DogInfoViewHolder(view);
@@ -68,7 +70,7 @@ public class DogInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public class DogInfoViewHolder extends RecyclerView.ViewHolder {
+    public class DogInfoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView iv_dog_profile;
         TextView tv_dog_name;
 
@@ -76,6 +78,24 @@ public class DogInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             iv_dog_profile = itemView.findViewById(R.id.cv_dog_profile);
             tv_dog_name = itemView.findViewById(R.id.d_p_dogname);
+
+            // 클릭 리스너 설정
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            // 아이템 클릭 시 처리
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                PetAccount pet = arrayList.get(position);
+                String dogName = pet.getDog_name();
+                // Intent를 생성하여 DogDetailActivity에 전달
+                Intent intent = new Intent(context, DogDetailsActivity.class);
+                intent.putExtra("dog_name", dogName);
+                context.startActivity(intent);
+                Log.d("DogInfoAdapter", "Clicked item position: " + position + ", dog name: " + dogName);
+            }
         }
 
         public void bind(PetAccount pet) {

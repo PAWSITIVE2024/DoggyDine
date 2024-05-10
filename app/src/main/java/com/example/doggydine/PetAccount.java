@@ -2,6 +2,7 @@ package com.example.doggydine;
 
 public class PetAccount {
     private String dog_name;
+    private String dog_food;
     private String dog_age;
     private String dog_weight;
     private String active_rate;
@@ -99,5 +100,13 @@ public class PetAccount {
 
     public void setProfile5(String profile5) {
         this.profile5 = profile5;
+    }
+
+    public String getDog_food() {
+        return dog_food;
+    }
+
+    public void setDog_food(String dog_food) {
+        this.dog_food = dog_food;
     }
 }
