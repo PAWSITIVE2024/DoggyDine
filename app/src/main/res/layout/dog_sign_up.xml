@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/DogInfo"
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
         <TextView
+            android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView10"
@@ -36,6 +37,10 @@
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"/>
+
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -45,6 +50,9 @@
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"/>
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -54,6 +62,9 @@
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"/>
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -63,6 +74,9 @@
                 android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"/>
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -72,13 +86,14 @@
                 android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background" />
+
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/EditInfo"
         android:layout_width="match_parent"
-        android:layout_height="173dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/imagelayout"
         android:orientation="vertical"
         android:textColor="#000000"
@@ -94,48 +109,137 @@
             android:text="* 강아지 정보"
             android:textColor="#000000" />
 
-        <LinearLayout
-            android:id="@+id/petinfo"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="480dp"
+            android:background="@color/white">
 
             <LinearLayout
-                android:id="@+id/firstlayer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:id="@+id/petinfo"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="340dp"
+                android:layout_height="400dp"
+                android:orientation="vertical"
+                android:background="@drawable/rounder_coner_doginfo"
+                android:elevation="10dp">
 
                 <LinearLayout
-                    android:id="@+id/petname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/firstlayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView16"
+                    <LinearLayout
+                        android:id="@+id/petname"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:fontFamily="@font/maplestorybold"
-                        android:text="이름 :"
-                        android:textColor="#000000"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
 
-                        android:textSize="15dp" />
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:fontFamily="@font/maplestorybold"
+                            android:text="이름 :"
+                            android:textColor="#000000"
 
-                    <EditText
-                        android:id="@+id/Et_d_s_name"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="8dp"
-                        android:fontFamily="@font/maplestorylight"
-                        android:hint="반려견 이름"
-                        android:textColor="#000000" />
+                            android:textSize="15dp" />
+
+                        <EditText
+                            android:id="@+id/Et_d_s_name"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:fontFamily="@font/maplestorylight"
+                            android:hint="반려견 이름"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/activity_point"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/secondlayer"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/white">
+
+                    <LinearLayout
+                        android:id="@+id/petweight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp">
+
+                        <TextView
+                            android:id="@+id/textView20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:fontFamily="@font/maplestorybold"
+                            android:text="몸무게 :"
+                            android:textColor="#000000"
+                            android:textSize="15dp" />
+
+                        <EditText
+                            android:id="@+id/Et_d_s_weight"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/maplestorylight"
+                            android:hint="5.2"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/birth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="15dp"
+                        android:fontFamily="@font/maplestorybold"
+                        android:text="생일 :"
+                        android:textColor="#000000"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/selectedDateTextView"
+                        style="@style/EditTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="25dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/maplestorylight"
+                        android:hint="생일 선택하기"
+                        android:textColor="#000000" />
+
+                    <ImageButton
+                        android:id="@+id/selectDate"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/baseline_calendar_month_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/activity_point"
+                    android:layout_width="230dp"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:background="@color/white">
@@ -171,60 +275,28 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:src="@drawable/baseline_table_chart_24" />
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/secondlayer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/white">
 
                 <LinearLayout
-                    android:id="@+id/petweight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp">
-
-                    <TextView
-                        android:id="@+id/textView20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:fontFamily="@font/maplestorybold"
-                        android:text="몸무게 :"
-                        android:textColor="#000000"
-                        android:textSize="15dp" />
-
-                    <EditText
-                        android:id="@+id/Et_d_s_weight"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:fontFamily="@font/maplestorylight"
-                        android:hint="5.2"
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/birth"
-                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/dog_food"
+                    android:layout_width="230dp"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:background="@color/white">
 
                     <TextView
-                        android:id="@+id/textView17"
+                        android:id="@+id/textView23"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="15dp"
                         android:fontFamily="@font/maplestorybold"
-                        android:text="생일 :"
+                        android:text="활동수치 :"
                         android:textColor="#000000"
                         android:textSize="15dp" />
 
                     <TextView
-                        android:id="@+id/selectedDateTextView"
+                        android:id="@+id/dog_food_text"
                         style="@style/EditTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -232,63 +304,70 @@
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/maplestorylight"
-                        android:hint="생일 선택하기"
+
+                        android:hint="활동수치 선택"
                         android:textColor="#000000" />
 
                     <ImageButton
-                        android:id="@+id/selectDate"
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/dog_food_btn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:scaleType="centerCrop"
                         android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:src="@drawable/baseline_calendar_month_24" />
+                        android:src="@drawable/dog_food"/>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/thirdlayer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/white">
 
                 <LinearLayout
-                    android:id="@+id/allergy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp">
+                    android:id="@+id/thirdlayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:background="@color/white">
 
-                    <TextView
-                        android:id="@+id/textView18"
+                    <LinearLayout
+                        android:id="@+id/allergy"
+                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:fontFamily="@font/maplestorybold"
-                        android:text="알러지 :"
-                        android:textColor="#000000"
-                        android:textSize="15dp" />
+                        android:layout_height="50dp">
 
-                    <EditText
-                        android:id="@+id/Et_d_s_allergy"
-                        android:layout_width="105dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/maplestorylight"
-                        android:hint="알러지"
-                        android:textColor="#000000" />
+                        <TextView
+                            android:id="@+id/textView18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:fontFamily="@font/maplestorybold"
+                            android:text="알러지 :"
+                            android:textColor="#000000"
+                            android:textSize="15dp" />
+
+                        <EditText
+                            android:id="@+id/Et_d_s_allergy"
+                            android:layout_width="105dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:fontFamily="@font/maplestorylight"
+                            android:hint="알러지"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/Btn_d_s_register"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/maplestorybold"
-                    android:text="SAVE"
-                    android:textColor="#000000" />
             </LinearLayout>
-        </LinearLayout>
+            <Button
+                android:layout_marginTop="430dp"
+                android:id="@+id/Btn_d_s_register"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="300dp"
+                android:fontFamily="@font/maplestorybold"
+                android:text="SAVE"
+                android:textSize="10dp"
+                android:background="@drawable/rounded_button"
+                android:textColor="#000000" />
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
