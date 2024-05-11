@@ -49,7 +49,7 @@ public class DogDetailsActivity extends AppCompatActivity {
     private ImageButton activeButton,calendarButton;
     private TextView selectedDateTextView,dog_food_text,activeTextView;
     private Calendar calendar;
-    private String imageuri_1,imageuri_2,imageuri_3,imageuri_4,imageuri_5,dog_food_string;
+    private String imageuri_1,imageuri_2,imageuri_3,imageuri_4,imageuri_5,dog_food_string,profileImageUrl1,profileImageUrl2,profileImageUrl3,profileImageUrl4,profileImageUrl5;
     private Uri selectedImageUri,selectedImageUrl_1,selectedImageUrl_2,selectedImageUrl_3,selectedImageUrl_4,selectedImageUrl_5;
     private int count = 1;
     private static final  int PICK_IMAGE_REQUEST = 1;
@@ -114,11 +114,11 @@ public class DogDetailsActivity extends AppCompatActivity {
                             //활동수치 set 필요
                             dog_food_text.setText(pet.getDog_food());
                             mAllergy.setText(pet.getAllergy());
-                            String profileImageUrl1 = pet.getProfile1();
-                            String profileImageUrl2 = pet.getProfile2();
-                            String profileImageUrl3 = pet.getProfile3();
-                            String profileImageUrl4 = pet.getProfile4();
-                            String profileImageUrl5 = pet.getProfile5();
+                             profileImageUrl1 = pet.getProfile1();
+                             profileImageUrl2 = pet.getProfile2();
+                             profileImageUrl3 = pet.getProfile3();
+                             profileImageUrl4 = pet.getProfile4();
+                             profileImageUrl5 = pet.getProfile5();
 
                             if(profileImageUrl1 !=null){
                                 Glide.with(DogDetailsActivity.this)
@@ -247,49 +247,67 @@ public class DogDetailsActivity extends AppCompatActivity {
                 Task<String> uploadTask5 = uploadImageToFirebase(selectedImageUrl_5,pet_name);
 
                 // 모든 업로드 작업이 완료될 때까지 기다림
-                Tasks.whenAllComplete(uploadTask1, uploadTask2, uploadTask3, uploadTask4, uploadTask5)
-                        .addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
-                            @Override
-                            public void onComplete(@NonNull Task<List<Task<?>>> task) {
-                                if (task.isSuccessful()) {
-                                    // 모든 업로드 작업이 성공적으로 완료된 경우
-                                    // 이미지 URL 가져오기
-                                    imageuri_1 = uploadTask1.getResult();
-                                    imageuri_2 = uploadTask2.getResult();
-                                    imageuri_3 = uploadTask3.getResult();
-                                    imageuri_4 = uploadTask4.getResult();
-                                    imageuri_5 = uploadTask5.getResult();
 
-                                    PetAccount pet_account = new PetAccount();
-                                    pet_account.setDog_name(pet_name);
-                                    pet_account.setDog_age(pet_age);
-                                    pet_account.setDog_weight(pet_weight);
-                                    pet_account.setAllergy(pet_allergy);
-                                    pet_account.setDog_food(pet_food);
-                                    //활동수치 등록 필요!!!!!
-                                    pet_account.setProfile1(imageuri_1);
-                                    pet_account.setProfile2(imageuri_2);
-                                    pet_account.setProfile3(imageuri_3);
-                                    pet_account.setProfile4(imageuri_4);
-                                    pet_account.setProfile5(imageuri_5);
+                    Tasks.whenAllComplete(uploadTask1, uploadTask2, uploadTask3, uploadTask4, uploadTask5)
+                            .addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
+                                @Override
+                                public void onComplete(@NonNull Task<List<Task<?>>> task) {
+                                    if (task.isSuccessful()) {
+                                        // 모든 업로드 작업이 성공적으로 완료된 경우
+                                        // 이미지 URL 가져오기
+                                        imageuri_1 = uploadTask1.getResult();
+                                        imageuri_2 = uploadTask2.getResult();
+                                        imageuri_3 = uploadTask3.getResult();
+                                        imageuri_4 = uploadTask4.getResult();
+                                        imageuri_5 = uploadTask5.getResult();
+
+                                        if(imageuri_1.equals("")) {
+                                            imageuri_1 = profileImageUrl1;
+                                        }
+                                        if(imageuri_2.equals("")){
+                                            imageuri_2 = profileImageUrl2;
+                                        }
+                                        if(imageuri_3.equals("")){
+                                            imageuri_3 = profileImageUrl3;
+                                        }
+                                        if(imageuri_4.equals("")){
+                                            imageuri_4 =profileImageUrl4;
+                                        }
+                                        if(imageuri_5.equals("")){
+                                            imageuri_5=profileImageUrl5;
+                                        }
+
+                                        PetAccount pet_account = new PetAccount();
+                                        pet_account.setDog_name(pet_name);
+                                        pet_account.setDog_age(pet_age);
+                                        pet_account.setDog_weight(pet_weight);
+                                        pet_account.setAllergy(pet_allergy);
+                                        pet_account.setDog_food(pet_food);
+                                        //활동수치 등록 필요!!!!!
+                                        pet_account.setProfile1(imageuri_1);
+                                        pet_account.setProfile2(imageuri_2);
+                                        pet_account.setProfile3(imageuri_3);
+                                        pet_account.setProfile4(imageuri_4);
+                                        pet_account.setProfile5(imageuri_5);
 
 
-                                    //DB에 저장한다
-                                    mDatabaseRef.child("pet").child(pet_name).setValue(pet_account)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Toast.makeText(DogDetailsActivity.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                                                    dialog.dismiss();
-                                                    finish();
-                                                }
-                                            });
-                                } else {
-                                    // 업로드 작업 중 실패한 경우
-                                    Toast.makeText(DogDetailsActivity.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                        //DB에 저장한다
+                                        mDatabaseRef.child("pet").child(pet_name).setValue(pet_account)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Toast.makeText(DogDetailsActivity.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                                                        dialog.dismiss();
+                                                        finish();
+                                                    }
+                                                });
+                                    } else {
+                                        // 업로드 작업 중 실패한 경우
+                                        Toast.makeText(DogDetailsActivity.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+
 
             }
         });
@@ -383,6 +401,9 @@ public class DogDetailsActivity extends AppCompatActivity {
 
 
         // 이미지 파일 이름으로 새로운 참조 생성
+        if (imageUri == null){
+            return Tasks.forResult("");
+        }
         StorageReference imageRef = storageRef.child(imageFileName);
 
         UploadTask uploadTask = imageRef.putFile(imageUri);
