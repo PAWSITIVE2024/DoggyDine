@@ -7,12 +7,139 @@
     android:layout_height="match_parent"
     tools:context=".Activation">
 
-    <TextView
-        android:id="@+id/ask_diet"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/diet_layer"
+        android:paddingHorizontal="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/ask_diet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="식단조절이 필요한가요?" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_layout"
+            android:orientation="horizontal"
+            android:padding="4dp">
+            <Button
+                android:id="@+id/need_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="10dp"
+                android:background="@drawable/left_button"
+                android:text="증량 필요"/>
+            <Button
+                android:id="@+id/no_need_diet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="10dp"
+                android:background="@drawable/center_button"
+                android:text="필요 없음"/>
+            <Button
+                android:id="@+id/need_loss"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="10dp"
+                android:background="@drawable/right_button"
+                android:text="감량 필요"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/active_layer"
+        android:layout_below="@id/diet_layer"
+        android:paddingHorizontal="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/ask_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="평소 활동량을 알려주세요." />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_layout"
+            android:orientation="horizontal"
+            android:padding="4dp">
+            <Button
+                android:id="@+id/less_active"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="10dp"
+                android:background="@drawable/left_button"
+                android:text="적은 편"/>
+            <Button
+                android:id="@+id/normal_active"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="10dp"
+                android:background="@drawable/center_button"
+                android:text="평균"/>
+            <Button
+                android:id="@+id/lots_active"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="10dp"
+                android:background="@drawable/right_button"
+                android:text="많은 편"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gender_layer"
+        android:layout_below="@id/active_layer"
+        android:paddingHorizontal="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/ask_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="중성화를 했나요?" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_layout"
+            android:orientation="horizontal"
+            android:padding="4dp">
+            <Button
+                android:id="@+id/not_genter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="10dp"
+                android:background="@drawable/left_button"
+                android:text="안했다"/>
+            <Button
+                android:id="@+id/done_gender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="10dp"
+                android:background="@drawable/right_button"
+                android:text="했다."/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/save_activation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="다이어트가 필요한가요?"/>
-
-
+        android:layout_below="@id/gender_layer"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:text="저장" />
 </RelativeLayout>

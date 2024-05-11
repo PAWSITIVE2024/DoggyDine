@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".Feeding">
-
-
     <ImageView
         android:id="@+id/doggy_dine"
         android:layout_width="200dp"
@@ -25,13 +23,12 @@
         android:id="@+id/Iv_go_home"
         android:layout_width="67dp"
         android:layout_height="64dp"
-        android:layout_marginLeft="146dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="8dp"
-        android:layout_toRightOf="@id/doggy_dine"
         android:background="@color/white"
         android:contentDescription="메인으로이동"
         app:srcCompat="@drawable/home" />
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/Lt_empty"
         android:layout_width="70dp"
@@ -40,7 +37,6 @@
         android:layout_marginLeft="100dp"
         android:scaleType="centerCrop"
         android:elevation="10.2dp"/>
-
     <TextView
         android:id="@+id/tv_empty"
         android:layout_width="wrap_content"
@@ -53,61 +49,52 @@
         android:text="텅"
         android:elevation="10.01dp"
         />
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/d_f_recyclerView"
         android:layout_width="367dp"
-        android:layout_height="488dp"
+        android:layout_height="match_parent"
         android:layout_above="@id/button_layout"
-        android:layout_below="@id/doggy_dine"
+        android:layout_below="@id/top_layer"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/rounded_button_recycler"
         android:elevation="10dp">
-
     </androidx.recyclerview.widget.RecyclerView>
-
     <RelativeLayout
         android:id="@+id/button_layout"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp">
-
-
         <Button
             android:id="@+id/barcode_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="44dp"
-            android:layout_marginBottom="28dp"
             android:text="등록하기"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
         <Button
             android:id="@+id/recommend_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="44dp"
-            android:layout_marginBottom="28dp"
             android:text="추천보기"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
     </RelativeLayout>
-
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/doggy_dine"
-        android:orientation="horizontal">
-
+        android:orientation="horizontal"
+        android:id="@+id/top_layer">
         <TextView
             android:id="@+id/tv_d_f_ranking"
             android:layout_width="0dp"
@@ -118,7 +105,6 @@
             android:text="상품순위:"
             android:textColor="@color/black"
             android:textSize="25dp" />
-
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="20dp"
@@ -130,6 +116,4 @@
             android:backgroundTint="@color/black"
             android:entries="@array/drop_down_option"/>
     </LinearLayout>
-
-
 </RelativeLayout>

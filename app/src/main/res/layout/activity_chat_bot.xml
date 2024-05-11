@@ -52,7 +52,7 @@
   </RelativeLayout>
   <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="70dp"
+      android:layout_height="60dp"
       android:layout_alignParentBottom="true"
       app:layout_constraintBottom_toBottomOf="parent"
       android:padding="8dp"
@@ -63,7 +63,7 @@
         android:id="@+id/meeage_edit_text"
         android:layout_centerInParent="true"
         android:hint=" 궁금한 것을 물어보세요! "
-        android:padding="15dp"
+        android:padding="10dp"
         android:layout_toLeftOf="@id/send_btn"
         android:background="@drawable/rounder_coner"
         />

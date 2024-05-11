@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 선택되지 않은 상태 -->
+    <item android:state_selected="false"
+        android:drawable="@drawable/button_unselected_background" />
+    <!-- 선택된 상태 -->
+    <item android:state_selected="true"
+        android:drawable="@drawable/button_selected_background" />
+</selector>
