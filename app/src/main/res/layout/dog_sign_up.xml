@@ -117,12 +117,10 @@
             android:fontFamily="@font/maplestorybold"
             android:text="* 강아지 정보"
             android:textColor="#000000" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white">
-
             <LinearLayout
                 android:id="@+id/petinfo"
                 android:layout_marginTop="15dp"
@@ -133,7 +131,6 @@
                 android:orientation="vertical"
                 android:background="@drawable/rounder_coner_doginfo"
                 android:elevation="10dp">
-
                 <LinearLayout
                     android:layout_marginTop="20dp"
                     android:id="@+id/firstlayer"

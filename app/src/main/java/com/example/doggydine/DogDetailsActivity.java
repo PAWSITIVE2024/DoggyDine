@@ -1,7 +1,10 @@
 package com.example.doggydine;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.core.graphics.Insets;
@@ -116,7 +120,7 @@ public class DogDetailsActivity extends AppCompatActivity {
                             mName.setText(pet.getDog_name());
                             mWeight.setText(pet.getDog_weight());
                             selectedDateTextView.setText(pet.getDog_age());
-                            //활동수치 set 필요
+                            activeTextView.setText(pet.getActive_rate());
                             dog_food_text.setText(pet.getDog_food());
                             mAllergy.setText(pet.getAllergy());
                              profileImageUrl1 = pet.getProfile1();
@@ -263,6 +267,7 @@ public class DogDetailsActivity extends AppCompatActivity {
                 String pet_name = mName.getText().toString();
                 String pet_age = selectedDateTextView.getText().toString();
                 String pet_weight = mWeight.getText().toString();
+                String pet_activation = activeTextView.getText().toString();
                 //활동수치 부분은 만드시는중인거 같아서 그대로 뒀습니다!!
                 //활동수치 등록 필요!!!!!
                 String pet_allergy = mAllergy.getText().toString();
@@ -316,7 +321,7 @@ public class DogDetailsActivity extends AppCompatActivity {
                                         pet_account.setDog_weight(pet_weight);
                                         pet_account.setAllergy(pet_allergy);
                                         pet_account.setDog_food(pet_food);
-                                        //활동수치 등록 필요!!!!!
+                                        pet_account.setActive_rate(pet_activation);
                                         pet_account.setProfile1(imageuri_1);
                                         pet_account.setProfile2(imageuri_2);
                                         pet_account.setProfile3(imageuri_3);
@@ -361,10 +366,9 @@ public class DogDetailsActivity extends AppCompatActivity {
         Log.d("dog_food", foodName);
     }
     private void showActivationDialog() {
-        ActivationDialog activationDialog = new ActivationDialog();
-        activationDialog.show(getSupportFragmentManager(), "activation_dialog");
+        Intent intent = new Intent(this, Activation.class);
+        startActivityForResult(intent, 1);
     }
-
     private void showDatePickerDialog() {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -435,6 +439,11 @@ public class DogDetailsActivity extends AppCompatActivity {
                     mImageview5.setImageURI(selectedImageUrl_5);
                     break;
             }
+        }
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            float averageValue = data.getFloatExtra("averageValue", 0.0f);
+            String activationRate = String.valueOf(averageValue);
+            activeTextView.setText(activationRate);
         }
     }
     private Task<String> uploadImageToFirebase(Uri imageUri,String dog_name ) {

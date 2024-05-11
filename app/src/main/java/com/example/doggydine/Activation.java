@@ -3,125 +3,110 @@ package com.example.doggydine;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.DialogFragment;
 
-
-public class Activation extends AppCompatActivity {
-
-    // 선택한 상태를 추적하는 변수들
-    private boolean dietSelected = false;
-    private boolean activeSelected = false;
-    private boolean genderSelected = false;
-
-    // 선택이 완료되었는지 확인하는 함수
-    private boolean isSelectionComplete() {
-        return dietSelected && activeSelected && genderSelected;
-    }
-
+public class Activation extends AppCompatActivity{
+    private Button saveActivationButton;
+    private RadioGroup dietRadioGroup, activeRadioGroup, genderRadioGroup;
+    private float dietValue = 0, activeValue = 0, genderValue = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_activation);
-        showActivationDialog();
-    }
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        saveActivationButton = findViewById(R.id.save_activation);
+        saveActivationButton.setEnabled(false);
 
-    private void showActivationDialog() {
-        ActivationDialog activationDialog = new ActivationDialog();
-        activationDialog.show(getSupportFragmentManager(), "activation_dialog");
-    }
+        dietRadioGroup = findViewById(R.id.diet_radio_group);
+        activeRadioGroup = findViewById(R.id.active_radio_group);
+        genderRadioGroup = findViewById(R.id.gender_radio_group);
 
-    public class ActivationDialog extends DialogFragment {
-        private Button[] dietButtons;
-        private Button[] activeButtons;
-        private Button[] genderButtons;
-        @NonNull
+        dietRadioGroup.setOnCheckedChangeListener(radioGroupChangeListener);
+        activeRadioGroup.setOnCheckedChangeListener(radioGroupChangeListener);
+        genderRadioGroup.setOnCheckedChangeListener(radioGroupChangeListener);
+    }
+    private RadioGroup.OnCheckedChangeListener radioGroupChangeListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            LayoutInflater inflater = requireActivity().getLayoutInflater();
-            View view = inflater.inflate(R.layout.activity_activation, null);
-            builder.setView(view);
-
-            dietButtons = new Button[]{
-                    view.findViewById(R.id.need_weight),
-                    view.findViewById(R.id.no_need_diet),
-                    view.findViewById(R.id.need_loss)
-            };
-
-            activeButtons = new Button[]{
-                    view.findViewById(R.id.less_active),
-                    view.findViewById(R.id.normal_active),
-                    view.findViewById(R.id.lots_active)
-            };
-
-            genderButtons = new Button[]{
-                    view.findViewById(R.id.not_genter),
-                    view.findViewById(R.id.done_gender)
-            };
-
-            // 각 버튼에 대한 클릭 이벤트 처리
-            setOnClickListenerForGroup(dietButtons);
-            setOnClickListenerForGroup(activeButtons);
-            setOnClickListenerForGroup(genderButtons);
-
-            // save_activation 버튼을 클릭하면 선택이 완료되었는지 확인하고 처리
-            Button saveButton = view.findViewById(R.id.save_activation);
-            saveButton.setOnClickListener(v -> {
-                if (isSelectionComplete()) {
-                    // 선택이 완료된 경우 처리
-                    dismiss();
-                } else {
-                    // 선택이 완료되지 않은 경우 팝업 표시
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("선택을 완료해주세요")
-                            .setMessage("각 항목에 대해 선택을 완료해야 합니다.")
-                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (group == dietRadioGroup) {
+                if (checkedId == R.id.need_weight) {
+                    dietValue = 1.7f;
+                } else if (checkedId == R.id.no_need_diet) {
+                    dietValue = 1.4f;
+                } else if (checkedId == R.id.need_loss) {
+                    dietValue = 1.0f;
                 }
-            });
-
-            return builder.create();
+            } else if (group == activeRadioGroup) {
+                if (checkedId == R.id.less_active) {
+                    activeValue = 2f;
+                } else if (checkedId == R.id.normal_active) {
+                    activeValue = 3f;
+                } else if (checkedId == R.id.lots_active) {
+                    activeValue = 4f;
+                }
+            } else if (group == genderRadioGroup) {
+                if (checkedId == R.id.not_gender) {
+                    genderValue = 1.8f;
+                } else if (checkedId == R.id.done_gender) {
+                    genderValue = 1.6f;
+                }
+            }
+            saveActivationButton.setEnabled(isAllSectionsSelected());
         }
-
-        private void setOnClickListenerForGroup(Button[] buttons) {
-            for (Button button : buttons) {
-                button.setOnClickListener(v -> {
-                    // 해당 버튼을 클릭했을 때 다른 버튼의 색 변경
-                    for (Button otherButton : buttons) {
-                        if (otherButton != button) {
-                            otherButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-                        }
-                    }
-                    button.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
-
-                    // 선택한 상태 업데이트
-                    if (buttons == dietButtons) {
-                        dietSelected = true;
-                    } else if (buttons == activeButtons) {
-                        activeSelected = true;
-                    } else if (buttons == genderButtons) {
-                        genderSelected = true;
+    };
+    private boolean isAllSectionsSelected() {
+        return dietValue != 0 && activeValue != 0 && genderValue != 0;
+    }
+    private void updateSaveButtonState() {
+        if (isAllSectionsSelected()) {
+            saveActivationButton.setEnabled(true);
+            saveActivationButton.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+        } else {
+            saveActivationButton.setEnabled(false);
+            saveActivationButton.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+        }
+    }
+    public void onSaveActivationClicked(View view) {
+        if (isAllSectionsSelected()) {
+            float averageValue = (dietValue + activeValue + genderValue) / 3;
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("averageValue", averageValue);
+            setResult(RESULT_OK, resultIntent);
+            finish(); // 현재 액티비티 종료
+        } else {
+            showDialog("선택을 완료해주세요");
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateSaveButtonState();
+    }
+    private void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message)
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
                     }
                 });
-            }
-        }
+        builder.create().show();
     }
 }
