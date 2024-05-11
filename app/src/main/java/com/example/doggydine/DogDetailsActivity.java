@@ -1,10 +1,13 @@
 package com.example.doggydine;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -342,6 +345,21 @@ public class DogDetailsActivity extends AppCompatActivity {
             }
         });
     } //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡOnCreate 끝 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
+        String foodName = sharedPreferences.getString("foodName", "");
+        if (!foodName.isEmpty()) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            dog_food_text.setText(foodName);
+            editor.putString("foodName", "");
+            editor.apply();
+
+        }
+        Log.d("dog_food", foodName);
+    }
     private void showActivationDialog() {
         ActivationDialog activationDialog = new ActivationDialog();
         activationDialog.show(getSupportFragmentManager(), "activation_dialog");

@@ -1,6 +1,8 @@
 package com.example.doggydine;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -106,16 +108,6 @@ public class DogSignUp extends AppCompatActivity {
         activeTextView = findViewById(R.id.active_dt_text);
         selectedDateTextView = findViewById(R.id.dt_selectedDateTextView);
         calendar = Calendar.getInstance();
-
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("foodName")) {
-            String foodName = intent.getStringExtra("foodName");
-            dog_food_string = foodName;
-        }
-        Log.d("FoodName_2", "dog_food_string: " + dog_food_string);
-        dog_food_text.setText(dog_food_string);
-
-
 
 
 
@@ -255,6 +247,21 @@ public class DogSignUp extends AppCompatActivity {
         });
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
+        String foodName = sharedPreferences.getString("foodName", "");
+        if (!foodName.isEmpty()) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            dog_food_text.setText(foodName);
+            editor.putString("foodName", "");
+            editor.apply();
+
+        }
+        Log.d("dog_food", foodName);
+    }
+
 
 
 

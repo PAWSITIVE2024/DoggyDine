@@ -3,6 +3,7 @@
     import android.app.Activity;
     import android.content.Context;
     import android.content.Intent;
+    import android.content.SharedPreferences;
     import android.util.Log;
     import android.view.LayoutInflater;
     import android.view.View;
@@ -41,13 +42,14 @@
                         Food clickedFood = arrayList.get(position);
                         String foodName = clickedFood.getName();
 
-                        // Intent를 생성하여 다음 액티비티로 전달
-                        Context context = view.getContext();
-                        Intent intent = new Intent(context, DogSignUp.class);
-                        intent.putExtra("foodName", foodName);
-                        context.startActivity(intent);
-                        ((Activity) context).finish();
-                        Log.d("FoodName", "Selected Food Name: " + foodName);
+                        if (!foodName.isEmpty()) {
+                            SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.clear();
+                            editor.putString("foodName", foodName);
+                            editor.apply();
+                            ((Activity) view.getContext()).finish();
+                        }
 
                     }
                 }
