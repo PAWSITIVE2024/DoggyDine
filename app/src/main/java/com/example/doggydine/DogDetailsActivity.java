@@ -25,6 +25,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -53,6 +54,7 @@ public class DogDetailsActivity extends AppCompatActivity {
     private Uri selectedImageUri,selectedImageUrl_1,selectedImageUrl_2,selectedImageUrl_3,selectedImageUrl_4,selectedImageUrl_5;
     private int count = 1;
     private static final  int PICK_IMAGE_REQUEST = 1;
+    private String dogName;
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseDatabase database;
@@ -97,7 +99,7 @@ public class DogDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if(intent != null){
-            String dogName = intent.getStringExtra("dog_name");
+             dogName = intent.getStringExtra("dog_name");
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             String userId = firebaseUser.getUid();
             if(dogName != null) {
@@ -162,6 +164,34 @@ public class DogDetailsActivity extends AppCompatActivity {
         }
 
         //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여기부터 eventlistener 달기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        mBtnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String dogNameToDelete = mName.getText().toString();
+                if (dogNameToDelete != null && !dogNameToDelete.isEmpty()) {
+                    mDatabaseRef.child("pet").child(dogNameToDelete).removeValue()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(DogDetailsActivity.this, "강아지 정보가 성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(DogDetailsActivity.this, "강아지 정보 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    Toast.makeText(DogDetailsActivity.this, "삭제할 강아지를 선택하세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+
         dog_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
