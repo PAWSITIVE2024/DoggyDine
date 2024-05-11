@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine");
-        CircleImageView settingBtn = findViewById(R.id.setting_btn);
+        CircleImageView settingBtn = (CircleImageView) findViewById(R.id.setting_btn);
+
         ImageButton feed_btn = (ImageButton)findViewById(R.id.feed_btn);
         Button mTest = (Button)findViewById(R.id.button_test) ;
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
@@ -45,37 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ프로필 이미지 가져오기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
-
-        //프로필사진 가져오기
-        /* 오류떠서 주석처리했습니당
-        if(currentUser != null){
-            String uid = currentUser.getUid();
-            mDatabaseRef.child("UserAccount").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        UserAccount userAccount = snapshot.getValue(UserAccount.class);
-                        if (userAccount != null){
-                            String profileImageUrl = userAccount.getProfile();
-                            if(profileImageUrl != null){
-                                Glide.with(MainActivity.this)
-                                        .load(profileImageUrl)
-                                        .into(settingBtn);
-                            }
-                        }
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(MainActivity.this,"프로필사진 불러오기 실패",Toast.LENGTH_SHORT).show();
-                }
-            });
-        }*/
-//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ프로필 이미지 설정 끝ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 
         settingBtn.setOnClickListener(new View.OnClickListener() {

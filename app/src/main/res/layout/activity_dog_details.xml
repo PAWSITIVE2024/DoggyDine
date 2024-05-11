@@ -235,7 +235,8 @@
                         android:layout_marginLeft="25dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/maplestorylight"
-                        android:hint="생일 선택하기"
+                        android:hint=" 생일 선택하기"
+                        android:background="@null"
                         android:textColor="#000000" />
 
                     <ImageButton
@@ -251,7 +252,7 @@
 
                 <LinearLayout
                     android:id="@+id/activity_point"
-                    android:layout_width="230dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/white"
@@ -271,13 +272,14 @@
                     <TextView
                         android:id="@+id/active_dt_text"
                         style="@style/EditTextStyle"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/maplestorylight"
-                        android:hint="활동수치 선택"
+                        android:hint=" 활동수치 선택"
+                        android:background="@null"
                         android:textColor="#000000" />
 
                     <ImageButton
@@ -317,16 +319,17 @@
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/maplestorylight"
-
-                        android:hint="사료 선택         "
+                        android:background="@null"
+                        android:hint=" 사료 선택   "
                         android:textColor="#000000" />
+
 
                     <ImageButton
                         android:id="@+id/dog_food_btn"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:scaleType="centerCrop"
