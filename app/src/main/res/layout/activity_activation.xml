@@ -7,244 +7,303 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     tools:context=".Activation">
-
     <LinearLayout
-        android:id="@+id/diet_layer"
+        android:id="@+id/upper_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="10dp">
-
-        <TextView
-            android:id="@+id/ask_diet"
+        android:layout_marginTop="10dp">
+        <ImageView
+            android:id="@+id/doggy_dine"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="* 식단조절이 필요한가요?" />
-
-        <RadioGroup
-            android:id="@+id/diet_radio_group"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/doggy_dine" />
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/need_weight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="증량 필요" />
-
-            <RadioButton
-                android:id="@+id/no_need_diet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="필요 없음" />
-
-            <RadioButton
-                android:id="@+id/need_loss"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="감량 필요" />
-        </RadioGroup>
+            android:text="활동수치 계산을 위해\n아래 항목을 모두 체크해주세요!"
+            android:textAlignment="center"
+            android:textSize="20dp" />
     </LinearLayout>
-
-    <!-- Active Layer -->
-    <LinearLayout
-        android:id="@+id/active_layer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/diet_layer"
-        android:orientation="vertical"
-        android:paddingHorizontal="10dp">
-
-        <TextView
-            android:id="@+id/ask_active"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="* 평소 활동량을 알려주세요." />
-
-        <RadioGroup
-            android:id="@+id/active_radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/less_active"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="적은 편" />
-
-            <RadioButton
-                android:id="@+id/normal_active"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="평균" />
-
-            <RadioButton
-                android:id="@+id/lots_active"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="많은 편" />
-        </RadioGroup>
-    </LinearLayout>
-
-    <!-- Gender Layer -->
-    <LinearLayout
-        android:id="@+id/gender_layer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/active_layer"
-        android:orientation="vertical"
-        android:paddingHorizontal="10dp">
-
-        <TextView
-            android:id="@+id/ask_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="* 중성화를 했나요?" />
-
-        <RadioGroup
-            android:id="@+id/gender_radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/not_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="안했다" />
-
-            <RadioButton
-                android:id="@+id/done_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="했다" />
-        </RadioGroup>
-    </LinearLayout>
-    <!-- Gender Layer -->
-    <LinearLayout
-        android:id="@+id/pup_layer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gender_layer"
-        android:orientation="vertical"
-        android:paddingHorizontal="10dp">
-
-        <TextView
-            android:id="@+id/ask_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="* 성장기인가요?" />
-
-        <RadioGroup
-            android:id="@+id/pup_radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/yes_pup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="1~4개월" />
-            <RadioButton
-                android:id="@+id/middle_pup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="4~12개월" />
-            <RadioButton
-                android:id="@+id/not_pup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="12개월 이상" />
-        </RadioGroup>
-    </LinearLayout>
-    <!-- Pragnent Layer -->
-    <LinearLayout
-        android:id="@+id/prag_layer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pup_layer"
-        android:orientation="vertical"
-        android:paddingHorizontal="10dp">
-
-        <TextView
-            android:id="@+id/ask_prag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="* 임신 혹은 수유 중인가요?" />
-
-        <RadioGroup
-            android:id="@+id/prag_radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/not_prag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="아니요" />
-            <RadioButton
-                android:id="@+id/yes_prag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="임신 중" />
-            <RadioButton
-                android:id="@+id/yes_pup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="수유 중" />
-        </RadioGroup>
-        <RadioGroup
-            android:id="@+id/plus_radio_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="right"
-            android:visibility="invisible">
-            <RadioButton
-                android:id="@+id/early_prag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="임신 초기" />
-            <RadioButton
-                android:id="@+id/late_prag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="임신 후기" />
-        </RadioGroup>
-    </LinearLayout>
-    <!-- Save Button -->
-    <Button
-        android:id="@+id/save_activation"
+    <ScrollView
+        android:id="@+id/asking_layer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/prag_layer"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
-        android:text="저장"
-        android:onClick="onSaveActivationClicked" />
+        android:layout_below="@id/upper_layer"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounder_coner"
+        android:elevation="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="5dp"
+            android:padding="10dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/diet_layer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ask_diet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="* 식단조절이 필요한가요?" />
+
+                    <RadioGroup
+                        android:id="@+id/diet_radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/need_weight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="증량 필요" />
+
+                        <RadioButton
+                            android:id="@+id/no_need_diet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="필요 없음" />
+
+                        <RadioButton
+                            android:id="@+id/need_loss"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="감량 필요" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <!-- Active Layer -->
+                <LinearLayout
+                    android:id="@+id/active_layer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/diet_layer"
+                    android:layout_marginStart="5dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="10dp">
+
+                    <TextView
+                        android:id="@+id/ask_active"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="* 평소 활동량을 알려주세요." />
+
+                    <RadioGroup
+                        android:id="@+id/active_radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/less_active"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="적은 편" />
+
+                        <RadioButton
+                            android:id="@+id/normal_active"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="평균" />
+
+                        <RadioButton
+                            android:id="@+id/lots_active"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="많은 편" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <!-- Gender Layer -->
+                <LinearLayout
+                    android:id="@+id/gender_layer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/active_layer"
+                    android:layout_marginStart="5dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="10dp">
+
+                    <TextView
+                        android:id="@+id/ask_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="* 중성화를 했나요?" />
+
+                    <RadioGroup
+                        android:id="@+id/gender_radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/not_gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="안했다" />
+
+                        <RadioButton
+                            android:id="@+id/done_gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="했다" />
+                    </RadioGroup>
+                </LinearLayout>
+                <!-- Gender Layer -->
+                <LinearLayout
+                    android:id="@+id/pup_layer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/gender_layer"
+                    android:orientation="vertical"
+                    android:layout_marginStart="5dp"
+                    android:paddingHorizontal="10dp">
+
+                    <TextView
+                        android:id="@+id/ask_pup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="* 성장기인가요?" />
+
+                    <RadioGroup
+                        android:id="@+id/pup_radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/yes_pup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="1~4개월" />
+                        <RadioButton
+                            android:id="@+id/middle_pup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="4~12개월" />
+                        <RadioButton
+                            android:id="@+id/not_pup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="12개월 이상" />
+                    </RadioGroup>
+                </LinearLayout>
+                <!-- Pragnent Layer -->
+                <LinearLayout
+                    android:id="@+id/prag_layer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pup_layer"
+                    android:layout_marginStart="5dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="10dp">
+
+                    <TextView
+                        android:id="@+id/ask_prag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="* 임신 혹은 수유 중인가요?" />
+
+                    <RadioGroup
+                        android:id="@+id/prag_radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/not_prag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="아니요" />
+                        <RadioButton
+                            android:id="@+id/yes_prag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="임신 중" />
+                        <RadioButton
+                            android:id="@+id/yes_breeding"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="수유 중" />
+                    </RadioGroup>
+                    <RadioGroup
+                        android:id="@+id/plus_radio_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="right"
+                        android:visibility="invisible">
+                        <RadioButton
+                            android:id="@+id/early_prag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="임신 초기" />
+                        <RadioButton
+                            android:id="@+id/late_prag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:text="임신 후기" />
+                    </RadioGroup>
+                </LinearLayout>
+                <!-- Save & Cancel Button -->
+                <LinearLayout
+                    android:id="@+id/btn_layer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginBottom="10dp"
+                    android:layout_below="@id/prag_layer">
+                    <Button
+                        android:id="@+id/cancel_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/save_activation"
+                        android:layout_marginRight="10dp"
+                        android:text="Cancel"
+                        android:onClick="onDismissActivationClicked"/>
+                    <Button
+                        android:id="@+id/save_activation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="Save"
+                        android:onClick="onSaveActivationClicked" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

@@ -82,7 +82,7 @@ public class Activation extends AppCompatActivity{
                 } else if (checkedId == R.id.yes_prag) {
                     RadioGroup radioGroup = findViewById(R.id.plus_radio_group);
                     radioGroup.setVisibility(View.VISIBLE);
-                } else if (checkedId == R.id.yes_pup) {
+                } else if (checkedId == R.id.yes_breeding) {
                     pragValue = 10f;
                     RadioGroup radioGroup = findViewById(R.id.plus_radio_group);
                     radioGroup.setVisibility(View.INVISIBLE);
@@ -127,6 +127,9 @@ public class Activation extends AppCompatActivity{
         } else {
             showDialog("선택을 완료해주세요");
         }
+    }
+    public void onDismissActivationClicked(View view) {
+        finish();
     }
     @Override
     protected void onResume() {
