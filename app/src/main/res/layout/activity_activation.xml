@@ -133,13 +133,116 @@
                 android:text="했다" />
         </RadioGroup>
     </LinearLayout>
+    <!-- Gender Layer -->
+    <LinearLayout
+        android:id="@+id/pup_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gender_layer"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp">
 
+        <TextView
+            android:id="@+id/ask_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="* 성장기인가요?" />
+
+        <RadioGroup
+            android:id="@+id/pup_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/yes_pup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="1~4개월" />
+            <RadioButton
+                android:id="@+id/middle_pup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="4~12개월" />
+            <RadioButton
+                android:id="@+id/not_pup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="12개월 이상" />
+        </RadioGroup>
+    </LinearLayout>
+    <!-- Pragnent Layer -->
+    <LinearLayout
+        android:id="@+id/prag_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pup_layer"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp">
+
+        <TextView
+            android:id="@+id/ask_prag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="* 임신 혹은 수유 중인가요?" />
+
+        <RadioGroup
+            android:id="@+id/prag_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/not_prag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="아니요" />
+            <RadioButton
+                android:id="@+id/yes_prag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="임신 중" />
+            <RadioButton
+                android:id="@+id/yes_pup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="수유 중" />
+        </RadioGroup>
+        <RadioGroup
+            android:id="@+id/plus_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="right"
+            android:visibility="invisible">
+            <RadioButton
+                android:id="@+id/early_prag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="임신 초기" />
+            <RadioButton
+                android:id="@+id/late_prag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="임신 후기" />
+        </RadioGroup>
+    </LinearLayout>
     <!-- Save Button -->
     <Button
         android:id="@+id/save_activation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/gender_layer"
+        android:layout_below="@id/prag_layer"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
         android:text="저장"
