@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/left_chat_view"
-        android:background="@drawable/rounder_coner"
+        android:background="@drawable/rounder_corner_chat"
         android:backgroundTint="#673AB7"
         android:padding="8dp"
         android:layout_marginEnd="80dp">
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/right_chat_view"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/rounder_coner"
+        android:background="@drawable/rounder_corner_chat"
         android:backgroundTint="#1F97F6"
         android:padding="8dp"
         android:layout_marginStart="80dp">
