@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Map;
 
 public class FoodDetailsActivity extends AppCompatActivity {
-    private EditText mName, mPrice, mScore, mManu, mKcal, mMaterial;
+    private TextView mName, mPrice, mScore, mManu, mKcal, mMaterial;
     private ImageView mProfile;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
