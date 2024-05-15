@@ -65,7 +65,7 @@
         android:hint=" 궁금한 것을 물어보세요! "
         android:padding="10dp"
         android:layout_toLeftOf="@id/send_btn"
-        android:background="@drawable/rounder_coner"
+        android:background="@drawable/round_corner_cal_item"
         />
     <ImageButton
         android:layout_width="48dp"

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_corner_cal_item">
+        <TextView
+            android:id="@+id/taskTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:padding="8dp" />
+        <ImageButton
+            android:id="@+id/fix_todo_btn"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:src="@drawable/baseline_fixing_24"
+            android:padding="8dp"
+            android:layout_marginEnd="5dp"/>
+        <ImageButton
+            android:id="@+id/delet_todo_btn"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:src="@drawable/baseline_delete_24"
+            android:padding="8dp"
+            android:layout_marginEnd="10dp"/>
+    </LinearLayout>
+</LinearLayout>
