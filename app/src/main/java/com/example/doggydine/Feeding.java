@@ -64,7 +64,7 @@ public class Feeding extends AppCompatActivity {
 
 
         recyclerView =findViewById(R.id.d_f_recyclerView);
-        mImageview = findViewById(R.id.Iv_go_home);
+        mImageview = findViewById(R.id.Iv_go_shopping);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -125,7 +125,7 @@ public class Feeding extends AppCompatActivity {
         mImageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Feeding.this,MainActivity.class);
+                Intent intent = new Intent(Feeding.this, FoodCompare.class);
                 startActivity(intent);
                 finish();
             }

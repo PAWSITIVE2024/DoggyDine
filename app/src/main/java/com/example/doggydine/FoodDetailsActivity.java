@@ -2,7 +2,10 @@ package com.example.doggydine;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +25,7 @@ public class FoodDetailsActivity extends AppCompatActivity {
     private TextView mName, mPrice, mScore, mManu, mKcal, mMaterial,mMoisture,mOmega3,mOmega6,mPhosphorus,mProtein,mFiber,mFat,mAsh,mCalcium;
     private ImageView mProfile;
     private FirebaseDatabase database;
+    private ImageButton mBack;
     private DatabaseReference databaseReference;
 
     @Override
@@ -44,6 +48,17 @@ public class FoodDetailsActivity extends AppCompatActivity {
         mAsh = findViewById(R.id.fd_ash);
         mFat = findViewById(R.id.fd_fat);
         mCalcium = findViewById(R.id.fd_calcium);
+        mBack = findViewById(R.id.btn_back);
+
+
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FoodDetailsActivity.this, Feeding.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
 
         // Intent를 통해 넘겨받은 음식 이름 가져옴
         Intent intent = getIntent();

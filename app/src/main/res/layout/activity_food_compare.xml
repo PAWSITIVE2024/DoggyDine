@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="65dp">
+        android:layout_height="50dp">
 
 
         <TextView
@@ -21,16 +21,18 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/maplestorybold"
             android:text="제품 비교하기"
+            android:textColor="@color/black"
             android:textSize="23dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.521" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:background="#D7D4E5"/>
+        android:background="#f2f1e6"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

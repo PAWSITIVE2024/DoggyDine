@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/doggy_dine" />
 
     <ImageView
-        android:id="@+id/Iv_go_home"
+        android:id="@+id/Iv_go_shopping"
         android:layout_width="67dp"
         android:layout_height="64dp"
         android:layout_alignParentEnd="true"
@@ -28,7 +28,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/white"
         android:contentDescription="메인으로이동"
-        app:srcCompat="@drawable/home" />
+        app:srcCompat="@drawable/shopping" />
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/Lt_empty"
         android:layout_width="70dp"
