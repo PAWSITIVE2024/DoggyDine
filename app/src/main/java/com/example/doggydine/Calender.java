@@ -47,15 +47,12 @@ public class Calender extends AppCompatActivity {
         todoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         todoRecyclerView.setAdapter(todoAdapter);
 
-        // 캘린더 뷰 리스너 설정
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                // 선택한 날짜로 todoList 갱신
                 updateTodoList(year, month, dayOfMonth);
             }
         });
-        // 일정 추가하기 버튼 클릭 리스너 설정
         addTodoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,11 +62,9 @@ public class Calender extends AppCompatActivity {
 
                 TodoItem newTodo = new TodoItem("새로운 할 일", year, month, dayOfMonth);
 
-                // todoList에 추가하고 어댑터에 변경 알리기
                 todoList.add(newTodo);
                 todoAdapter.notifyDataSetChanged();
-
-                // 토스트 메시지 표시
+                
                 Toast.makeText(Calender.this, "새로운 할 일이 추가되었습니다", Toast.LENGTH_SHORT).show();
             }
         });

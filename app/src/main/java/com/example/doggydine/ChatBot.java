@@ -132,7 +132,7 @@ public class ChatBot extends AppCompatActivity {
         JSONObject userMsg = new JSONObject();
         try{
             baseAi.put("role", "user");
-            baseAi.put("content", "You are kind and sweet AI Assistant. I'm going to ask you about dogs. Please answer in Korean");
+            baseAi.put("content", "You are a kind and sweet dog expert. I would like to ask about dogs. Answer always first whether it is possible or not, and then explain in detail under <<설명>> If you ask about sheep, please explain under <<적정량>>. Please answer in Korean.");
             userMsg.put("role", "user");
             userMsg.put("content", question);
             arr.put(baseAi);
@@ -157,7 +157,7 @@ public class ChatBot extends AppCompatActivity {
         RequestBody body = RequestBody.create(object.toString(), JSON);
         Request request = new Request.Builder()
                 .url("https://api.openai.com/v1/chat/completions")
-                .header("Authorization", "Bearer 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")
+                .header("Authorization", "Bearer MY_SECRET_KEY")
                 .post(body)
                 .build();
 
