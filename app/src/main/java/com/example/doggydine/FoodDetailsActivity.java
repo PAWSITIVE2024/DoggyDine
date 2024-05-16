@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Map;
 
 public class FoodDetailsActivity extends AppCompatActivity {
-    private TextView mName, mPrice, mScore, mManu, mKcal, mMaterial;
+    private TextView mName, mPrice, mScore, mManu, mKcal, mMaterial,mMoisture,mOmega3,mOmega6,mPhosphorus,mProtein,mFiber,mFat,mAsh,mCalcium;
     private ImageView mProfile;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
@@ -35,6 +35,15 @@ public class FoodDetailsActivity extends AppCompatActivity {
         mKcal = findViewById(R.id.Et_d_kcal);
         mMaterial = findViewById(R.id.Et_d_material);
         mProfile = findViewById(R.id.iv_d_profile);
+        mMoisture=findViewById(R.id.fd_moisture);
+        mOmega3 = findViewById(R.id.fd_omega3);
+        mOmega6 = findViewById(R.id.fd_omega6);
+        mPhosphorus = findViewById(R.id.fd_phosphorus);
+        mProtein = findViewById(R.id.fd_protein);
+        mFiber = findViewById(R.id.fd_fiber);
+        mAsh = findViewById(R.id.fd_ash);
+        mFat = findViewById(R.id.fd_fat);
+        mCalcium = findViewById(R.id.fd_calcium);
 
         // Intent를 통해 넘겨받은 음식 이름 가져옴
         Intent intent = getIntent();
@@ -67,6 +76,19 @@ public class FoodDetailsActivity extends AppCompatActivity {
                                 }
                             }
                             mMaterial.setText(materialText.toString());
+                            // Nutrient 정보 가져와서 설정
+                            Map<String, String> nutrientMap = food.getNutrient();
+                            if (nutrientMap != null) {
+                                mMoisture.setText("수분 : " + nutrientMap.get("moisture")+"%");
+                                mOmega3.setText("오메가3 : " + nutrientMap.get("omega3")+"%");
+                                mOmega6.setText("오메가6 : " + nutrientMap.get("omega6")+"%");
+                                mPhosphorus.setText("인 : " + nutrientMap.get("phosphorus")+"%");
+                                mProtein.setText("조단백질 : " + nutrientMap.get("protein")+"%");
+                                mFiber.setText("조섬유 : " + nutrientMap.get("fiber")+"%");
+                                mFat.setText("조지방 : " + nutrientMap.get("fat")+"%");
+                                mAsh.setText("조회분 : " + nutrientMap.get("ash")+"%");
+                                mCalcium.setText("칼슘 : " + nutrientMap.get("calcium")+"%");
+                            }
 
                             // 프로필 이미지 로드
                             String profileImageUrl = food.getProfile();

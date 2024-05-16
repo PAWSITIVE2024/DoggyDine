@@ -13,7 +13,7 @@ import java.util.Map;
         private String price;
         private Map<String, Boolean> material;
         private String kcal;
-
+        private Map<String, String> nutrient;
         public String getProfile() {
             return profile;
         }
@@ -90,21 +90,13 @@ import java.util.Map;
 
         public void setKcal(String kcal) {this.kcal = kcal;}
 
-        //테스트용 ,로그확인용
-        public String toString() {
-            return "Food{" +
-                    "profile='" + profile + '\'' +
-                    ", name='" + name + '\'' +
-                    ", manu='" + manu + '\'' +
-                    ", number='" + number + '\'' +
-                    ", weight='" + weight + '\'' +
-                    ", score='" + score + '\'' +
-                    ", price='" + price + '\'' +
-                    ", sales_Volume='" + sales_Volume + '\'' +
-                    ", material=" + material +
-                    '}';
+        public Map<String, String> getNutrient() {
+            return nutrient;
         }
 
+        public void setNutrient(Map<String, String> nutrient) {
+            this.nutrient = nutrient;
+        }
     }
 
 
