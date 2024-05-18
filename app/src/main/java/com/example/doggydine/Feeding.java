@@ -104,8 +104,7 @@ public class Feeding extends AppCompatActivity {
 
                     arrayList.add(food);
                     originList.add(food);
-                    // 데이터 잘가져오는지 확인하기위해서 로그 확인용부분 나중에 없애도 됨!
-                    Log.d("FirebaseData", food.toString());
+
 
                 }
                 adapter.notifyDataSetChanged();

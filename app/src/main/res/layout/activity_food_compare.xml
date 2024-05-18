@@ -32,9 +32,10 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:background="#f2f1e6"/>
+        android:background="#f5f5f5"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fc_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

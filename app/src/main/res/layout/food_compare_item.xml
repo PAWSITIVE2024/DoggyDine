@@ -1,16 +1,17 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5">
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="136dp"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:background="#f2f1e6">
+            android:background="#f5f5f5">
             <LinearLayout
                 android:layout_width="136dp"
                 android:layout_height="wrap_content"
@@ -22,6 +23,7 @@
                     android:orientation="vertical"
                     android:background="@color/white">
                     <ImageButton
+                        android:layout_marginTop="10dp"
                         android:id="@+id/fc_profile_image"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -103,10 +105,6 @@
                                 android:textSize="13dp" />
 
                         </LinearLayout>
-                        <View
-                            android:layout_width="3dp"
-                            android:layout_height="match_parent"
-                            android:background="#f2f1e6" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/fc_sales_rate"
@@ -116,7 +114,7 @@
                         android:text="(2)"
                         android:fontFamily="@font/maplestorylight"
                         android:textColor="@color/black"
-                        android:layout_marginLeft="19dp"
+                        android:layout_marginLeft="15dp"
                         android:textSize="9dp"/>
                     <View
                         android:layout_width="136dp"
@@ -217,7 +215,7 @@
 
                 <LinearLayout
                     android:layout_width="134dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical"
                     android:background="@color/white">
@@ -232,7 +230,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:text="곡류,닭고기,곤충"
+                        android:text="호박씨,해바라기씨,게껍질,
+                        양고기"
                         android:textSize="9dp"
                         android:fontFamily="@font/maplestorylight"
                         android:background="@color/white"
@@ -400,6 +399,16 @@
                                 android:fontFamily="@font/maplestorylight"
                                 android:textSize="9dp"
                                 android:text="오메가3 0.8%"/>
+                            <TextView
+                                android:id="@+id/fc_del"
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content"
+                                android:text="DEL"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="32dp"
+                                android:textColor="#FF0000"
+                                android:fontFamily="@font/maplestorylight"
+                                android:textSize="11dp"/>
 
                         </LinearLayout>
 
@@ -412,16 +421,7 @@
                         android:background="@color/white"/>
 
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/fc_del"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:text="DEL"
-                    android:layout_marginLeft="100dp"
-                    android:textColor="#FF0000"
-                    android:fontFamily="@font/maplestorylight"
-                    android:background="@drawable/rounded_corner_dissatis"
-                    android:textSize="11dp"/>
+
             </LinearLayout>
 
         </LinearLayout>
