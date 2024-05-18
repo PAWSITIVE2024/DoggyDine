@@ -1,6 +1,7 @@
 package com.example.doggydine;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,12 +24,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Map;
 
 public class FoodDetailsActivity extends AppCompatActivity {
-    private TextView mName, mPrice, mScore, mManu, mKcal, mMaterial,mMoisture,mOmega3,mOmega6,mPhosphorus,mProtein,mFiber,mFat,mAsh,mCalcium;
+    private TextView mName, mPrice, mScore, mManu, mKcal, mMaterial,mMoisture,mOmega3,mOmega6,mPhosphorus,mProtein,mFiber,mFat,mAsh,mCalcium,mCompareText;
     private ImageView mProfile;
     private FirebaseDatabase database;
     private ImageButton mBack;
     private DatabaseReference databaseReference;
-
+    private String foodName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,38 @@ public class FoodDetailsActivity extends AppCompatActivity {
         mFat = findViewById(R.id.fd_fat);
         mCalcium = findViewById(R.id.fd_calcium);
         mBack = findViewById(R.id.btn_back);
+        mCompareText = findViewById(R.id.compare_text);
+
+
+        mCompareText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (foodName != null) {
+                    database = FirebaseDatabase.getInstance();
+                    databaseReference = database.getReference("DoggyDine").child("Food").child(foodName).child("check");
+
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Boolean checked = dataSnapshot.getValue(Boolean.class);
+                            boolean newChecked = !checked;
+                            databaseReference.setValue(newChecked);
+                            if (newChecked == true) {
+                                Toast.makeText(FoodDetailsActivity.this, "사료 선택 완료", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(FoodDetailsActivity.this, "사료 선택 취소", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // 에러 처리
+                        }
+                    });
+                }
+            }
+        });
+
 
 
         mBack.setOnClickListener(new View.OnClickListener() {
@@ -63,18 +97,28 @@ public class FoodDetailsActivity extends AppCompatActivity {
         // Intent를 통해 넘겨받은 음식 이름 가져옴
         Intent intent = getIntent();
         if (intent != null) {
-            String foodName = intent.getStringExtra("foodName");
+            foodName = intent.getStringExtra("foodName");
 
             if (foodName != null) {
                 database = FirebaseDatabase.getInstance();
                 databaseReference = database.getReference("DoggyDine").child("Food").child(foodName);
 
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                         Food food = datasnapshot.getValue(Food.class);
                         if (food != null) {
-                            mName.setText(food.getName());
+                            // mName의 텍스트 색상을 변경하는 코드
+                            if (food != null) {
+                                // 음식 이름 설정
+                                mName.setText(food.getName());
+                                if (food.getCheck()) {
+                                    mName.setTextColor(Color.parseColor("#FEA443"));
+                                } else {
+                                    mName.setTextColor(getResources().getColor(R.color.black)); // 기본 색상
+                                }
+                            }
+
                             mPrice.setText("(100g당) "+food.getPrice()+"원");
                             mScore.setText(food.getScore());
                             mManu.setText(food.getManu());

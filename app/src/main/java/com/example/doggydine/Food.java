@@ -10,6 +10,7 @@ import java.util.Map;
         private String number;
         private String weight;
         private String score;
+        private Boolean check;
         private String price;
         private Map<String, Boolean> material;
         private String kcal;
@@ -96,6 +97,14 @@ import java.util.Map;
 
         public void setNutrient(Map<String, String> nutrient) {
             this.nutrient = nutrient;
+        }
+
+        public Boolean getCheck() {
+            return check;
+        }
+
+        public void setCheck(Boolean check) {
+            this.check = check;
         }
     }
 
