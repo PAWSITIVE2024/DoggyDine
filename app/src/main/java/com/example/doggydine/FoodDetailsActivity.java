@@ -24,10 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Map;
 
 public class FoodDetailsActivity extends AppCompatActivity {
-    private TextView mName, mPrice, mScore, mManu, mKcal, mMaterial,mMoisture,mOmega3,mOmega6,mPhosphorus,mProtein,mFiber,mFat,mAsh,mCalcium,mCompareText;
+    private TextView mName, mPrice, mScore, mManu, mKcal, mMaterial,mMoisture,mOmega3,mOmega6,mPhosphorus,mProtein,mFiber,mFat,mAsh,mCalcium;
     private ImageView mProfile;
     private FirebaseDatabase database;
-    private ImageButton mBack;
+    private ImageButton mBack,mCompare_btn;
     private DatabaseReference databaseReference;
     private String foodName;
     @Override
@@ -51,10 +51,10 @@ public class FoodDetailsActivity extends AppCompatActivity {
         mFat = findViewById(R.id.fd_fat);
         mCalcium = findViewById(R.id.fd_calcium);
         mBack = findViewById(R.id.btn_back);
-        mCompareText = findViewById(R.id.compare_text);
+        mCompare_btn = findViewById(R.id.compare_btn);
 
 
-        mCompareText.setOnClickListener(new View.OnClickListener() {
+        mCompare_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (foodName != null) {
@@ -68,9 +68,11 @@ public class FoodDetailsActivity extends AppCompatActivity {
                             boolean newChecked = !checked;
                             databaseReference.setValue(newChecked);
                             if (newChecked == true) {
+                                mCompare_btn.setImageResource(R.drawable.fullheart);
                                 Toast.makeText(FoodDetailsActivity.this, "사료 선택 완료", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(FoodDetailsActivity.this, "사료 선택 취소", Toast.LENGTH_SHORT).show();
+                                mCompare_btn.setImageResource(R.drawable.emptyheart);
                             }
                         }
 
@@ -115,7 +117,7 @@ public class FoodDetailsActivity extends AppCompatActivity {
                                 if (food.getCheck()) {
                                     mName.setTextColor(Color.parseColor("#FEA443"));
                                 } else {
-                                    mName.setTextColor(getResources().getColor(R.color.black)); // 기본 색상
+                                    mName.setTextColor(Color.parseColor("#000000"));
                                 }
                             }
 
@@ -152,10 +154,12 @@ public class FoodDetailsActivity extends AppCompatActivity {
                             // 프로필 이미지 로드
                             String profileImageUrl = food.getProfile();
                             if (profileImageUrl != null) {
-                                Glide.with(FoodDetailsActivity.this)
-                                        .load(profileImageUrl)
-                                        .fitCenter() // 이미지를 이미지 뷰에 맞추기 위해 중앙 잘라내기 사용
-                                        .into(mProfile);
+                                if(!isDestroyed()){
+                                    Glide.with(FoodDetailsActivity.this)
+                                            .load(profileImageUrl)
+                                            .fitCenter() // 이미지를 이미지 뷰에 맞추기 위해 중앙 잘라내기 사용
+                                            .into(mProfile);
+                                }
                             }
                         }
                     }

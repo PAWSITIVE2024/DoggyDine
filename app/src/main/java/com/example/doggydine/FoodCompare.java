@@ -48,41 +48,46 @@ public class FoodCompare extends AppCompatActivity {
         database=FirebaseDatabase.getInstance();
         databaseReference = database.getReference("DoggyDine").child("Food");
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 arrayList.clear();
-                for(DataSnapshot snapshot : datasnapshot.getChildren()){
-                    Food food = new Food();
-                    food.setProfile(snapshot.child("profile").getValue(String.class));
-                    food.setName(snapshot.child("name").getValue(String.class));
-                    food.setScore(snapshot.child("score").getValue(String.class));
-                    food.setPrice(snapshot.child("price").getValue(String.class));
-                    food.setSales_Volume(snapshot.child("sales_Volume").getValue(String.class));
-                    food.setManu(snapshot.child("manu").getValue(String.class));
+                for (DataSnapshot snapshot : datasnapshot.getChildren()) {
+                    // 'check' 값이 true인 경우에만 데이터를 가져옴
+                    Boolean check = snapshot.child("check").getValue(Boolean.class);
+                    if (check != null && check) {
+                        Food food = new Food();
+                        food.setProfile(snapshot.child("profile").getValue(String.class));
+                        food.setName(snapshot.child("name").getValue(String.class));
+                        food.setScore(snapshot.child("score").getValue(String.class));
+                        food.setPrice(snapshot.child("price").getValue(String.class));
+                        food.setSales_Volume(snapshot.child("sales_Volume").getValue(String.class));
+                        food.setManu(snapshot.child("manu").getValue(String.class));
 
-                    Map<String, Boolean> materialMap = new HashMap<>();
-                    DataSnapshot materialSnapshot = snapshot.child("material");
-                    for (DataSnapshot materialChild : materialSnapshot.getChildren()) {
-                        Boolean isTrue = materialChild.getValue(Boolean.class);
-                        if (isTrue) {
-                            materialMap.put(materialChild.getKey(), isTrue);
+                        Map<String, Boolean> materialMap = new HashMap<>();
+                        DataSnapshot materialSnapshot = snapshot.child("material");
+                        for (DataSnapshot materialChild : materialSnapshot.getChildren()) {
+                            Boolean isTrue = materialChild.getValue(Boolean.class);
+                            if (isTrue != null && isTrue) {
+                                materialMap.put(materialChild.getKey(), isTrue);
+                            }
                         }
-                    }
-                    food.setMaterial(materialMap);
+                        food.setMaterial(materialMap);
 
-                    // 영양소 설정
-                    Map<String, String> nutrientMap = new HashMap<>();
-                    DataSnapshot nutrientSnapshot = snapshot.child("nutrient");
-                    for (DataSnapshot nutrientChild : nutrientSnapshot.getChildren()) {
-                        String nutrientValue = nutrientChild.getValue(String.class);
-                        nutrientMap.put(nutrientChild.getKey(), nutrientValue);
+                        // 영양소 설정
+                        Map<String, String> nutrientMap = new HashMap<>();
+                        DataSnapshot nutrientSnapshot = snapshot.child("nutrient");
+                        for (DataSnapshot nutrientChild : nutrientSnapshot.getChildren()) {
+                            String nutrientValue = nutrientChild.getValue(String.class);
+                            nutrientMap.put(nutrientChild.getKey(), nutrientValue);
+                        }
+                        food.setNutrient(nutrientMap);
+                        arrayList.add(food);
                     }
-                    food.setNutrient(nutrientMap);
-                    arrayList.add(food);
                 }
                 adapter.notifyDataSetChanged();
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

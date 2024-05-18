@@ -6,11 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -53,6 +58,7 @@ public class FoodCompareAdapter extends RecyclerView.Adapter<FoodCompareAdapter.
         Glide.with(holder.itemView)
                 .load(arrayList.get(position).getProfile())
                 .into(holder.fc_profile_image);
+        holder.fc_dog_food_name.setText(arrayList.get(position).getName());
         holder.fc_score.setText(arrayList.get(position).getScore());
         holder.fc_sales_rate.setText("("+arrayList.get(position).getSales_Volume()+")");
         holder.fc_manu.setText(arrayList.get(position).getManu());
@@ -85,6 +91,39 @@ public class FoodCompareAdapter extends RecyclerView.Adapter<FoodCompareAdapter.
             holder.fc_omega6.setText("오메가6: " + nutrientMap.get("omega6")+"%");
             holder.fc_omega3.setText("오메가3: " + nutrientMap.get("omega3")+"%");
         }
+
+        holder.fc_del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 클릭된 아이템의 위치(position)을 가져옴
+                int clickedPosition = holder.getAdapterPosition();
+                if (clickedPosition != RecyclerView.NO_POSITION) {
+                    // 클릭된 아이템의 데이터 가져오기
+                    Food food = arrayList.get(clickedPosition);
+                    // check 값을 false로 변경
+                    food.setCheck(false);
+                    // 변경된 값을 Firebase 데이터베이스에 업데이트
+                    DatabaseReference foodRef = FirebaseDatabase.getInstance().getReference("DoggyDine")
+                            .child("Food")
+                            .child(food.getName())
+                            .child("check");
+                    foodRef.setValue(false)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(context, "선택 해제", Toast.LENGTH_SHORT).show();
+                                    notifyItemChanged(clickedPosition);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
+                }
+            }
+        });
+
     }
 
 
@@ -98,9 +137,10 @@ public class FoodCompareAdapter extends RecyclerView.Adapter<FoodCompareAdapter.
         TextView fc_score_and_sales_title,fc_score,fc_sales_rate,fc_manu_title,fc_manu,
                 fc_calorie_title,fc_cal,fc_material_title,fc_material,fc_price_title,
                 tv_fc_cost,fc_nutrient_title,fc_protein,fc_fat,fc_calcium,fc_fiber,fc_ash,
-                fc_phosphorus,fc_moisture,fc_omega6,fc_omega3;
+                fc_phosphorus,fc_moisture,fc_omega6,fc_omega3,fc_del,fc_dog_food_name;
         public FoodCompareViewHolder(@NonNull View itemView){
             super(itemView);
+            this.fc_dog_food_name = itemView.findViewById(R.id.fc_dog_food_name);
             this.fc_profile_image = itemView.findViewById(R.id.fc_profile_image);
             this.fc_score_and_sales_title = itemView.findViewById(R.id.fc_score_and_sales_title);
             this.fc_score = itemView.findViewById(R.id.fc_score);
@@ -123,6 +163,8 @@ public class FoodCompareAdapter extends RecyclerView.Adapter<FoodCompareAdapter.
             this.fc_moisture = itemView.findViewById(R.id.fc_moisture);
             this.fc_omega6 = itemView.findViewById(R.id.fc_omega6);
             this.fc_omega3 = itemView.findViewById(R.id.fc_omega3);
+            this.fc_del = itemView.findViewById(R.id.fc_del);
+
         }
 
     }

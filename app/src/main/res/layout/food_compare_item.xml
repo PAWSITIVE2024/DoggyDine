@@ -38,7 +38,7 @@
                     <TextView
                         android:id="@+id/fc_dog_food_name"
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="24dp"
                         android:fontFamily="@font/maplestorylight"
                         android:layout_marginLeft="15dp"
                         android:textAlignment="center"
