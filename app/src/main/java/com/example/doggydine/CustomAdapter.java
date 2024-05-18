@@ -79,6 +79,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         }
         holder.tv_material.setText(materialText.toString());
 
+        if (arrayList.get(position).getCheck() != null && arrayList.get(position).getCheck()) {
+            holder.check_heart.setVisibility(View.VISIBLE);
+        } else {
+            holder.check_heart.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     @Override
@@ -92,6 +98,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         TextView tv_score;
         TextView tv_price;
         TextView tv_material;
+        ImageView check_heart;
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.iv_profile = itemView.findViewById(R.id.iv_profile);
@@ -99,6 +106,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             this.tv_score = itemView.findViewById(R.id.Tv_i_Score);
             this.tv_price = itemView.findViewById(R.id.Tv_i_Price);
             this.tv_material = itemView.findViewById(R.id.Tv_i_Material);
+            this.check_heart = itemView.findViewById(R.id.check_heart);
 
         }
     }

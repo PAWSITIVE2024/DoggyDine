@@ -76,7 +76,7 @@ public class Feeding extends AppCompatActivity {
         mTv_emty.setVisibility(View.INVISIBLE);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("DoggyDine").child("Food");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
@@ -91,7 +91,7 @@ public class Feeding extends AppCompatActivity {
                     food.setScore(snapshot.child("score").getValue(String.class));
                     food.setPrice(snapshot.child("price").getValue(String.class));
                     food.setSales_Volume(snapshot.child("sales_Volume").getValue(String.class));
-
+                    food.setCheck(snapshot.child("check").getValue(Boolean.class));
                     Map<String, Boolean> materialMap = new HashMap<>();
                     DataSnapshot materialSnapshot = snapshot.child("material");
                     for (DataSnapshot materialChild : materialSnapshot.getChildren()) {

@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/check_heart"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="80dp"
+        android:src="@drawable/fullheart"
+        android:elevation="1dp"
+        android:background="@color/zxing_transparent"/>
 
     <LinearLayout
         android:id="@+id/things"
@@ -122,4 +131,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
