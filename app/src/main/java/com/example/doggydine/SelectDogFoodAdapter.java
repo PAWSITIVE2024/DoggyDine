@@ -34,6 +34,7 @@
         public SelectDogFoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
             SelectDogFoodViewHolder holder = new SelectDogFoodViewHolder(view);
+
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -64,6 +65,8 @@
             Glide.with(holder.itemView)
                     .load(arrayList.get(position).getProfile())
                     .into(holder.iv_profile);
+            holder.mCheckHeart.setVisibility(View.GONE);
+
 
             // 사료 이름 설정
             holder.tv_name.setText(arrayList.get(position).getName());
@@ -100,6 +103,7 @@
             TextView tv_score;
             TextView tv_price;
             TextView tv_material;
+            ImageView mCheckHeart;
 
             public SelectDogFoodViewHolder(@NonNull View itemView){
                 super(itemView);
@@ -108,6 +112,7 @@
                 this.tv_score = itemView.findViewById(R.id.Tv_i_Score);
                 this.tv_price = itemView.findViewById(R.id.Tv_i_Price);
                 this.tv_material = itemView.findViewById(R.id.Tv_i_Material);
+                this.mCheckHeart = itemView.findViewById(R.id.check_heart);
             }
         }
 
