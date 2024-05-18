@@ -33,4 +33,31 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+
+    <!-- For calender -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+
+    <style name="CalendarDateTextAppearance">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CalendarDayOfWeekTextAppearance">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CalendarYearTextAppearance">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CalendarMonthTextAppearance">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CalendarArrowColor">
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>
