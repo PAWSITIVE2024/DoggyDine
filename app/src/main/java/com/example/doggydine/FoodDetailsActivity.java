@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatDialog;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +30,7 @@ public class FoodDetailsActivity extends AppCompatActivity {
     private ImageView mProfile;
     private FirebaseDatabase database;
     private ImageButton mBack, mCompare_btn;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference,usercheck;
     private String foodName;
 
     @Override
@@ -60,33 +61,46 @@ public class FoodDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (foodName != null) {
-                    database = FirebaseDatabase.getInstance();
-                    databaseReference = database.getReference("DoggyDine").child("Food").child(foodName).child("check");
-
-                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    DatabaseReference userCheckRef = FirebaseDatabase.getInstance().getReference("DoggyDine")
+                            .child("UserAccount").child(userID).child("check");
+                    userCheckRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Boolean checked = dataSnapshot.getValue(Boolean.class);
-                            boolean newChecked = !checked;
-                            databaseReference.setValue(newChecked);
-                            if (newChecked) {
-                                mCompare_btn.setImageResource(R.drawable.fullheart);
+                        public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                            if( !datasnapshot.exists()){
+                                userCheckRef.setValue(true);
+                            }
+                            toggleFoodSelection(userCheckRef.child(foodName));
 
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+            private void toggleFoodSelection(DatabaseReference foodRef){
+                foodRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                        if(datasnapshot.exists()){
+                            boolean chekced = datasnapshot.getValue(Boolean.class);
+                            boolean newchekced = !chekced;
+                            if(newchekced == true){
                                 AppCompatDialog dialog = new AppCompatDialog(FoodDetailsActivity.this, R.style.TransparentDialog);
                                 dialog.setContentView(R.layout.heart_full);
                                 dialog.setCancelable(true);
 
-
                                 LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_heart_animation);
-                                lottieAnimationView.setAnimation(R.raw.heart_animation); // .json 파일을 로드
-                                lottieAnimationView.loop(false); // 루프를 한 번만 실행
+                                lottieAnimationView.setAnimation(R.raw.heart_animation);
+                                lottieAnimationView.loop(false);
                                 lottieAnimationView.playAnimation();
 
-                                // 애니메이션 끝난 후 다이얼로그 닫기
                                 lottieAnimationView.addAnimatorListener(new Animator.AnimatorListener() {
                                     @Override
-                                    public void onAnimationStart(Animator animator) {
-                                    }
+                                    public void onAnimationStart(Animator animator) {}
 
                                     @Override
                                     public void onAnimationEnd(Animator animator) {
@@ -94,31 +108,62 @@ public class FoodDetailsActivity extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onAnimationCancel(Animator animator) {
-                                    }
+                                    public void onAnimationCancel(Animator animator) {}
 
                                     @Override
-                                    public void onAnimationRepeat(Animator animator) {
-                                    }
+                                    public void onAnimationRepeat(Animator animator) {}
                                 });
-
-                                dialog.show();
-
+                                foodRef.setValue(newchekced);
                                 Toast.makeText(FoodDetailsActivity.this, "사료 선택 완료", Toast.LENGTH_SHORT).show();
-                            } else {
-                                mCompare_btn.setImageResource(R.drawable.emptyheart);
-                                Toast.makeText(FoodDetailsActivity.this, "사료 선택 취소", Toast.LENGTH_SHORT).show();
+                                dialog.show();
                             }
-                        }
+                            else{
+                                foodRef.setValue(newchekced);
+                                Toast.makeText(FoodDetailsActivity.this, "사료 선택 취소", Toast.LENGTH_SHORT).show();
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            // 에러 처리
+                            }
+
+
+                        }else {
+                            AppCompatDialog dialog = new AppCompatDialog(FoodDetailsActivity.this, R.style.TransparentDialog);
+                            dialog.setContentView(R.layout.heart_full);
+                            dialog.setCancelable(true);
+
+                            LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_heart_animation);
+                            lottieAnimationView.setAnimation(R.raw.heart_animation);
+                            lottieAnimationView.loop(false);
+                            lottieAnimationView.playAnimation();
+
+                            lottieAnimationView.addAnimatorListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animator) {}
+
+                                @Override
+                                public void onAnimationEnd(Animator animator) {
+                                    dialog.dismiss();
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animator) {}
+
+                                @Override
+                                public void onAnimationRepeat(Animator animator) {}
+                            });
+                            Toast.makeText(FoodDetailsActivity.this, "사료 선택 완료", Toast.LENGTH_SHORT).show();
+                            dialog.show();
+                            foodRef.setValue(true);
                         }
-                    });
-                }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
+
 
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,42 +181,38 @@ public class FoodDetailsActivity extends AppCompatActivity {
 
             if (foodName != null) {
                 database = FirebaseDatabase.getInstance();
+                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                usercheck = database.getReference("DoggyDine").child("UserAccount").child(userID).child("check");
                 databaseReference = database.getReference("DoggyDine").child("Food").child(foodName);
 
-                // 액티비티 시작 시 check 값에 따라 compare_btn 이미지 설정
-                databaseReference.child("check").addListenerForSingleValueEvent(new ValueEventListener() {
+                usercheck.child(foodName).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Boolean checked = dataSnapshot.getValue(Boolean.class);
+                    public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                        Boolean checked = datasnapshot.getValue(Boolean.class);
                         if (checked != null && checked) {
                             mCompare_btn.setImageResource(R.drawable.fullheart);
+                            mName.setTextColor(Color.parseColor("#FEA443"));
 
                         } else {
                             mCompare_btn.setImageResource(R.drawable.emptyheart);
+                            mName.setTextColor(Color.parseColor("#000000"));
+
                         }
                     }
 
+
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        // 에러 처리
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
                 });
 
+                // 액티비티 시작 시 check 값에 따라 compare_btn 이미지 설정
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Food food = dataSnapshot.getValue(Food.class);
                         if (food != null) {
-
-                            if (food != null) {
-
-                                mName.setText(food.getName());
-                                if (food.getCheck()) {
-                                    mName.setTextColor(Color.parseColor("#FEA443"));
-                                } else {
-                                    mName.setTextColor(Color.parseColor("#000000"));
-                                }
-                            }
 
                             mPrice.setText("(100g당) " + food.getPrice() + "원");
                             mScore.setText(food.getScore());

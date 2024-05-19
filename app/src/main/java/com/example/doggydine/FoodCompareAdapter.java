@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,6 +23,7 @@ import java.util.Map;
 
 public class FoodCompareAdapter extends RecyclerView.Adapter<FoodCompareAdapter.FoodCompareViewHolder> {
     private ArrayList<Food> arrayList;
+    private String foodName;
     private Context context;
 
     public FoodCompareAdapter(ArrayList<Food>arrayList,Context context){
@@ -59,6 +61,7 @@ public class FoodCompareAdapter extends RecyclerView.Adapter<FoodCompareAdapter.
                 .load(arrayList.get(position).getProfile())
                 .into(holder.fc_profile_image);
         holder.fc_dog_food_name.setText(arrayList.get(position).getName());
+        foodName = arrayList.get(position).getName();
         holder.fc_score.setText(arrayList.get(position).getScore());
         holder.fc_sales_rate.setText("("+arrayList.get(position).getSales_Volume()+")");
         holder.fc_manu.setText(arrayList.get(position).getManu());
@@ -92,22 +95,21 @@ public class FoodCompareAdapter extends RecyclerView.Adapter<FoodCompareAdapter.
             holder.fc_omega3.setText("오메가3: " + nutrientMap.get("omega3")+"%");
         }
 
+
         holder.fc_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 클릭된 아이템의 위치(position)을 가져옴
                 int clickedPosition = holder.getAdapterPosition();
                 if (clickedPosition != RecyclerView.NO_POSITION) {
-                    // 클릭된 아이템의 데이터 가져오기
                     Food food = arrayList.get(clickedPosition);
-                    // check 값을 false로 변경
-                    food.setCheck(false);
-                    // 변경된 값을 Firebase 데이터베이스에 업데이트
-                    DatabaseReference foodRef = FirebaseDatabase.getInstance().getReference("DoggyDine")
-                            .child("Food")
-                            .child(food.getName())
-                            .child("check");
-                    foodRef.setValue(false)
+                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    DatabaseReference userCheckRef = FirebaseDatabase.getInstance().getReference("DoggyDine")
+                            .child("UserAccount")
+                            .child(userID)
+                            .child("check")
+                            .child(food.getName());
+                    userCheckRef.setValue(false)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -123,6 +125,7 @@ public class FoodCompareAdapter extends RecyclerView.Adapter<FoodCompareAdapter.
                 }
             }
         });
+
 
     }
 

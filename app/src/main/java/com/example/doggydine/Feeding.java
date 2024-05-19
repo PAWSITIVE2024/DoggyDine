@@ -22,6 +22,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -76,6 +77,9 @@ public class Feeding extends AppCompatActivity {
         mTv_emty.setVisibility(View.INVISIBLE);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("DoggyDine").child("Food");
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference userCheckRef = FirebaseDatabase.getInstance().getReference("DoggyDine")
+                .child("UserAccount").child(userID).child("check");
         databaseReference.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -88,10 +92,32 @@ public class Feeding extends AppCompatActivity {
                     Food food = new Food();
                     food.setProfile(snapshot.child("profile").getValue(String.class));
                     food.setName(snapshot.child("name").getValue(String.class));
+                    String foodName = snapshot.child("name").getValue(String.class);
                     food.setScore(snapshot.child("score").getValue(String.class));
                     food.setPrice(snapshot.child("price").getValue(String.class));
                     food.setSales_Volume(snapshot.child("sales_Volume").getValue(String.class));
-                    food.setCheck(snapshot.child("check").getValue(Boolean.class));
+                    userCheckRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                            for (DataSnapshot snapshot : datasnapshot.getChildren()) {
+                                String foodName = snapshot.getKey();
+                                Boolean check = snapshot.getValue(Boolean.class);
+                                // 해당 음식을 찾아서 check 값을 업데이트
+                                for (int i = 0; i < arrayList.size(); i++) {
+                                    if (arrayList.get(i).getName().equals(foodName)) {
+                                        arrayList.get(i).setCheck(check);
+                                        adapter.notifyItemChanged(i);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // 처리할 내용
+                        }
+                    });
                     Map<String, Boolean> materialMap = new HashMap<>();
                     DataSnapshot materialSnapshot = snapshot.child("material");
                     for (DataSnapshot materialChild : materialSnapshot.getChildren()) {

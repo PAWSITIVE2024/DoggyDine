@@ -1,5 +1,6 @@
 package com.example.doggydine;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -11,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,46 +50,44 @@ public class FoodCompare extends AppCompatActivity {
         database=FirebaseDatabase.getInstance();
         databaseReference = database.getReference("DoggyDine").child("Food");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DatabaseReference userCheckRef = FirebaseDatabase.getInstance().getReference("DoggyDine")
+                .child("UserAccount").child(userID).child("check");
+
+        userCheckRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 arrayList.clear();
-                for (DataSnapshot snapshot : datasnapshot.getChildren()) {
-                    // 'check' 값이 true인 경우에만 데이터를 가져옴
-                    Boolean check = snapshot.child("check").getValue(Boolean.class);
-                    if (check != null && check) {
-                        Food food = new Food();
-                        food.setProfile(snapshot.child("profile").getValue(String.class));
-                        food.setName(snapshot.child("name").getValue(String.class));
-                        food.setScore(snapshot.child("score").getValue(String.class));
-                        food.setPrice(snapshot.child("price").getValue(String.class));
-                        food.setSales_Volume(snapshot.child("sales_Volume").getValue(String.class));
-                        food.setManu(snapshot.child("manu").getValue(String.class));
+                for (DataSnapshot checkSnapshot : dataSnapshot.getChildren()) {
 
-                        Map<String, Boolean> materialMap = new HashMap<>();
-                        DataSnapshot materialSnapshot = snapshot.child("material");
-                        for (DataSnapshot materialChild : materialSnapshot.getChildren()) {
-                            Boolean isTrue = materialChild.getValue(Boolean.class);
-                            if (isTrue != null && isTrue) {
-                                materialMap.put(materialChild.getKey(), isTrue);
+                    Boolean checkValue = checkSnapshot.getValue(Boolean.class);
+                    if (checkValue != null && checkValue) {
+                        String foodName = checkSnapshot.getKey();
+
+                        DatabaseReference foodRef = FirebaseDatabase.getInstance().getReference("DoggyDine")
+                                .child("Food").child(foodName);
+                        foodRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot foodSnapshot) {
+                                if (foodSnapshot.exists()) {
+                                    Food food = foodSnapshot.getValue(Food.class);
+                                    if (food != null) {
+                                        arrayList.add(food);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }
                             }
-                        }
-                        food.setMaterial(materialMap);
 
-                        // 영양소 설정
-                        Map<String, String> nutrientMap = new HashMap<>();
-                        DataSnapshot nutrientSnapshot = snapshot.child("nutrient");
-                        for (DataSnapshot nutrientChild : nutrientSnapshot.getChildren()) {
-                            String nutrientValue = nutrientChild.getValue(String.class);
-                            nutrientMap.put(nutrientChild.getKey(), nutrientValue);
-                        }
-                        food.setNutrient(nutrientMap);
-                        arrayList.add(food);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 }
-                adapter.notifyDataSetChanged();
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -96,5 +96,13 @@ public class FoodCompare extends AppCompatActivity {
         });
         adapter = new FoodCompareAdapter(arrayList,this);
         recyclerView.setAdapter(adapter);
+
+
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(FoodCompare.this, Feeding.class));
+        finish();
     }
 }

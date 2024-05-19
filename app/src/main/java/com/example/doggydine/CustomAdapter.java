@@ -2,6 +2,7 @@ package com.example.doggydine;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,20 +51,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        //아이템 매칭
+
         // Glide를 사용하여 프로필 이미지 설정
+        Log.d("CustomAdapter", "Check value: " + arrayList.get(position).getCheck());
+
 
         Glide.with(holder.itemView)
                 .load(arrayList.get(position).getProfile())
                 .into(holder.iv_profile);
 
-        // 사료 이름 설정
         holder.tv_name.setText(arrayList.get(position).getName());
-
-        // 사료 평점 설정
         holder.tv_score.setText(arrayList.get(position).getScore());
-
-        // 사료 가격 설정
         holder.tv_price.setText("(100g당) "+arrayList.get(position).getPrice()+"원");
 
         // 주재료 설정 (true인것만)
