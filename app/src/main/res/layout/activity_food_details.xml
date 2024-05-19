@@ -97,7 +97,7 @@
 
             <LinearLayout
                 android:id="@+id/food_score_layout"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="135dp"
                 android:layout_marginTop="15dp"

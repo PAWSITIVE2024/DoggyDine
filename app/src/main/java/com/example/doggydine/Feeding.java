@@ -80,6 +80,8 @@ public class Feeding extends AppCompatActivity {
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference userCheckRef = FirebaseDatabase.getInstance().getReference("DoggyDine")
                 .child("UserAccount").child(userID).child("check");
+
+
         databaseReference.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -332,7 +334,16 @@ public class Feeding extends AppCompatActivity {
             //여기에 바코드 intent 처리
             Log.d("Barcode", "Receives Success");
         }
+
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Feeding.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        finish();
+    }
+
 
 
     private void scanCode(){

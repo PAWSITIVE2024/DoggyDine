@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Map;
 
 public class FoodDetailsActivity extends AppCompatActivity {
-    private TextView mName, mPrice, mScore, mManu, mKcal, mMaterial, mMoisture, mOmega3, mOmega6, mPhosphorus, mProtein, mFiber, mFat, mAsh, mCalcium;
-    private ImageView mProfile;
+    private TextView mName, mPrice, mScore, mManu, mKcal, mMaterial, mMoisture, mOmega3, mOmega6, mPhosphorus, mProtein, mFiber, mFat, mAsh, mCalcium,mSales;
+    private ImageView mProfile,mStar_5,mStar_4;
     private FirebaseDatabase database;
     private ImageButton mBack, mCompare_btn;
     private DatabaseReference databaseReference,usercheck;
@@ -56,6 +58,9 @@ public class FoodDetailsActivity extends AppCompatActivity {
         mCalcium = findViewById(R.id.fd_calcium);
         mBack = findViewById(R.id.btn_back);
         mCompare_btn = findViewById(R.id.compare_btn);
+        mSales = findViewById(R.id.Et_d_sales_rate);
+        mStar_4 = findViewById(R.id.iv_start4);
+        mStar_5 = findViewById(R.id.iv_start5);
 
         mCompare_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,9 +220,41 @@ public class FoodDetailsActivity extends AppCompatActivity {
                         if (food != null) {
 
                             mPrice.setText("(100g당) " + food.getPrice() + "원");
-                            mScore.setText(food.getScore());
+                            String tmp = food.getScore();
+                            Double scorepoint = Double.parseDouble(tmp);
+
+                            if(scorepoint == 5) {
+                                mScore.setText(food.getScore());
+                            }else if(scorepoint > 4.5) {
+                                mStar_5.setImageResource(R.drawable.star_3_4);
+
+                                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mStar_5.getLayoutParams();
+                                float density = getResources().getDisplayMetrics().density;
+                                params.width = (int) (13 * density); // dp를 픽셀로 변환
+                                params.height = (int) (13 * density); // dp를 픽셀로 변환
+                                params.topMargin = (int) (9 * density);
+                                params.leftMargin = (int) (-4);
+
+                                mStar_5.setLayoutParams(params);
+                                mScore.setText(food.getScore());
+                            } else if (scorepoint>=4 && scorepoint<=4.5) {
+                                mStar_5.setImageResource(R.drawable.half_star);
+
+                                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mStar_5.getLayoutParams();
+                                float density = getResources().getDisplayMetrics().density;
+                                params.width = (int) (13 * density); // dp를 픽셀로 변환
+                                params.height = (int) (13 * density); // dp를 픽셀로 변환
+                                params.topMargin = (int) (9 * density);
+                                params.leftMargin = (int) (-4);
+
+                                mStar_5.setLayoutParams(params);
+                                mScore.setText(food.getScore());
+
+                            }
                             mManu.setText(food.getManu());
                             mKcal.setText("(250기준) " + food.getKcal() + "Kcal");
+                            mSales.setText("("+food.getSales_Volume()+")");
+
 
                             // Material 정보 가져오기
                             StringBuilder materialText = new StringBuilder();
