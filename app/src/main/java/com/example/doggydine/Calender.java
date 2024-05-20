@@ -1,10 +1,13 @@
 package com.example.doggydine;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextClock;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +19,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -26,6 +33,7 @@ public class Calender extends AppCompatActivity {
     TodoAdapter todoAdapter;
     List<TodoItem> todoList;
     ImageButton addTodoButton;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,10 @@ public class Calender extends AppCompatActivity {
         todoAdapter = new TodoAdapter(todoList);
         todoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         todoRecyclerView.setAdapter(todoAdapter);
+
+//        mFirebaseAuth = FirebaseAuth.getInstance();
+//        String uid = mFirebaseAuth.getCurrentUser().getUid();
+//        mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -74,5 +86,13 @@ public class Calender extends AppCompatActivity {
         // 여기서는 임의의 예시 데이터로 대체
         todoList.clear();
         todoAdapter.notifyDataSetChanged();
+    }
+    private void showDetail() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.calendar_detail);
+        TextClock textClock = (TextClock) findViewById(R.id.textClock);
+        boolean is24HourModeEnabled = textClock.is24HourModeEnabled();
+
     }
 }

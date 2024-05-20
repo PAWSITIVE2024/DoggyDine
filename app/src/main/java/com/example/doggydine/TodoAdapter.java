@@ -3,6 +3,7 @@ package com.example.doggydine;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import java.util.List;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder> {
     private List<TodoItem> todoList;
+    ImageButton fixing_btn;
+    ImageButton cancel_btn;
 
     public TodoAdapter(List<TodoItem> todoList) {
         this.todoList = todoList;
@@ -44,4 +47,5 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             taskTextView = itemView.findViewById(R.id.taskTextView);
         }
     }
+
 }
