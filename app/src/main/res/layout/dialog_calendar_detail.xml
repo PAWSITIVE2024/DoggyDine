@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/dialogbg"
-    tools:context=".CalendarDetail">
+    android:padding="10dp"
+    android:background="@drawable/dialogbg">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -15,19 +12,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="10dp">
             <EditText
                 android:id="@+id/titleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="일정 제목"
-                android:textSize="30dp"/>
+                android:textSize="20dp"/>
             <EditText
                 android:id="@+id/locationEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="위치 또는 이메일"
-                android:textSize="20dp"/>
+                android:textSize="15dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,34 +33,61 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="25dp"
+                    android:textSize="15dp"
                     android:text="시간"/>
-                <TextClock
+                <TextView
                     android:id="@+id/text_clock"
-                    android:format12Hour="hh:mm:ss a"
+                    android:hint="00시 00분 00초 오전"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:textSize="25dp"/>
+                    android:textSize="15dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="20dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="5dp"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:text="태그"/>
-                <View
-                    android:id="@+id/tag_color_view"
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:background="#2196F3"
-                    android:layout_marginEnd="10dp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <View
+                        android:id="@+id/tag_blue"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="#2196F3"
+                        android:layout_marginEnd="10dp"/>
+                    <View
+                        android:id="@+id/tag_purple"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="#673AB7"
+                        android:layout_marginEnd="10dp"/>
+                    <View
+                        android:id="@+id/tag_yellow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="#FFEB3B"
+                        android:layout_marginEnd="10dp"/>
+                    <View
+                        android:id="@+id/tag_green"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="#4CAF50"
+                        android:layout_marginEnd="10dp"/>
+                    <View
+                        android:id="@+id/tag_red"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="#E91E63"
+                        android:layout_marginEnd="10dp"/>
+                </LinearLayout>
             </LinearLayout>
             <ScrollView
                 android:layout_width="match_parent"
@@ -71,18 +95,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="메모"
-                        android:textSize="20dp"/>
+                        android:textSize="15dp"/>
                     <EditText
                         android:id="@+id/memoEditText"
+                        android:background="@drawable/round_corner_cal_item"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:hint="중요한 내용 기록하기." />
+                        android:layout_height="150dp"
+                        android:hint="  중요한 내용 기록하기." />
                 </LinearLayout>
             </ScrollView>
             <LinearLayout
@@ -101,9 +126,6 @@
                     android:layout_height="wrap_content"
                     android:text="Save" />
             </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
