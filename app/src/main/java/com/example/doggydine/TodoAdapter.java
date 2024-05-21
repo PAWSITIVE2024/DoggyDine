@@ -73,13 +73,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         EditText memoEditText = dialog.findViewById(R.id.memoEditText);
         Button saveButton = dialog.findViewById(R.id.saveButton);
         Button cancelButton = dialog.findViewById(R.id.cancelButton);
-        View tagView = dialog.findViewById(R.id.tag_color_view);
-        tagView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        //View tagView = dialog.findViewById(R.id.tag_color_view);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
