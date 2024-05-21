@@ -76,7 +76,7 @@ public class Calender extends AppCompatActivity {
 
                 todoList.add(newTodo);
                 todoAdapter.notifyDataSetChanged();
-                
+
                 Toast.makeText(Calender.this, "새로운 할 일이 추가되었습니다", Toast.LENGTH_SHORT).show();
             }
         });
@@ -86,13 +86,5 @@ public class Calender extends AppCompatActivity {
         // 여기서는 임의의 예시 데이터로 대체
         todoList.clear();
         todoAdapter.notifyDataSetChanged();
-    }
-    private void showDetail() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.calendar_detail);
-        TextClock textClock = (TextClock) findViewById(R.id.textClock);
-        boolean is24HourModeEnabled = textClock.is24HourModeEnabled();
-
     }
 }

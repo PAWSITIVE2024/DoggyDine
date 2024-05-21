@@ -1,12 +1,11 @@
 package com.example.doggydine;
-
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,14 +13,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Calendar;
 import java.util.List;
-
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder> {
     private List<TodoItem> todoList;
-    private Context context;
-
-    public TodoAdapter(List<TodoItem> todoList, Context context) {this.todoList = todoList; this.context = context;}
+    public TodoAdapter(List<TodoItem> todoList) {
+        this.todoList = todoList;
+    }
 
     @NonNull
     @Override
@@ -36,47 +33,24 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         holder.taskTextView.setText(todoItem.getTask());
         holder.fixing_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // 다이얼로그를 띄워서 수정 기능 구현
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("할 일 수정");
-
-                final EditText input = new EditText(context);
-                input.setText(todoItem.getTask());
-                builder.setView(input);
-
-                builder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        todoItem.setTask(input.getText().toString());
-                        notifyItemChanged(position);
-                        Toast.makeText(context, "할 일이 수정되었습니다", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-                builder.show();
+            public void onClick(View view) {
+                // 이부분 수정 요망
+                Context context = view.getContext();
+                Intent intent = new Intent(context, CalendarDetail.class);
+                context.startActivity(intent);
             }
         });
-
         holder.cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 아이템 삭제 기능 구현
-                todoList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, todoList.size());
-                Toast.makeText(context, "할 일이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                int itemPosition = holder.getAdapterPosition();
+                if (itemPosition != RecyclerView.NO_POSITION) {
+                    todoList.remove(itemPosition);
+                    notifyItemRemoved(itemPosition);
+                }
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return todoList.size();
@@ -95,5 +69,4 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             cancel_btn = itemView.findViewById(R.id.cancel_btn);
         }
     }
-
 }

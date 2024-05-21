@@ -28,33 +28,41 @@
             android:weekDayTextAppearance="@style/CalendarDateTextAppearance"
             android:layout_marginTop="10dp" />
         <LinearLayout
-            android:id="@+id/center_layer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/calendarView"
-            android:background="@drawable/round_nobottom"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:id="@+id/textView25"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="오늘 할일"
-                android:textColor="@color/black"
-                android:layout_marginStart="30dp" />
-            <ImageButton
-                android:id="@+id/addTodoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:layout_gravity="right"
-                android:src="@drawable/baseline_add"
-                android:layout_marginEnd="15dp"/>
-        </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/todoRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/center_layer"/>
+            android:layout_below="@id/calendarView"
+            android:background="@drawable/round_nobottom"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/center_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="오늘 할일"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="30dp" />
+                <ImageButton
+                    android:id="@+id/addTodoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_add"
+                    android:layout_marginEnd="15dp"/>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/todoRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/center_layer"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 </RelativeLayout>
