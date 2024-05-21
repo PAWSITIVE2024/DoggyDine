@@ -15,7 +15,7 @@
             android:textSize="16sp"
             android:padding="8dp" />
         <ImageButton
-            android:id="@+id/fix_todo_btn"
+            android:id="@+id/fixing_btn"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"/>
         <ImageButton
-            android:id="@+id/delet_todo_btn"
+            android:id="@+id/cancel_btn"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

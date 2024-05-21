@@ -25,4 +25,7 @@ public class TodoItem {
     public int getDayOfMonth() {
         return dayOfMonth;
     }
+
+    public void setTask(String string) {
+    }
 }
