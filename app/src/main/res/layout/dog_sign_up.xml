@@ -118,7 +118,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@drawable/rounder_coner_doginfo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="10dp">
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -127,12 +133,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical"
-                    android:background="@drawable/rounder_coner_doginfo"
-                    android:elevation="10dp">
+                    android:orientation="vertical">
                     <LinearLayout
                         android:layout_marginTop="20dp"
                         android:id="@+id/firstlayer"

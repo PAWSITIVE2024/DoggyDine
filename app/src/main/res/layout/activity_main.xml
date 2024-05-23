@@ -51,7 +51,7 @@
         <ImageButton
             android:id="@+id/calender_btn"
             android:contentDescription="캘린더버튼"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
@@ -61,7 +61,7 @@
         <ImageButton
             android:id="@+id/feed_btn"
             android:contentDescription="사료등록버튼"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
@@ -71,17 +71,14 @@
         <ImageButton
             android:id="@+id/chatbot_btn"
             android:contentDescription="gpt버튼"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
             android:background="@color/white"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/gpt" />
-
-
     </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
