@@ -81,20 +81,19 @@
       />
   </RelativeLayout>
   <RelativeLayout
-      android:layout_width="300dp"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
       android:id="@+id/above_layout">
-    <ImageView
+    <TextView
         android:id="@+id/doggy_dine"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/doggy_dine" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AI한테 물어보기"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:fontFamily="@font/maplestorybold" />
   </RelativeLayout>
 
 </RelativeLayout>
