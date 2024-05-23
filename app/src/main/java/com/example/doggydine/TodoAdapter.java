@@ -113,7 +113,6 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
                     public void onClick(View v) {
                         int hour = timePicker.getCurrentHour();
                         int minute = timePicker.getCurrentMinute();
-                        // 시간 설정 값을 사용하여 TextView에 표시
                         timeEdit.setText(String.format("%02d:%02d", hour, minute));
                         timeDialog.dismiss();
                     }

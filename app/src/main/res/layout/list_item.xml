@@ -112,18 +112,18 @@
 
                 <TextView
                     android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/maplestorybold"
-                    android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="알러지 : " />
 
                 <TextView
                     android:id="@+id/Tv_i_Material"
-                    android:layout_width="200dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:fontFamily="@font/maplestorylight"
                     android:textColor="@color/black"
                     android:text="TextView" />

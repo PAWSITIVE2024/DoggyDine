@@ -24,7 +24,7 @@
         android:layout_centerInParent="true"
         android:text="궁금한것을 물어보세요!\n예)강아지가 사과 먹어도 돼?"
         android:gravity="center"
-        android:textSize="20dp" />
+        android:textSize="15dp" />
   </RelativeLayout>
   <RelativeLayout
       android:layout_width="match_parent"
@@ -42,7 +42,7 @@
         android:layout_centerInParent="true"/>
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/dialogbg"
         android:layout_centerInParent="true"
@@ -52,7 +52,7 @@
   </RelativeLayout>
   <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="60dp"
+      android:layout_height="50dp"
       android:layout_alignParentBottom="true"
       app:layout_constraintBottom_toBottomOf="parent"
       android:padding="8dp"
@@ -64,6 +64,7 @@
         android:layout_centerInParent="true"
         android:hint=" 궁금한 것을 물어보세요! "
         android:padding="10dp"
+        android:textSize="12dp"
         android:layout_toLeftOf="@id/send_btn"
         android:background="@drawable/round_corner_cal_item"
         />
@@ -87,7 +88,7 @@
     <ImageView
         android:id="@+id/doggy_dine"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"
