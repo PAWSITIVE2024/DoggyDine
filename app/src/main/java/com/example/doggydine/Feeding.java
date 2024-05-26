@@ -246,6 +246,7 @@ public class Feeding extends AppCompatActivity {
         barLauncher.launch(options);
     }
 
+    // 바코드 스캔 및 확인 버튼 클릭 시 처리
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
             // 바코드 결과를 변수에 저장
@@ -262,27 +263,54 @@ public class Feeding extends AppCompatActivity {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
                     saved_barcode_num = barcode_num;
-                    processBarcode(saved_barcode_num);
-                    saved_barcode_num=null;
-                    barcode_num=null;
-                    //Toast.makeText(Feeding.this, "상품이 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                    processBarcode(saved_barcode_num); // 바코드 처리 메서드 호출
                 }
             });
             builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
-                    barcode_num = null;
+                    barcode_num = "";
                 }
             }).show();
         }
     });
 
+    // 바코드 처리 메서드
     private void processBarcode(String barcode) {
-        // 바코드 번호를 사용하여 필요한 작업 수행
         if (barcode != null && !barcode.isEmpty()) {
-            Log.d("Barcode", "Processed Barcode Number: " + barcode);
+            DatabaseReference barcodeRef = database.getReference("DoggyDine").child("Barcode");
+            barcodeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    boolean found = false;
+                    for (DataSnapshot foodSnapshot : dataSnapshot.getChildren()) {
+                        String foodName = foodSnapshot.getKey();
+                        String number = foodSnapshot.child("number").getValue(String.class);
+                        if (barcode.equals(number)) {
+                            Log.d("Barcode", "Processed Barcode Number: " + barcode + ", Food Name: " + foodName);
+                            // 여기서 foodName을 이용하여 필요한 작업을 수행
+                            // 예: 해당 foodName의 데이터를 처리하거나 표시
+                            found = true;
+                            if(found)
+                            {
+                                Log.d("Barcode","찾았다!");
+                            }
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        Log.d("Barcode", "Barcode not found in database.");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.d("Barcode", "Database error: " + databaseError.getMessage());
+                }
+            });
         }
     }
+
 
 }
