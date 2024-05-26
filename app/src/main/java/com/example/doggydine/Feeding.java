@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -247,6 +248,7 @@ public class Feeding extends AppCompatActivity {
     }
 
     // 바코드 스캔 및 확인 버튼 클릭 시 처리
+    // 바코드 스캔 및 확인 버튼 클릭 시 처리
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
             // 바코드 결과를 변수에 저장
@@ -289,13 +291,8 @@ public class Feeding extends AppCompatActivity {
                         String number = foodSnapshot.child("number").getValue(String.class);
                         if (barcode.equals(number)) {
                             Log.d("Barcode", "Processed Barcode Number: " + barcode + ", Food Name: " + foodName);
-                            // 여기서 foodName을 이용하여 필요한 작업을 수행
-                            // 예: 해당 foodName의 데이터를 처리하거나 표시
+                            saveFoodData(foodSnapshot, foodName);
                             found = true;
-                            if(found)
-                            {
-                                Log.d("Barcode","찾았다!");
-                            }
                             break;
                         }
                     }
@@ -312,5 +309,34 @@ public class Feeding extends AppCompatActivity {
         }
     }
 
+    // Food DB에 데이터 저장 메서드
+    private void saveFoodData(DataSnapshot foodSnapshot, String foodName) {
+        DatabaseReference foodRef = database.getReference("DoggyDine").child("Food").child(foodName);
+
+        Map<String, Object> foodData = new HashMap<>();
+        foodData.put("kcal", foodSnapshot.child("kcal").getValue(String.class));
+        foodData.put("manu", foodSnapshot.child("manu").getValue(String.class));
+        foodData.put("name", foodSnapshot.child("name").getValue(String.class));
+        foodData.put("number", foodSnapshot.child("number").getValue(String.class));
+        foodData.put("price", foodSnapshot.child("price").getValue(String.class));
+        foodData.put("profile", foodSnapshot.child("profile").getValue(String.class));
+        foodData.put("sales_Volume", foodSnapshot.child("sales_Volume").getValue(String.class));
+        foodData.put("score", foodSnapshot.child("score").getValue(String.class));
+        foodData.put("wright", foodSnapshot.child("wright").getValue(String.class));
+
+        // GenericTypeIndicator를 사용하여 material과 nutrient 필드를 읽음
+        GenericTypeIndicator<Map<String, Boolean>> materialType = new GenericTypeIndicator<Map<String, Boolean>>() {};
+        GenericTypeIndicator<Map<String, String>> nutrientType = new GenericTypeIndicator<Map<String, String>>() {};
+
+        Map<String, Boolean> materialMap = foodSnapshot.child("material").getValue(materialType);
+        Map<String, String> nutrientMap = foodSnapshot.child("nutrient").getValue(nutrientType);
+
+        foodData.put("material", materialMap);
+        foodData.put("nutrient", nutrientMap);
+
+        foodRef.setValue(foodData)
+                .addOnSuccessListener(aVoid -> Log.d("Database", "Food data saved successfully."))
+                .addOnFailureListener(e -> Log.d("Database", "Failed to save food data: " + e.getMessage()));
+    }
 
 }
