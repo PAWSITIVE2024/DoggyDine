@@ -31,26 +31,6 @@
             app:srcCompat="@drawable/shopping" />
     </LinearLayout>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/Lt_empty"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="377dp"
-        android:layout_marginLeft="100dp"
-        android:scaleType="centerCrop"
-        android:elevation="10.2dp"/>
-    <TextView
-        android:id="@+id/tv_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="150dp"
-        android:layout_marginTop="280dp"
-        android:layout_marginLeft="120dp"
-        android:textColor="@color/black"
-        android:fontFamily="@font/maplestorybold"
-        android:text="텅"
-        android:elevation="10.01dp"
-        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/d_f_recyclerView"
         android:layout_width="367dp"
