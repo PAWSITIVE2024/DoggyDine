@@ -13,5 +13,7 @@ https://yunji00.notion.site/Pawsitive-b111d32e909f4a9c99dd6c4c1950b2bb?pvs=4
 
 반려동물 알러지에 따른 사료 급여 IoT 어플리케이션 제작
 
-![image](https://github.com/yunjiJ00/DoggyDine/assets/123616936/1baaa184-a478-4742-8bef-a143c2bb1946)
+![image](https://github.com/yunjiJ00/DoggyDine/assets/123616936/50262f30-e1a3-4496-a59b-6c8f5db6f716)
+
+
 
