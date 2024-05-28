@@ -406,24 +406,37 @@
                                 android:text="하루"
                                 android:gravity="center_vertical"/>
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/Et_dt_how_many"
-                                android:layout_width="100dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="5dp"
-                                android:fontFamily="@font/maplestorylight"
                                 android:hint="2"
-                                android:textColor="#000000" />
-
+                                android:textColor="#000000"
+                                style="@style/EditTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/maplestorylight"
+                                android:background="@null" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="회"
+                                android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/maplestorybold"
                                 android:textColor="#000000"
                                 android:textSize="15dp"
                                 android:gravity="center_vertical"/>
-
+                            <ImageButton
+                                android:id="@+id/food_num_btn"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_gravity="center_vertical"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/baseline_123_24"/>
                         </LinearLayout>
                     </LinearLayout>
 

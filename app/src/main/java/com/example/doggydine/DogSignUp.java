@@ -50,8 +50,10 @@ public class DogSignUp extends AppCompatActivity {
     private Button mBtnRegister;
     private ImageButton activeButton;
     private ImageButton calenarButton;
+    private ImageButton food_num;
     private TextView activeTextView;
     private TextView selectedDateTextView;
+    private TextView how_much_text;
     private Calendar calendar;
 
     private String imageuri_1;
@@ -104,7 +106,9 @@ public class DogSignUp extends AppCompatActivity {
         calenarButton = findViewById(R.id.selectDate);
         activeTextView = findViewById(R.id.active_dt_text);
         selectedDateTextView = findViewById(R.id.dt_selectedDateTextView);
+        how_much_text = findViewById(R.id.Et_dt_how_many);
         calendar = Calendar.getInstance();
+        food_num = findViewById(R.id.food_num_btn);
 
 
 
@@ -114,6 +118,10 @@ public class DogSignUp extends AppCompatActivity {
                 Intent intent = new Intent(DogSignUp.this,SelectDogFood.class);
                 startActivity(intent);
             }
+        });
+        food_num.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { showNumberDialog(); }
         });
 
         activeButton.setOnClickListener(new View.OnClickListener() {
@@ -262,7 +270,9 @@ public class DogSignUp extends AppCompatActivity {
 
 
 
-
+    private void showNumberDialog() {
+        Intent intent = new Intent(this, PickNumber.class);
+    }
     private void showActivationDialog() {
         Intent intent = new Intent(this, Activation.class);
         startActivityForResult(intent, 1);
@@ -347,6 +357,10 @@ public class DogSignUp extends AppCompatActivity {
             float averageValue = data.getFloatExtra("averageValue", 0.0f);
             String activationRate = String.valueOf(averageValue);
             activeTextView.setText(activationRate);
+        } else if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            int numberValue = data.getIntExtra("numberValue", 0);
+            String numberRate = String.valueOf(numberValue);
+            how_much_text.setText(numberRate);
         }
     }
 

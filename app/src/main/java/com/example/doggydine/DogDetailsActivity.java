@@ -55,7 +55,8 @@ public class DogDetailsActivity extends AppCompatActivity {
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5,dog_food;
     private Button mBtnRegister,mBtnDelete;
     private ImageButton activeButton,calendarButton;
-    private TextView selectedDateTextView,dog_food_text,activeTextView;
+    private ImageButton food_num;
+    private TextView selectedDateTextView,dog_food_text,activeTextView, how_much_text;
     private Calendar calendar;
     private String imageuri_1,imageuri_2,imageuri_3,imageuri_4,imageuri_5,dog_food_string,profileImageUrl1,profileImageUrl2,profileImageUrl3,profileImageUrl4,profileImageUrl5;
     private Uri selectedImageUri,selectedImageUrl_1,selectedImageUrl_2,selectedImageUrl_3,selectedImageUrl_4,selectedImageUrl_5;
@@ -95,10 +96,11 @@ public class DogDetailsActivity extends AppCompatActivity {
         dog_food_text = findViewById(R.id.dogfood_dt_text);
         calendarButton = findViewById(R.id.selectDate);
         activeButton = findViewById(R.id.active_btn);
+        food_num = findViewById(R.id.food_num_btn);
         activeTextView = findViewById(R.id.active_dt_text);
         selectedDateTextView = findViewById(R.id.dt_selectedDateTextView);
+        how_much_text = findViewById(R.id.Et_dt_how_many);
         calendar = Calendar.getInstance();
-
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         String uid = mFirebaseAuth.getCurrentUser().getUid();
@@ -218,6 +220,10 @@ public class DogDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 showDatePickerDialog();
             }
+        });
+        food_num.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { showNumberDialog(); }
         });
 
         //Imageview clickListener 설정
@@ -369,6 +375,10 @@ public class DogDetailsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Activation.class);
         startActivityForResult(intent, 1);
     }
+    private void showNumberDialog() {
+        Intent intent = new Intent(this, PickNumber.class);
+        startActivityForResult(intent, 2);
+    }
     private void showDatePickerDialog() {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -444,6 +454,10 @@ public class DogDetailsActivity extends AppCompatActivity {
             float averageValue = data.getFloatExtra("averageValue", 0.0f);
             String activationRate = String.valueOf(averageValue);
             activeTextView.setText(activationRate);
+        } else if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            int numberValue = data.getIntExtra("numberValue", 0);
+            String numberRate = String.valueOf(numberValue);
+            how_much_text.setText(numberRate);
         }
     }
     private Task<String> uploadImageToFirebase(Uri imageUri,String dog_name ) {

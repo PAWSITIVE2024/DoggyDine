@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_s_doggy_dine"
         android:layout_above="@id/btn_layout"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical" >
 
         <TextView
