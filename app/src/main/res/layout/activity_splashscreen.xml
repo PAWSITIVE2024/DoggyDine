@@ -13,6 +13,6 @@
         android:layout_height="350dp"
         android:id="@+id/splash"
         android:background="@drawable/logo"
-        android:scaleType="fitCenter"/>
+        android:scaleType="centerCrop"/>
 
 </LinearLayout>
