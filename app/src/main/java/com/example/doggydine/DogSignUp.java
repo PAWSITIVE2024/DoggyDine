@@ -365,9 +365,11 @@ public class DogSignUp extends AppCompatActivity {
             String activationRate = String.valueOf(averageValue);
             activeTextView.setText(activationRate);
         } else if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
-            int numberValue = data.getIntExtra("number Value", 0);
-            String numberRate = String.valueOf(numberValue);
-            how_much_text.setText(numberRate);
+            int numberValue = data.getIntExtra("numberValue", -1);
+            if (numberValue != -1) {
+                String numberRate = String.valueOf(numberValue);
+                how_much_text.setText(numberRate);
+            }
         }
     }
 
