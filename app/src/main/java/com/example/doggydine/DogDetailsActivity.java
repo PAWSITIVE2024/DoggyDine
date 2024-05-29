@@ -51,12 +51,11 @@ import java.util.Calendar;
 import java.util.List;
 
 public class DogDetailsActivity extends AppCompatActivity {
-    private EditText mName,mWeight;
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5,dog_food;
     private Button mBtnRegister,mBtnDelete;
-    private ImageButton activeButton,calendarButton, allergyButton;
+    private ImageButton activeButton,calendarButton;
     private ImageButton food_num;
-    private TextView selectedDateTextView,dog_food_text,activeTextView, how_much_text, mAllergy;
+    private TextView selectedDateTextView,dog_food_text,activeTextView, how_much_text,mName,mWeight,mAllergy;
     private Calendar calendar;
     private String imageuri_1,imageuri_2,imageuri_3,imageuri_4,imageuri_5,dog_food_string,profileImageUrl1,profileImageUrl2,profileImageUrl3,profileImageUrl4,profileImageUrl5;
     private Uri selectedImageUri,selectedImageUrl_1,selectedImageUrl_2,selectedImageUrl_3,selectedImageUrl_4,selectedImageUrl_5;
@@ -96,7 +95,6 @@ public class DogDetailsActivity extends AppCompatActivity {
         dog_food_text = findViewById(R.id.dogfood_dt_text);
         calendarButton = findViewById(R.id.selectDate);
         activeButton = findViewById(R.id.active_btn);
-        allergyButton = findViewById(R.id.allergy_btn);
         food_num = findViewById(R.id.food_num_btn);
         activeTextView = findViewById(R.id.active_dt_text);
         selectedDateTextView = findViewById(R.id.dt_selectedDateTextView);
@@ -199,12 +197,7 @@ public class DogDetailsActivity extends AppCompatActivity {
             }
         });
 
-        allergyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 여기에 알러지 부분 선택하는 걸로 띄워주시면 될 것 같습니다!!!
-            }
-        });
+
 
 
         dog_food.setOnClickListener(new View.OnClickListener() {
