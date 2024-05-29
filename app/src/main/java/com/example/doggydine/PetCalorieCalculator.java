@@ -37,7 +37,6 @@ public class PetCalorieCalculator {
     public static int calculateDailyFoodAmount(double requiredCalories, double foodCaloriesPerKg) {
         return (int) Math.round((requiredCalories * 1000) / foodCaloriesPerKg);
     }
-
     public static void main(String[] args) {
         // 몸무게와 나이를 받아오기
         double weight = WeightCalculator.getWeight(); // 체중 (kg)
@@ -67,7 +66,6 @@ class WeightCalculator {
         return 10;
     }
 }
-
 /*  <Read.me>
     1.이렇게 만든이유
     :그냥 간단히 DB에서 data를 가져오면 되는줄 알았는데,

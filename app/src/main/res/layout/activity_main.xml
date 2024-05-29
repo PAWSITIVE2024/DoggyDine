@@ -6,47 +6,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="93dp"
+        android:layout_height="wrap_content"
         android:background="@color/white">
-
         <ImageView
             android:id="@+id/doggy_dine"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="-3dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.12"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/doggy_dine" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/setting_btn"
-            android:layout_width="78dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="135dp"
-            android:layout_toEndOf="@id/doggy_dine"
+            android:layout_width="0dp"
+            android:layout_height="78dp"
+            android:layout_weight="1"
             android:background="@color/white"
+            android:layout_gravity="right"
             android:contentDescription="환경설정버튼"
             android:src="@drawable/ic_launcher_background"
             app:civ_border_color="#90721AFF"
             app:civ_border_overlay="true"
             app:civ_border_width="5dp" />
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_layout"
+        android:layout_above="@id/bottom_layout"
+        android:layout_marginBottom="1dp"
+        android:background="@color/white">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/LT_s_dog_sleep"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="237dp"
+            android:scaleType="centerCrop" />
+
+        <Button
+            android:id="@+id/button_test"
+            android:layout_width="119dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="300dp"
+            android:layout_marginEnd="134dp"
+            android:text="Test" />
     </RelativeLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:padding="8dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/bottom_layout"
+        android:layout_above="@id/btn_detecting"
         android:background="@color/white">
         <ImageButton
             android:id="@+id/calender_btn"
@@ -79,31 +96,12 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/gpt" />
     </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/main_content"
-        android:layout_width="match_parent"
-        android:layout_height="545dp"
-        android:layout_above="@id/bottom_layout"
-        android:layout_below="@id/top_layout"
-        android:layout_marginTop="-8dp"
-        android:layout_marginBottom="1dp"
-        android:background="@color/white">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/LT_s_dog_sleep"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="237dp"
-            android:scaleType="centerCrop" />
-
-        <Button
-            android:id="@+id/button_test"
-            android:layout_width="119dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="300dp"
-            android:layout_marginEnd="134dp"
-            android:text="Test" />
-    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_detecting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="밥 주기"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"/>
 </RelativeLayout>

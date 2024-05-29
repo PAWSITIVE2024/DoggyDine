@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton feed_btn = (ImageButton)findViewById(R.id.feed_btn);
         Button mTest = (Button)findViewById(R.id.button_test) ;
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+        Button detecting_btn = (Button)findViewById(R.id.btn_detecting);
 
 
         //잠깐 test용으로 하나 만들었습니다!!
@@ -43,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent (MainActivity.this, FoodCompare.class);
+                startActivity(intent);
+            }
+        });
+        detecting_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (MainActivity.this, DetectedFace.class);
                 startActivity(intent);
             }
         });
