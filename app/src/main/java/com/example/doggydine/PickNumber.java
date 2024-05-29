@@ -20,7 +20,7 @@ public class PickNumber extends AppCompatActivity {
     private Button save_btn;
     private RadioGroup NumberGroup;
     private int number_Value = 0;
-    private RecyclerView Timepicking;
+    private RecyclerView timePicking;
     private TimePickerAdapter timePickerAdapter;
 
     @Override
@@ -33,73 +33,83 @@ public class PickNumber extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         save_btn = findViewById(R.id.save_number_btn);
         save_btn.setEnabled(false);
         NumberGroup = findViewById(R.id.pick_num_layer);
         NumberGroup.setOnCheckedChangeListener(radioGroupChangeListener);
-        Timepicking = findViewById(R.id.time_picker_list);
-        Timepicking.setLayoutManager(new LinearLayoutManager(this));
-        timePickerAdapter = new TimePickerAdapter();
-        Timepicking.setAdapter(timePickerAdapter);
+
+        timePicking = findViewById(R.id.time_picker_list);
+        timePicking.setLayoutManager(new LinearLayoutManager(this));
+        timePickerAdapter = new TimePickerAdapter(this);
+        timePicking.setAdapter(timePickerAdapter);
+
+        save_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSaveActivationClicked(v);
+            }
+        });
     }
-    private RadioGroup.OnCheckedChangeListener radioGroupChangeListener = new RadioGroup.OnCheckedChangeListener() {
+
+    private final RadioGroup.OnCheckedChangeListener radioGroupChangeListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             if (group == NumberGroup) {
                 if (checkedId == R.id.once_btn) {
                     number_Value = 1;
-                    timePickerAdapter.addTimePickers(1);
                 } else if (checkedId == R.id.twice_btn) {
                     number_Value = 2;
-                    timePickerAdapter.addTimePickers(2);
                 } else if (checkedId == R.id.triple_btn) {
                     number_Value = 3;
-                    timePickerAdapter.addTimePickers(3);
                 } else if (checkedId == R.id.four_btn) {
                     number_Value = 4;
-                    timePickerAdapter.addTimePickers(4);
                 } else if (checkedId == R.id.five_btn) {
                     number_Value = 5;
-                    timePickerAdapter.addTimePickers(5);
                 }
+                updateRecyclerView();
             }
-            save_btn.setEnabled(isAllSectionsSelected());
+            updateSaveButtonState();
         }
     };
+
+    private void updateRecyclerView() {
+        timePickerAdapter.setTimePickers(number_Value);
+    }
+
+    private void updateSaveButtonState() {
+        boolean allSectionsSelected = isAllSectionsSelected();
+        save_btn.setEnabled(allSectionsSelected);
+        int color = allSectionsSelected ? android.R.color.holo_blue_light : android.R.color.darker_gray;
+        save_btn.setBackgroundColor(getResources().getColor(color));
+    }
+
     private boolean isAllSectionsSelected() {
         return number_Value != 0;
     }
-    private void updateSaveButtonState() {
-        if (isAllSectionsSelected()) {
-            save_btn.setEnabled(true);
-            save_btn.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
-        } else {
-            save_btn.setEnabled(false);
-            save_btn.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-        }
-    }
+
     public void onSaveActivationClicked(View view) {
         if (isAllSectionsSelected()) {
-            int Value = number_Value;
-            timePickerAdapter.addTimePickers(number_Value);
+            int numberValue = number_Value;
             Intent resultIntent = new Intent();
-            resultIntent.putExtra("numberValue", Value);
+            resultIntent.putExtra("numberValue", numberValue);
             setResult(RESULT_OK, resultIntent);
             finish();
-
         } else {
             showDialog("선택을 완료해주세요");
         }
     }
 
     private void showDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message)
+        new AlertDialog.Builder(this)
+                .setMessage(message)
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                     }
-                });
-        builder.create().show();
+                })
+                .create()
+                .show();
     }
 }
+

@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:id="@+id/time_picker"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
-
-    <TimePicker
-        android:id="@+id/time_picker"
-        android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="@drawable/rounder_coner"
+    android:elevation="10dp"
+    android:layout_margin="5dp">
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:timePickerMode="spinner"/>
+        android:src="@drawable/baseline_access_time_24"/>
+    <TextView
+        android:id="@+id/time_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:hint="09시 00분"
+        android:textSize="15dp"/>
 </LinearLayout>
