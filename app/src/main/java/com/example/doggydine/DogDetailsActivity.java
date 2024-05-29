@@ -53,7 +53,7 @@ import java.util.List;
 public class DogDetailsActivity extends AppCompatActivity {
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5,dog_food;
     private Button mBtnRegister,mBtnDelete;
-    private ImageButton activeButton,calendarButton;
+    private ImageButton activeButton,calendarButton, allergyButton;
     private ImageButton food_num;
     private TextView selectedDateTextView,dog_food_text,activeTextView, how_much_text,mName,mWeight,mAllergy;
     private Calendar calendar;
@@ -95,6 +95,7 @@ public class DogDetailsActivity extends AppCompatActivity {
         dog_food_text = findViewById(R.id.dogfood_dt_text);
         calendarButton = findViewById(R.id.selectDate);
         activeButton = findViewById(R.id.active_btn);
+        allergyButton = findViewById(R.id.allergy_btn);
         food_num = findViewById(R.id.food_num_btn);
         activeTextView = findViewById(R.id.active_dt_text);
         selectedDateTextView = findViewById(R.id.dt_selectedDateTextView);
@@ -196,10 +197,12 @@ public class DogDetailsActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
+        allergyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //여기에 알러지 버튼으로 넘어가도록 설정 필요합니다!!!
+            }
+        });
         dog_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
