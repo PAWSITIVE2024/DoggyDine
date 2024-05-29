@@ -356,14 +356,25 @@
                                 android:textColor="#000000"
                                 android:textSize="15dp" />
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/Et_dt_allergy"
+                                style="@style/EditTextStyle"
                                 android:layout_width="wrap_content"
-                                android:layout_height="48dp"
-                                android:layout_marginLeft="15dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
                                 android:fontFamily="@font/maplestorylight"
-                                android:hint="알러지           "
-                                android:textColor="#000000" />
+                                android:background="@null"
+                                android:hint=" 알러지 선택    "
+                                android:textColor="#000000"/>
+                            <ImageView
+                                android:id="@+id/allergy_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:src="@drawable/baseline_cancel_24"/>
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
@@ -415,17 +426,18 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="회"
+                                android:layout_marginLeft="10dp"
                                 android:fontFamily="@font/maplestorybold"
                                 android:textColor="#000000"
                                 android:textSize="15dp"
                                 android:gravity="center_vertical"/>
                             <ImageButton
                                 android:id="@+id/food_num_btn"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginLeft="5dp"
-                                android:layout_marginTop="10dp"
+                                android:layout_gravity="center_vertical"
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/baseline_123_24" />

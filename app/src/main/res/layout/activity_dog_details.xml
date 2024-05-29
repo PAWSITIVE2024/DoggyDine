@@ -363,14 +363,25 @@
                                 android:textColor="#000000"
                                 android:textSize="15dp" />
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/Et_dt_allergy"
+                                style="@style/EditTextStyle"
                                 android:layout_width="wrap_content"
-                                android:layout_height="48dp"
-                                android:layout_marginLeft="15dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
                                 android:fontFamily="@font/maplestorylight"
-                                android:hint="알러지           "
-                                android:textColor="#000000" />
+                                android:background="@null"
+                                android:hint=" 알러지 선택    "
+                                android:textColor="#000000"/>
+                            <ImageView
+                                android:id="@+id/allergy_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:src="@drawable/baseline_cancel_24"/>
                         </LinearLayout>
 
                     </LinearLayout>

@@ -45,7 +45,7 @@ import java.util.List;
 public class DogSignUp extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseRef;
-    private EditText  mName, mWeight, mActiveRate, mAllergy;
+    private EditText  mName, mWeight;
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5;
     private Button mBtnRegister;
     private ImageButton activeButton;
@@ -54,7 +54,9 @@ public class DogSignUp extends AppCompatActivity {
     private TextView activeTextView;
     private TextView selectedDateTextView;
     private TextView how_much_text;
+    private TextView mAllergy;
     private Calendar calendar;
+    private ImageButton allergyButton;
 
     private String imageuri_1;
     private String imageuri_2;
@@ -91,7 +93,6 @@ public class DogSignUp extends AppCompatActivity {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid);
         mName = findViewById(R.id.Et_dt_name);
         mWeight = findViewById(R.id.Et_dt_weight);
-        mActiveRate = findViewById(R.id.Et_dt_allergy);
         mImageview = findViewById(R.id.imageView);
         mImageview2 = findViewById(R.id.imageView2);
         mImageview3 = findViewById(R.id.imageView3);
@@ -104,6 +105,7 @@ public class DogSignUp extends AppCompatActivity {
 
         activeButton = findViewById(R.id.active_btn);
         calenarButton = findViewById(R.id.selectDate);
+        allergyButton = findViewById(R.id.allergy_btn);
         activeTextView = findViewById(R.id.active_dt_text);
         selectedDateTextView = findViewById(R.id.dt_selectedDateTextView);
         how_much_text = findViewById(R.id.Et_dt_how_many);
@@ -111,7 +113,12 @@ public class DogSignUp extends AppCompatActivity {
         food_num = findViewById(R.id.food_num_btn);
 
 
-
+        allergyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //여기에 알러지 버튼으로 넘어가도록 설정 필요합니다!!!
+            }
+        });
         dog_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -251,7 +258,6 @@ public class DogSignUp extends AppCompatActivity {
                         });
             }
         });
-
     }
     @Override
     protected void onResume() {
@@ -272,6 +278,7 @@ public class DogSignUp extends AppCompatActivity {
 
     private void showNumberDialog() {
         Intent intent = new Intent(this, PickNumber.class);
+        startActivityForResult(intent, 2);
     }
     private void showActivationDialog() {
         Intent intent = new Intent(this, Activation.class);
