@@ -150,10 +150,11 @@
                         <LinearLayout
                             android:id="@+id/petname"
                             android:layout_width="wrap_content"
-                            android:layout_height="50dp"
+                            android:layout_height="40dp"
                             android:orientation="horizontal">
 
                             <TextView
+                                android:layout_marginTop="10dp"
                                 android:id="@+id/textView16"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -164,10 +165,12 @@
 
                                 android:textSize="15dp" />
 
-                            <EditText
+                            <TextView
+                                android:layout_marginTop="10dp"
                                 android:id="@+id/Et_dt_name"
                                 android:layout_width="100dp"
-                                android:layout_height="match_parent"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
                                 android:fontFamily="@font/maplestorylight"
                                 android:hint="반려견 이름"
@@ -187,9 +190,10 @@
                         <LinearLayout
                             android:id="@+id/petweight"
                             android:layout_width="wrap_content"
-                            android:layout_height="50dp">
+                            android:layout_height="40dp">
 
                             <TextView
+                                android:layout_marginTop="10dp"
                                 android:id="@+id/textView20"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -199,11 +203,13 @@
                                 android:textColor="#000000"
                                 android:textSize="15dp" />
 
-                            <EditText
+                            <TextView
+                                android:layout_marginTop="10dp"
                                 android:id="@+id/Et_dt_weight"
                                 android:layout_width="100dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="5dp"
+                                android:textSize="15dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
                                 android:fontFamily="@font/maplestorylight"
                                 android:hint="5.2"
                                 android:textColor="#000000" />
@@ -363,7 +369,7 @@
                                 android:textColor="#000000"
                                 android:textSize="15dp" />
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/Et_dt_allergy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="48dp"

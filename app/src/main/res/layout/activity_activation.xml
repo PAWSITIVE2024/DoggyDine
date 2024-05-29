@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:text="활동수치 계산을 위해\n아래 항목을 모두 체크해주세요!"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="20dp" />
     </LinearLayout>
     <ScrollView
@@ -55,6 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:text="* 식단조절이 필요한가요?" />
 
                     <RadioGroup
@@ -68,6 +70,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="증량 필요" />
 
                         <RadioButton
@@ -75,6 +78,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="필요 없음" />
 
                         <RadioButton
@@ -82,6 +86,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="감량 필요" />
                     </RadioGroup>
                 </LinearLayout>
@@ -101,6 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:text="* 평소 활동량을 알려주세요." />
 
                     <RadioGroup
@@ -114,12 +120,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="적은 편" />
 
                         <RadioButton
                             android:id="@+id/normal_active"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:textSize="10sp"
                             android:text="평균" />
 
@@ -127,6 +135,7 @@
                             android:id="@+id/lots_active"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:textSize="10sp"
                             android:text="많은 편" />
                     </RadioGroup>
@@ -147,6 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:text="* 중성화를 했나요?" />
 
                     <RadioGroup
@@ -160,6 +170,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="안했다" />
 
                         <RadioButton
@@ -167,6 +178,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="했다" />
                     </RadioGroup>
                 </LinearLayout>
@@ -185,6 +197,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:text="* 성장기인가요?" />
 
                     <RadioGroup
@@ -198,18 +211,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="1~4개월" />
                         <RadioButton
                             android:id="@+id/middle_pup"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="4~12개월" />
                         <RadioButton
                             android:id="@+id/not_pup"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="12개월 이상" />
                     </RadioGroup>
                 </LinearLayout>
@@ -228,6 +244,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:text="* 임신 혹은 수유 중인가요?" />
 
                     <RadioGroup
@@ -241,18 +258,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="아니요" />
                         <RadioButton
                             android:id="@+id/yes_prag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="임신 중" />
                         <RadioButton
                             android:id="@+id/yes_breeding"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
+                            android:textColor="@color/black"
                             android:text="수유 중" />
                     </RadioGroup>
                     <RadioGroup

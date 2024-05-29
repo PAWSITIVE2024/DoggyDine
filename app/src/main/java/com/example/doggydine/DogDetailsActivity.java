@@ -51,12 +51,11 @@ import java.util.Calendar;
 import java.util.List;
 
 public class DogDetailsActivity extends AppCompatActivity {
-    private EditText mName,mWeight,mAllergy;
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5,dog_food;
     private Button mBtnRegister,mBtnDelete;
     private ImageButton activeButton,calendarButton;
     private ImageButton food_num;
-    private TextView selectedDateTextView,dog_food_text,activeTextView, how_much_text;
+    private TextView selectedDateTextView,dog_food_text,activeTextView, how_much_text,mName,mWeight,mAllergy;
     private Calendar calendar;
     private String imageuri_1,imageuri_2,imageuri_3,imageuri_4,imageuri_5,dog_food_string,profileImageUrl1,profileImageUrl2,profileImageUrl3,profileImageUrl4,profileImageUrl5;
     private Uri selectedImageUri,selectedImageUrl_1,selectedImageUrl_2,selectedImageUrl_3,selectedImageUrl_4,selectedImageUrl_5;
