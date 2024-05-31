@@ -19,78 +19,73 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth mFirebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LottieAnimationView lottieAnimationView = findViewById(R.id.LT_s_dog_sleep);
-        lottieAnimationView.setAnimation(R.raw.dog_sleep); // .json 파일을 로드
-        lottieAnimationView.loop(true);
-        lottieAnimationView.playAnimation();
+        LottieAnimationView lottieAnimationView_back = findViewById(R.id.lottieAnimationView_back);
+
+        // 캐시된 애니메이션을 설정합니다.
+        if (Login.mainAnimationComposition != null) {
+            lottieAnimationView_back.setComposition(Login.mainAnimationComposition);
+        } else {
+            // 만약 캐시된 애니메이션이 없으면 다시 로드합니다.
+            lottieAnimationView_back.setAnimation(R.raw.background_main);
+        }
+
+        lottieAnimationView_back.loop(true);
+        lottieAnimationView_back.playAnimation();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine");
-        CircleImageView settingBtn = (CircleImageView) findViewById(R.id.setting_btn);
+        CircleImageView settingBtn = findViewById(R.id.setting_btn);
 
-        ImageButton feed_btn = (ImageButton)findViewById(R.id.feed_btn);
-        Button mTest = (Button)findViewById(R.id.button_test) ;
+        ImageButton feed_btn = findViewById(R.id.feed_btn);
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
-        Button detecting_btn = (Button)findViewById(R.id.btn_detecting);
+        Button detecting_btn = findViewById(R.id.btn_detecting);
 
-
-        //잠깐 test용으로 하나 만들었습니다!!
-        mTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent (MainActivity.this, FoodCompare.class);
-                startActivity(intent);
-            }
-        });
         detecting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (MainActivity.this, DetectedFace.class);
+                Intent intent = new Intent(MainActivity.this, DetectedFace.class);
                 startActivity(intent);
             }
         });
-
 
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Setting.class);
+                Intent intent = new Intent(MainActivity.this, Setting.class);
                 startActivity(intent);
-
             }
         });
+
         feed_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(MainActivity.this,Feeding.class);
+                Intent intent = new Intent(MainActivity.this, Feeding.class);
                 startActivity(intent);
             }
         });
-        ImageButton chatbot_btn = (ImageButton) findViewById(R.id.chatbot_btn);
-        chatbot_btn.setOnClickListener(new View.OnClickListener(){
+
+        ImageButton chatbot_btn = findViewById(R.id.chatbot_btn);
+        chatbot_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ChatBot.class);
                 startActivity(intent);
             }
         });
-        ImageButton calender_btn = (ImageButton) findViewById(R.id.calender_btn);
-        calender_btn.setOnClickListener(new View.OnClickListener(){
+
+        ImageButton calender_btn = findViewById(R.id.calender_btn);
+        calender_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calender.class);
                 startActivity(intent);
             }
         });
-
-
-
-
     }
 }

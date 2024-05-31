@@ -6,26 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
     <LinearLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-        <ImageView
-            android:id="@+id/doggy_dine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/doggy_dine" />
+        android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/setting_btn"
             android:layout_width="0dp"
             android:layout_height="78dp"
-            android:layout_weight="1"
-            android:background="@color/white"
+            android:layout_marginLeft="340dp"
             android:layout_gravity="right"
+            android:layout_weight="1"
             android:contentDescription="환경설정버튼"
             android:src="@drawable/ic_launcher_background"
             app:civ_border_color="#90721AFF"
@@ -39,24 +37,17 @@
         android:layout_below="@id/top_layout"
         android:layout_above="@id/bottom_layout"
         android:layout_marginBottom="1dp"
-        android:background="@color/white">
+        >
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/LT_s_dog_sleep"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="237dp"
-            android:scaleType="centerCrop" />
-
-        <Button
-            android:id="@+id/button_test"
-            android:layout_width="119dp"
+        <ImageView
+            android:id="@+id/doggy_dine"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="300dp"
-            android:layout_marginEnd="134dp"
-            android:text="Test" />
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="74dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/doggy_dine_removebg" />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,7 +55,7 @@
         android:layout_marginBottom="20dp"
         android:id="@+id/bottom_layout"
         android:layout_above="@id/btn_detecting"
-        android:background="@color/white">
+        >
         <ImageButton
             android:id="@+id/calender_btn"
             android:contentDescription="캘린더버튼"
@@ -72,7 +63,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            android:background="@color/white"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/calendar" />
         <ImageButton
@@ -82,7 +72,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            android:background="@color/white"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/feed_btn" />
         <ImageButton
@@ -92,7 +81,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            android:background="@color/white"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/gpt" />
     </LinearLayout>
