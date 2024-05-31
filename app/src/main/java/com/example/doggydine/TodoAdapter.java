@@ -52,21 +52,24 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         holder.fixing_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showCalendarDetailDialog(view.getContext(), todoItem, position);
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    showCalendarDetailDialog(view.getContext(), todoItem, adapterPosition);
+                }
             }
         });
 
         holder.cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int itemPosition = holder.getAdapterPosition();
-                if (itemPosition != RecyclerView.NO_POSITION) {
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
                     // Firebase에서 삭제
                     String dateKey = todoItem.getYear() + "-" + (todoItem.getMonth() + 1) + "-" + todoItem.getDayOfMonth();
                     databaseReference.child("UserAccount").child(currentUserId).child("Calendar").child(dateKey).child(todoItem.getTask()).removeValue().addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            todoList.remove(itemPosition);
-                            notifyItemRemoved(itemPosition);
+                            todoList.remove(adapterPosition);
+                            notifyItemRemoved(adapterPosition);
                             Toast.makeText(v.getContext(), "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(v.getContext(), "일정 삭제에 실패했습니다", Toast.LENGTH_SHORT).show();
@@ -87,7 +90,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_calendar_detail);
 
-
+        // 다이얼로그 내부의 뷰 참조
         EditText titleEditText = dialog.findViewById(R.id.titleEditText);
         EditText locationEditText = dialog.findViewById(R.id.locationEditText);
         TextView timeEdit = dialog.findViewById(R.id.text_clock);
@@ -95,7 +98,21 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         Button saveButton = dialog.findViewById(R.id.saveButton);
         Button cancelButton = dialog.findViewById(R.id.cancelButton);
 
-        titleEditText.setText(todoItem.getTask());
+        // 기존 일정 정보 설정
+        String dateKey = todoItem.getYear() + "-" + (todoItem.getMonth() + 1) + "-" + todoItem.getDayOfMonth();
+        databaseReference.child("UserAccount").child(currentUserId).child("Calendar").child(dateKey).child(todoItem.getTask()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                ScheduleItem scheduleItem = task.getResult().getValue(ScheduleItem.class);
+                if (scheduleItem != null) {
+                    titleEditText.setText(scheduleItem.getTitle());
+                    locationEditText.setText(scheduleItem.getLocation());
+                    timeEdit.setText(scheduleItem.getTime());
+                    memoEditText.setText(scheduleItem.getMemo());
+                }
+            } else {
+                Toast.makeText(context, "일정 정보를 가져오지 못했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,8 +122,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
                 String memo = memoEditText.getText().toString();
                 String time = timeEdit.getText().toString();
 
-
-                String dateKey = todoItem.getYear() + "-" + (todoItem.getMonth() + 1) + "-" + todoItem.getDayOfMonth();
+                // 기존 키로 삭제 후 새로운 키로 저장
                 databaseReference.child("UserAccount").child(currentUserId).child("Calendar").child(dateKey).child(todoItem.getTask()).removeValue();
 
                 // 새로운 일정으로 업데이트

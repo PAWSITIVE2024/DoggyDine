@@ -17,6 +17,8 @@
                 android:id="@+id/titleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textColorHint="#808080"
                 android:hint="일정 제목"
                 android:textSize="20dp"/>
             <EditText
@@ -24,6 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="위치 또는 이메일"
+                android:textColorHint="#808080"
+                android:textColor="@color/black"
                 android:textSize="15dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,14 +36,17 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:textSize="15dp"
                     android:text="시간"/>
                 <TextView
                     android:id="@+id/text_clock"
                     android:hint="00시 00분 00초 오전"
+                    android:textColorHint="#808080"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:gravity="right"
                     android:textSize="15dp"/>
             </LinearLayout>
@@ -51,6 +58,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:textSize="15dp"
                     android:text="태그"/>
@@ -101,13 +109,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="메모"
                         android:textSize="15dp"/>
                     <EditText
                         android:id="@+id/memoEditText"
                         android:background="@drawable/round_corner_cal_item"
                         android:layout_width="match_parent"
+                        android:textColor="@color/black"
                         android:layout_height="150dp"
+                        android:textColorHint="#808080"
+
                         android:hint="  중요한 내용 기록하기." />
                 </LinearLayout>
             </ScrollView>
