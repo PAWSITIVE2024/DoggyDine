@@ -90,7 +90,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_calendar_detail);
 
-        // 다이얼로그 내부의 뷰 참조
+
         EditText titleEditText = dialog.findViewById(R.id.titleEditText);
         EditText locationEditText = dialog.findViewById(R.id.locationEditText);
         TextView timeEdit = dialog.findViewById(R.id.text_clock);
@@ -122,10 +122,10 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
                 String memo = memoEditText.getText().toString();
                 String time = timeEdit.getText().toString();
 
-                // 기존 키로 삭제 후 새로운 키로 저장
+
                 databaseReference.child("UserAccount").child(currentUserId).child("Calendar").child(dateKey).child(todoItem.getTask()).removeValue();
 
-                // 새로운 일정으로 업데이트
+
                 todoItem.setTask(title);
                 databaseReference.child("UserAccount").child(currentUserId).child("Calendar").child(dateKey).child(title).setValue(new ScheduleItem(title, location, time, memo)).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
