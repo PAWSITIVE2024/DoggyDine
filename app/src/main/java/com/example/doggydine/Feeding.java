@@ -151,10 +151,12 @@ public class Feeding extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Feeding.this, Recommend.class);
+                intent.putExtra("fromFeeding", true); // fromFeeding 값을 추가
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_stay); // 애니메이션 설정
             }
         });
+
 
         // Spinner에서 선택된 정렬 방법을 감지하는 리스너 구현
         mspinner = findViewById(R.id.spinner);

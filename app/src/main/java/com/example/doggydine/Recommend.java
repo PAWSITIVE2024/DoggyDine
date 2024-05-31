@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,35 +24,16 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Map;
 
-
 public class Recommend extends AppCompatActivity {
     private static final String PREF_NAME = "FoodSelectionPref";
     private static final String PREF_KEY_PREFIX = "food_selected_";
 
     // 음식 아이콘(ImageButton) 정의
-    private ImageButton mPotato;
-    private ImageButton mCrab;
-    private ImageButton mSweetPotato;
-    private ImageButton mWheat;
-    private ImageButton mInsect;
-    private ImageButton mChicken;
-    private ImageButton mCarrot;
-    private ImageButton mPig;
-    private ImageButton mShrimp;
-    private ImageButton mCow;
-    private ImageButton mSheep;
-    private ImageButton mSalmon;
-    private ImageButton mDuck;
-    private ImageButton mMilk;
-    private ImageButton mCheese;
-    private ImageButton mTurkey;
-    private ImageButton mBean;
-    private ImageButton mSunFlower;
-    private ImageButton mPumpkin;
-    private ImageButton mGinseng;
+    private ImageButton mPotato,mCrab,mSweetPotato,mWheat,mInsect,mChicken,mCarrot,mPig,mShrimp,mCow,mSheep,
+                        mSalmon,mDuck,mMilk,mCheese,mTurkey,mBean,mSunFlower,mPumpkin,mGinseng;
+    private TextView mMaintitle,mSubtitle,mSubtitle_2;
     private Button mBtn_adpat;
     private CheckBox mCheckBox;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,22 +61,30 @@ public class Recommend extends AppCompatActivity {
         mSunFlower = findViewById(R.id.sunflower_icon);
         mPumpkin = findViewById(R.id.pumpkin_icon);
         mGinseng = findViewById(R.id.ginseng_icon);
-
-
-
         mCheckBox = findViewById(R.id.cb_total_select);
+        mMaintitle = findViewById(R.id.tv_maintitle);
+        mSubtitle = findViewById(R.id.tv_subtitle);
+        mSubtitle_2 = findViewById(R.id.tv_subtitle2);
+        if (getIntent().getBooleanExtra("fromFeeding", false)){
+            mMaintitle.setText("맞춤 검색");
+            mSubtitle.setText("주원료 선택(중복 선택 가능)");
+            mSubtitle_2.setVisibility(View.VISIBLE);
+        }else {
+            mMaintitle.setText("알러지 선택");
+            mSubtitle.setText("알러지 선택(중복 선택 가능)");
+            mSubtitle_2.setVisibility(View.INVISIBLE);
+        }
+
         mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     selectAll();
-                }
-                else{
+                } else {
                     resetAll();
                 }
             }
         });
-
 
         mBtn_adpat = findViewById(R.id.btn_adapt);
         mBtn_adpat.setOnClickListener(new View.OnClickListener() {
@@ -102,23 +92,28 @@ public class Recommend extends AppCompatActivity {
             public void onClick(View view) {
                 saveSelectionStates();
                 ArrayList<String> selectedIngredients = getSelectedIngredients();
-                Intent intent = new Intent(Recommend.this, Show_Recommend.class);
-                intent.putExtra("fromRecommend", true);
-                // 선택된 재료 목록을 Feeding 액티비티로 전달
-                intent.putExtra("selectedIngredients", selectedIngredients);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-                finish();
-
+                Intent intent;
+                if (getIntent().getBooleanExtra("fromFeeding", false)) {
+                    intent = new Intent(Recommend.this, Show_Recommend.class);
+                    intent.putExtra("fromRecommend", true);
+                    intent.putExtra("selectedIngredients", selectedIngredients);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                    finish();
+                } else {
+                    SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear();
+                    editor.putString("allergy", String.join(", ", selectedIngredients)); // 선택된 재료를 쉼표로 구분하여 저장
+                    editor.apply();
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                    finish();
+                }
             }
         });
 
-
-
         // 이전 선택 상태 복원 필요없을것 같아 주석처리
         //restoreSelectionStates();
-
-
 
         // 각 ImageButton에 클릭 리스너 설정
         mPotato.setOnClickListener(v -> toggleSelection(v, "감자"));
@@ -141,16 +136,13 @@ public class Recommend extends AppCompatActivity {
         mSunFlower.setOnClickListener(v -> toggleSelection(v, "해바라기씨"));
         mPumpkin.setOnClickListener(v -> toggleSelection(v, "호박씨"));
         mGinseng.setOnClickListener(v -> toggleSelection(v, "홍삼"));
-
     }
-
 
     // 선택 상태를 전환하는 메서드
     private void toggleSelection(View view, String foodName) {
         boolean isSelected = !isSelected((ImageButton) view);
         updateUI(view, isSelected);
     }
-
 
     private void selectAll() {
         updateSelectionState(true);
@@ -159,7 +151,8 @@ public class Recommend extends AppCompatActivity {
     private void resetAll() {
         updateSelectionState(false);
     }
-    private void updateSelectionState(boolean isSelected) { //isSelected 값을 인자로 받고 이 인자에따라 ui변경
+
+    private void updateSelectionState(boolean isSelected) {
         updateUI(mPotato, isSelected);
         updateUI(mCrab, isSelected);
         updateUI(mSweetPotato, isSelected);
@@ -182,7 +175,6 @@ public class Recommend extends AppCompatActivity {
         updateUI(mGinseng, isSelected);
     }
 
-
     // UI 업데이트를 위한 메서드
     private void updateUI(View view, boolean isSelected) {
         if (isSelected) {
@@ -192,12 +184,11 @@ public class Recommend extends AppCompatActivity {
         }
     }
 
-
     private void saveSelectionStates() {
         SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
-        // 각 ImageButton의 선택 상태를 SharedPreferences에 저장
+
         editor.putBoolean(PREF_KEY_PREFIX + "감자", isSelected(mPotato));
         editor.putBoolean(PREF_KEY_PREFIX + "게껍질", isSelected(mCrab));
         editor.putBoolean(PREF_KEY_PREFIX + "고구마", isSelected(mSweetPotato));
@@ -220,9 +211,9 @@ public class Recommend extends AppCompatActivity {
         editor.putBoolean(PREF_KEY_PREFIX + "홍삼", isSelected(mGinseng));
         editor.apply();
     }
+
     private ArrayList<String> getSelectedIngredients() {
         ArrayList<String> selectedIngredients = new ArrayList<>();
-        SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
         // 각 ImageButton의 선택 상태를 확인하고 선택된 재료를 selectedIngredients 목록에 추가
         if (isSelected(mPotato)) selectedIngredients.add("감자");
@@ -246,12 +237,8 @@ public class Recommend extends AppCompatActivity {
         if (isSelected(mPumpkin)) selectedIngredients.add("호박씨");
         if (isSelected(mGinseng)) selectedIngredients.add("홍삼");
 
-        // 나머지 ImageButton에 대해서도 동일하게 처리
-
         return selectedIngredients;
     }
-
-
 
     // ImageButton의 선택 상태를 확인하는 메서드
     private boolean isSelected(ImageButton imageButton) {

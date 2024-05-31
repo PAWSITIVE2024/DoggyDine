@@ -85,6 +85,7 @@ public class Show_Recommend extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Show_Recommend.this, Recommend.class);
+                intent.putExtra("fromFeeding",true);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_stay); // 애니메이션 설정
             }
