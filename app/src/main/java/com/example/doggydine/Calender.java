@@ -105,7 +105,6 @@ public class Calender extends AppCompatActivity {
                 }
                 todoAdapter.notifyDataSetChanged();
             } else {
-                Toast.makeText(Calender.this, "일정을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
     }
