@@ -116,7 +116,9 @@ public class DogSignUp extends AppCompatActivity {
         allergyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //여기에 알러지 버튼으로 넘어가도록 설정 필요합니다!!!
+                Intent intent2 = new Intent (DogSignUp.this, Recommend.class);
+                intent2.putExtra("FromSelectDogFood", true); // fromFeeding 값을 추가
+                startActivity(intent2);
             }
         });
         dog_food.setOnClickListener(new View.OnClickListener() {
@@ -259,16 +261,25 @@ public class DogSignUp extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         SharedPreferences sharedPreferences = getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
         String foodName = sharedPreferences.getString("foodName", "");
+        String allergy = sharedPreferences.getString("allergy","");
         if (!foodName.isEmpty()) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             dog_food_text.setText(foodName);
             editor.putString("foodName", "");
             editor.apply();
+
+        } else if (!allergy.isEmpty()) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            mAllergy.setText(allergy);
+            editor.putString("allergy", "");
+            editor.apply();
+
 
         }
         Log.d("dog_food", foodName);
