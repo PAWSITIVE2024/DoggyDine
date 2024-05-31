@@ -1,13 +1,9 @@
 package com.example.doggydine;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextClock;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -20,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,6 +31,9 @@ public class Calender extends AppCompatActivity {
     List<TodoItem> todoList;
     ImageButton addTodoButton;
     private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+    private String currentUserId;
+    private int selectedYear, selectedMonth, selectedDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,31 +49,40 @@ public class Calender extends AppCompatActivity {
         todoRecyclerView = findViewById(R.id.todoRecyclerView);
         addTodoButton = findViewById(R.id.addTodoButton);
 
-        // RecyclerView 설정
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.getCurrentUser().getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(currentUserId).child("Calendar");
+
+
         todoList = new ArrayList<>();
         todoAdapter = new TodoAdapter(todoList);
         todoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         todoRecyclerView.setAdapter(todoAdapter);
 
-//        mFirebaseAuth = FirebaseAuth.getInstance();
-//        String uid = mFirebaseAuth.getCurrentUser().getUid();
-//        mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid);
+        // 기본 선택 날짜 설정
+        Calendar calendar = Calendar.getInstance();
+        selectedYear = calendar.get(Calendar.YEAR);
+        selectedMonth = calendar.get(Calendar.MONTH);
+        selectedDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // 기본 선택 날짜에 대한 일정 업데이트
+        updateTodoList(selectedYear, selectedMonth, selectedDay);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                selectedYear = year;
+                selectedMonth = month;
+                selectedDay = dayOfMonth;
                 updateTodoList(year, month, dayOfMonth);
             }
         });
+
         addTodoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int year = Calendar.getInstance().get(Calendar.YEAR);
-                int month = Calendar.getInstance().get(Calendar.MONTH);
-                int dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-
-                TodoItem newTodo = new TodoItem("새로운 할 일", year, month, dayOfMonth);
-
+                TodoItem newTodo = new TodoItem("새로운 할 일", selectedYear, selectedMonth, selectedDay);
                 todoList.add(newTodo);
                 todoAdapter.notifyDataSetChanged();
 
@@ -81,10 +90,23 @@ public class Calender extends AppCompatActivity {
             }
         });
     }
+
     private void updateTodoList(int year, int month, int dayOfMonth) {
-        // 실제로는 해당 날짜에 저장된 todoList를 가져와서 todoList 변수에 업데이트하는 로직을 구현해야 함
-        // 여기서는 임의의 예시 데이터로 대체
-        todoList.clear();
-        todoAdapter.notifyDataSetChanged();
+
+        String dateKey = year + "-" + (month + 1) + "-" + dayOfMonth;
+        databaseReference.child(dateKey).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                todoList.clear();
+                for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                    String taskTitle = snapshot.getKey();
+                    ScheduleItem scheduleItem = snapshot.getValue(ScheduleItem.class);
+                    TodoItem todoItem = new TodoItem(taskTitle, year, month, dayOfMonth);
+                    todoList.add(todoItem);
+                }
+                todoAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(Calender.this, "일정을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

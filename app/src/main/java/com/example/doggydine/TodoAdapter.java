@@ -1,8 +1,8 @@
 package com.example.doggydine;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
@@ -13,7 +13,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -21,11 +20,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
+
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder> {
     private List<TodoItem> todoList;
+    private DatabaseReference databaseReference;
+    private String currentUserId;
+
     public TodoAdapter(List<TodoItem> todoList) {
         this.todoList = todoList;
+        this.databaseReference = FirebaseDatabase.getInstance().getReference("DoggyDine");
+        this.currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     @NonNull
@@ -39,62 +48,90 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
     public void onBindViewHolder(@NonNull TodoViewHolder holder, int position) {
         TodoItem todoItem = todoList.get(position);
         holder.taskTextView.setText(todoItem.getTask());
+
         holder.fixing_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showCalendarDetailDialog(view.getContext());
-
+                showCalendarDetailDialog(view.getContext(), todoItem, position);
             }
         });
+
         holder.cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int itemPosition = holder.getAdapterPosition();
                 if (itemPosition != RecyclerView.NO_POSITION) {
-                    todoList.remove(itemPosition);
-                    notifyItemRemoved(itemPosition);
+                    // Firebase에서 삭제
+                    String dateKey = todoItem.getYear() + "-" + (todoItem.getMonth() + 1) + "-" + todoItem.getDayOfMonth();
+                    databaseReference.child("UserAccount").child(currentUserId).child("Calendar").child(dateKey).child(todoItem.getTask()).removeValue().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            todoList.remove(itemPosition);
+                            notifyItemRemoved(itemPosition);
+                            Toast.makeText(v.getContext(), "일정이 삭제되었습니다", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(v.getContext(), "일정 삭제에 실패했습니다", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return todoList.size();
     }
-    private void showCalendarDetailDialog(Context context) {
+
+    private void showCalendarDetailDialog(Context context, TodoItem todoItem, int position) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_calendar_detail);
 
-        // 다이얼로그 내부의 뷰 참조
+
         EditText titleEditText = dialog.findViewById(R.id.titleEditText);
         EditText locationEditText = dialog.findViewById(R.id.locationEditText);
         TextView timeEdit = dialog.findViewById(R.id.text_clock);
         EditText memoEditText = dialog.findViewById(R.id.memoEditText);
         Button saveButton = dialog.findViewById(R.id.saveButton);
         Button cancelButton = dialog.findViewById(R.id.cancelButton);
-        //View tagView = dialog.findViewById(R.id.tag_color_view);
+
+        titleEditText.setText(todoItem.getTask());
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String title = titleEditText.getText().toString();
                 String location = locationEditText.getText().toString();
                 String memo = memoEditText.getText().toString();
+                String time = timeEdit.getText().toString();
 
-                // todoItem 객체를 업데이트하거나 저장 로직 추가
-                // 예: todoItem.setTask(title);
-                //     databaseReference.child(todoId).setValue(todoItem);
 
-                Toast.makeText(context, "할 일이 저장되었습니다", Toast.LENGTH_SHORT).show();
+                String dateKey = todoItem.getYear() + "-" + (todoItem.getMonth() + 1) + "-" + todoItem.getDayOfMonth();
+                databaseReference.child("UserAccount").child(currentUserId).child("Calendar").child(dateKey).child(todoItem.getTask()).removeValue();
+
+                // 새로운 일정으로 업데이트
+                todoItem.setTask(title);
+                databaseReference.child("UserAccount").child(currentUserId).child("Calendar").child(dateKey).child(title).setValue(new ScheduleItem(title, location, time, memo)).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        todoList.set(position, todoItem);
+                        notifyItemChanged(position);
+                        Toast.makeText(context, "할 일이 저장되었습니다", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "할 일 저장에 실패했습니다", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
                 dialog.dismiss();
             }
         });
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
+
         timeEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,6 +163,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
                 timeDialog.show();
             }
         });
+
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -134,7 +172,6 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
     }
 
     public static class TodoViewHolder extends RecyclerView.ViewHolder {
-
         TextView taskTextView;
         ImageButton fixing_btn;
         ImageButton cancel_btn;
