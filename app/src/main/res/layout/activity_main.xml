@@ -39,6 +39,7 @@
         android:layout_above="@id/bottom_layout"
         android:layout_marginBottom="1dp">
 
+
         <ImageView
             android:id="@+id/doggy_dine"
             android:layout_width="220dp"
@@ -49,71 +50,103 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/doggy_dine_new" />
 
-        <FrameLayout
-            android:id="@+id/rounded_button_container"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="310dp">
+    </RelativeLayout>
+    <LinearLayout
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/round_background"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:src="#FDF3EE"
-                app:civ_border_color="@android:color/black"
-                app:civ_border_width="3dp" />
+        android:id="@+id/bottom_layout"
+        android:layout_width="330dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="25dp"
+        android:background="@drawable/rounded_corner_main"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/btn_detecting">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            >
+
+            <ImageButton
+                android:id="@+id/calender_btn"
+                android:layout_width="66dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@color/zxing_transparent"
+                android:contentDescription="캘린더버튼"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/calendar_btn" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/maplestorybold"
+                android:textColor="@color/black"
+                android:text="Calender"
+                android:layout_marginLeft="5dp"
+                android:textSize="13dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp">
 
             <ImageButton
                 android:id="@+id/feed_btn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="66dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:layout_marginBottom="5dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="사료등록버튼"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/feeding_btn"/>
+                android:background="@color/zxing_transparent"
+                android:contentDescription="캘린더버튼"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/feeding_btn" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/maplestorybold"
                 android:textColor="@color/black"
                 android:text="Feeding"
-                android:layout_marginLeft="34dp"
-                android:layout_marginTop="105dp"
-                android:textSize="17dp"/>
-        </FrameLayout>
+                android:layout_marginLeft="8dp"
+                android:textSize="13dp"/>
 
-    </RelativeLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginBottom="20dp"
-        android:layout_above="@id/btn_detecting">
-
-        <ImageButton
-            android:id="@+id/calender_btn"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:contentDescription="캘린더버튼"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/calendar" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp">
 
-        <ImageButton
-            android:id="@+id/chatbot_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:contentDescription="gpt버튼"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/gpt" />
+            <ImageButton
+                android:id="@+id/chatbot_btn"
+                android:layout_width="66dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@color/zxing_transparent"
+                android:contentDescription="챗봇"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ask_gpt_btn" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/maplestorybold"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="ASK GPT"
+                android:textSize="13dp"/>
+
+        </LinearLayout>
     </LinearLayout>
 
     <Button
@@ -123,5 +156,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_corner_main"
         android:text="밥 주기"/>
 </RelativeLayout>
