@@ -1,6 +1,5 @@
 package com.example.doggydine;
 
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -10,8 +9,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-
 
 public class PetCalorieCalculator {
 
@@ -135,6 +132,12 @@ class AgeCalculator {
     public static int getAge() {
         // 예시로 고정된 값인 5세를 반환하도록 설정
         return 5;
+    }
+}
+// 선택된 강아지 사료 정보 받아오기
+class SetectedFood {
+    public static int getFood() {
+        return 'a';
     }
 }
 
