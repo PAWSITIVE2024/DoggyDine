@@ -22,7 +22,7 @@
         android:id="@+id/doggy_dine"
         android:layout_width="193dp"
         android:layout_height="47dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="25dp"
         android:layout_marginEnd="218dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +92,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
-                android:fontFamily="@font/maplestorylight"
                 android:hint="아이디"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
@@ -120,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/maplestorybold"
-                android:text="      PW : "
+                android:text="     PW :"
                 android:textColor="@color/black"
                 android:textSize="18dp" />
 
@@ -130,7 +129,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
-                android:fontFamily="@font/maplestorylight"
                 android:hint="비밀번호"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
@@ -149,9 +147,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/maplestorybold"
-                android:text="     Name : "
+                android:text="  Name :"
                 android:textColor="@color/black"
-                android:textSize="15dp" />
+                android:textSize="17dp" />
 
             <EditText
                 android:id="@+id/Et_s_name"
@@ -159,7 +157,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
-                android:fontFamily="@font/maplestorylight"
+
                 android:hint="유저이름"
                 android:textColor="@color/black"
                 android:inputType="text"

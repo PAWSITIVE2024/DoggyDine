@@ -30,6 +30,7 @@
         android:layout_centerInParent="true"
         android:text="궁금한것을 물어보세요!\n예)강아지가 사과 먹어도 돼?"
         android:gravity="center"
+        android:textColor="@color/black"
         android:textSize="15dp" />
   </RelativeLayout>
   <RelativeLayout
@@ -69,6 +70,8 @@
         android:id="@+id/meeage_edit_text"
         android:layout_centerInParent="true"
         android:hint=" 궁금한 것을 물어보세요! "
+        android:textColor="@color/black"
+        android:textColorHint="#808080"
         android:padding="12dp"
         android:textSize="15dp"
         android:layout_toLeftOf="@id/send_btn"

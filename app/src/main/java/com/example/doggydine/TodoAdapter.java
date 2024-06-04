@@ -110,7 +110,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
                     memoEditText.setText(scheduleItem.getMemo());
                 }
             } else {
-                Toast.makeText(context, "일정 정보를 가져오지 못했습니다.", Toast.LENGTH_SHORT).show();
+
             }
         });
 

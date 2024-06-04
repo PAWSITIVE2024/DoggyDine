@@ -12,9 +12,9 @@
     <ImageView
         android:id="@+id/doggy_dine"
         android:layout_width="200dp"
+        android:layout_marginLeft="5dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="-3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"

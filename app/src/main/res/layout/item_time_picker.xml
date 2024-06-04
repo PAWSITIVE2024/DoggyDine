@@ -18,6 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="10dp"
+        android:textColorHint="#808080"
+        android:textColor="@color/black"
         android:hint="09시 00분"
         android:textSize="15dp"/>
 </LinearLayout>

@@ -39,6 +39,7 @@
         android:textAlignment="center"
         android:textSize="30dp"
         android:hint="이름"
+        android:textColorHint="#808080"
         android:layout_marginBottom="20dp"/>
     <LinearLayout
         android:id="@+id/text_layer"
@@ -69,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:textColor="@color/black"
+                    android:textColorHint="#808080"
                     android:textSize="15dp"/>
             </LinearLayout>
             <LinearLayout
@@ -89,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:textColor="@color/black"
+                    android:textColorHint="#808080"
                     android:textSize="15dp"/>
 
             </LinearLayout>
@@ -116,6 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:textColor="@color/black"
+                    android:textColorHint="#808080"
                     android:textSize="15dp"/>
             </LinearLayout>
             <LinearLayout
@@ -136,6 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:textColor="@color/black"
+                    android:textColorHint="#808080"
                     android:textSize="15dp"/>
             </LinearLayout>
         </LinearLayout>
@@ -162,6 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:textColor="@color/black"
+                    android:textColorHint="#808080"
                     android:textSize="15dp"/>
             </LinearLayout>
             <LinearLayout
@@ -182,6 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:textColor="@color/black"
+                    android:textColorHint="#808080"
                     android:textSize="15dp"/>
             </LinearLayout>
         </LinearLayout>
@@ -204,6 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:textColor="@color/black"
+                android:textColorHint="#808080"
                 android:textSize="20dp"/>
         </LinearLayout>
         <Button

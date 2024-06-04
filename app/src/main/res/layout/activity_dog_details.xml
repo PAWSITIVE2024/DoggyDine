@@ -466,6 +466,7 @@
                             <TextView
                                 android:id="@+id/Et_dt_how_many"
                                 android:hint="2"
+                                android:textColorHint="#808080"
                                 android:textColor="#000000"
                                 style="@style/EditTextStyle"
                                 android:layout_width="20dp"
