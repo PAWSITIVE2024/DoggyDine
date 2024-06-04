@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     style="@drawable/rounder_coner_doginfo"
-    android:background="?attr/selectableItemBackgroundBorderless"
+    android:background="@color/white"
     android:orientation="vertical"
     android:elevation="10dp"
     tools:context=".PickNumber">

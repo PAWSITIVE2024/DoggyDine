@@ -10,27 +10,21 @@
     android:orientation="vertical" >
 
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
-
     <ImageView
         android:id="@+id/doggy_dine"
         android:layout_width="338dp"
         android:layout_height="94dp"
         android:layout_marginTop="170dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/doggy_dine_removebg"/>
+        android:src="@drawable/logo_new_2"/>
 
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/Lt_dog_1"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="550dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="120dp"
         android:scaleType="centerCrop" />
 
     <LinearLayout
@@ -38,7 +32,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/doggy_dine">
         <TextView
@@ -119,4 +113,12 @@
             android:fontFamily="@font/maplestorylight"
             android:text="회원가입" />
     </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/Lt_grass"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginTop="180dp"
+        android:scaleType="centerCrop"
+        android:layout_below="@+id/btn_layer"/>
 </RelativeLayout>
