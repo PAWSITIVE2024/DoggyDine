@@ -9,6 +9,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:elevation="10dp"
+    android:layout_margin="20dp"
     tools:context=".PickNumber">
     <TextView
         android:layout_width="match_parent"
@@ -20,62 +21,71 @@
         android:layout_marginBottom="15dp"
         android:layout_marginTop="100dp"
         android:textColor="@color/black"/>
-    <RadioGroup
-        android:id="@+id/pick_num_layer"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/once_btn"
+        android:orientation="horizontal"
+        android:layout_margin="15dp"
+        android:layout_gravity="center_vertical">
+        <RadioGroup
+            android:id="@+id/pick_num_layer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="1 회"/>
-        <RadioButton
-            android:id="@+id/twice_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="2 회"/>
-        <RadioButton
-            android:id="@+id/triple_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="3 회"/>
-        <RadioButton
-            android:id="@+id/four_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="4 회"/>
-        <RadioButton
-            android:id="@+id/five_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="5 회"/>
-    </RadioGroup>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:orientation="vertical">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/time_picker_list"
-                android:layout_width="200dp"
+            <RadioButton
+                android:id="@+id/once_btn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-            <Button
-                android:id="@+id/save_number_btn"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:text="1 회"/>
+            <RadioButton
+                android:id="@+id/twice_btn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="확인"
-                android:layout_gravity="right"/>
-        </LinearLayout>
-    </ScrollView>
+                android:layout_weight="1"
+                android:text="2 회"/>
+            <RadioButton
+                android:id="@+id/triple_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="3 회"/>
+            <RadioButton
+                android:id="@+id/four_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="4 회"/>
+            <RadioButton
+                android:id="@+id/five_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="5 회"/>
+        </RadioGroup>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/time_picker_list"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <Button
+        android:id="@+id/save_number_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="확인"
+        android:layout_gravity="right"/>
 </LinearLayout>
