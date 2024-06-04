@@ -49,6 +49,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class DogDetailsActivity extends AppCompatActivity {
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5,dog_food;
@@ -125,11 +126,15 @@ public class DogDetailsActivity extends AppCompatActivity {
                             activeTextView.setText(pet.getActive_rate());
                             dog_food_text.setText(pet.getDog_food());
                             mAllergy.setText(pet.getAllergy());
-                             profileImageUrl1 = pet.getProfile1();
-                             profileImageUrl2 = pet.getProfile2();
-                             profileImageUrl3 = pet.getProfile3();
-                             profileImageUrl4 = pet.getProfile4();
-                             profileImageUrl5 = pet.getProfile5();
+
+                            Map<String, String> profileMap = pet.getProfile();
+                            if (profileMap != null) {
+                                profileImageUrl1 = profileMap.get("profile1");
+                                profileImageUrl2 = profileMap.get("profile2");
+                                profileImageUrl3 = profileMap.get("profile3");
+                                profileImageUrl4 = profileMap.get("profile4");
+                                profileImageUrl5 = profileMap.get("profile5");
+                            }
 
                             if(profileImageUrl1 !=null){
                                 Glide.with(DogDetailsActivity.this)

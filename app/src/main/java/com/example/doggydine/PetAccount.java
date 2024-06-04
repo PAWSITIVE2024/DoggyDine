@@ -1,5 +1,7 @@
 package com.example.doggydine;
 
+import java.util.Map;
+
 public class PetAccount {
     private String dog_name;
     private String dog_food;
@@ -7,8 +9,8 @@ public class PetAccount {
     private String dog_weight;
     private String active_rate;
     private String allergy;
-    private String profile; //이건 userface
     private String profile1; //profile1,2,3,4,5 부터는 강아지 사진입니다
+    private Map<String, String> profile;
     private String profile2;
     private String profile3;
     private String profile4;
@@ -53,15 +55,6 @@ public class PetAccount {
     public void setAllergy(String allergy) {
         this.allergy = allergy;
     }
-
-    public String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        this.profile = profile;
-    }
-
     public String getProfile1() {
         return profile1;
     }
@@ -108,5 +101,13 @@ public class PetAccount {
 
     public void setDog_food(String dog_food) {
         this.dog_food = dog_food;
+    }
+
+    public Map<String, String> getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Map<String, String> profile) {
+        this.profile = profile;
     }
 }

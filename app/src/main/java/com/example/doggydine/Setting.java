@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Setting extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -61,7 +62,8 @@ public class Setting extends AppCompatActivity {
 
                 for(DataSnapshot snapshot : datasnapshot.getChildren()){
                     PetAccount petaccount = new PetAccount();
-                    petaccount.setProfile1(snapshot.child("profile1").getValue(String.class));
+                    Map<String, String> profileMap = petaccount.getProfile();
+                    petaccount.setProfile1(snapshot.child("profile").child("profile1").getValue(String.class));
                     petaccount.setDog_name(snapshot.child("dog_name").getValue(String.class));
                     arrayList.add(petaccount); // 데이터를 리스트에 추가
                     Log.d("PetAccount", petaccount.toString());
