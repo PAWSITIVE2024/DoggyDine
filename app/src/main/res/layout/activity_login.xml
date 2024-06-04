@@ -34,23 +34,16 @@
         android:orientation="horizontal"
         android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/round_corner_login"
+        android:elevation="10dp"
         android:layout_below="@id/doggy_dine">
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="9dp"
-            android:fontFamily="@font/maplestorybold"
-            android:text="ID : "
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-
         <EditText
             android:id="@+id/editTextText"
-            android:layout_width="220dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
+            android:layout_margin="8dp"
+            android:background="@drawable/rounder_corner_chat"
             android:textColor="@color/black"
             android:textColorHint="#90000000"
             android:hint="아이디"
@@ -62,24 +55,19 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/round_corner_login"
+        android:elevation="10dp"
+        android:layout_marginTop="8dp"
         android:layout_below="@id/Id_layout">
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/maplestorybold"
-            android:textColor="@color/black"
-            android:text="PW : "
-            android:textSize="20dp" />
         <EditText
             android:id="@+id/editTextNumberPassword"
-            android:layout_width="220dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
             android:hint="비밀번호"
             android:inputType="textPassword"
+            android:layout_margin="8dp"
+            android:background="@drawable/rounder_corner_chat"
             android:textColor="@color/black"
             android:textColorHint="#90000000" />
     </LinearLayout>
@@ -95,7 +83,6 @@
             android:id="@+id/go_to_login_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:fontFamily="@font/maplestorylight"
             android:layout_weight="1"
             android:layout_marginStart="20dp"
             android:text="로그인" />
@@ -110,7 +97,6 @@
             android:layout_alignParentEnd="true"
             android:layout_weight="1"
             android:layout_marginEnd="20dp"
-            android:fontFamily="@font/maplestorylight"
             android:text="회원가입" />
     </LinearLayout>
 
