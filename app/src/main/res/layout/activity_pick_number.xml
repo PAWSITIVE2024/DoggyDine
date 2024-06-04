@@ -38,6 +38,7 @@
                 android:id="@+id/once_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:layout_weight="1"
                 android:text="1 회"/>
             <RadioButton
@@ -45,24 +46,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/black"
                 android:text="2 회"/>
             <RadioButton
                 android:id="@+id/triple_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/black"
                 android:text="3 회"/>
             <RadioButton
                 android:id="@+id/four_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/black"
                 android:text="4 회"/>
             <RadioButton
                 android:id="@+id/five_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/black"
                 android:text="5 회"/>
         </RadioGroup>
         <ScrollView
@@ -75,7 +80,7 @@
                 android:orientation="vertical">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/time_picker_list"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"/>
             </LinearLayout>
