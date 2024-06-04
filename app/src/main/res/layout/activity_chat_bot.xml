@@ -12,10 +12,16 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_above="@id/sheet_layout"
-      android:layout_below="@id/above_layout">
+      android:layout_below="@id/above_layout"
+      android:layout_marginStart="15dp"
+      android:layout_marginEnd="15dp"
+      android:layout_marginTop="15dp"
+      android:background="@drawable/round_corner_login"
+      android:elevation="15dp">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:id="@+id/chat_view" />
     <TextView
         android:layout_width="match_parent"
@@ -52,7 +58,7 @@
   </RelativeLayout>
   <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="50dp"
+      android:layout_height="60dp"
       android:layout_alignParentBottom="true"
       app:layout_constraintBottom_toBottomOf="parent"
       android:padding="8dp"
@@ -63,8 +69,8 @@
         android:id="@+id/meeage_edit_text"
         android:layout_centerInParent="true"
         android:hint=" 궁금한 것을 물어보세요! "
-        android:padding="10dp"
-        android:textSize="12dp"
+        android:padding="12dp"
+        android:textSize="15dp"
         android:layout_toLeftOf="@id/send_btn"
         android:background="@drawable/round_corner_cal_item"
         />
