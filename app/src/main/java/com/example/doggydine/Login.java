@@ -61,7 +61,7 @@ public class Login extends AppCompatActivity {
 
                 AppCompatDialog dialog = new AppCompatDialog(Login.this, R.style.TransparentDialog);
                 dialog.setContentView(R.layout.loading);
-                dialog.setCancelable(true); // 다이얼로그를 취소할 수 있도록 설정
+                dialog.setCancelable(true);
 
                 // 다이얼로그의 레이아웃에서 LottieAnimationView 가져오기
                 LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_loading_animation);
