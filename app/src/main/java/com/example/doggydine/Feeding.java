@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,6 +62,21 @@ public class Feeding extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ이 부분이 background 로 실행되는 애니메이션 설정한 부분입니다 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
+        //이거하기전에 layout에 보면 lottieAnimationView_back 이거 로 match parent한거있는거 그거 부터 설정하셔야해요!
+        LottieAnimationView lottieAnimationView_back = findViewById(R.id.lottieAnimationView_back);
+            //만약 캐시된 애니메이션이 있으면->그걸쓰자 !
+        if (Login.mainAnimationComposition != null) {
+            lottieAnimationView_back.setComposition(Login.mainAnimationComposition); //이 mainAnimationComposition은 login화면에서 미리 메인 애니메이션을 캐시해놓고,
+        } else {                                                                      //main화면 진입시 처음부터 애니메이션을 로드하는게아니라 미리 로드한 애니메이션을 가져오는형식입니다
+            // 만약 캐시된 애니메이션이 없으면 처음부터 다시 로드합니다.                                  거기서 미리 로드한걸 여기서도 쓰고싶어서 해봤어요
+            lottieAnimationView_back.setAnimation(R.raw.background_main);
+        }
+        lottieAnimationView_back.loop(true);
+        lottieAnimationView_back.playAnimation();
+        //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
+
 
         barcode_num = null;
         saved_barcode_num = null;
@@ -232,14 +248,7 @@ public class Feeding extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(Feeding.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-    }
+
 
     private void scanCode() {
         ScanOptions options = new ScanOptions();
