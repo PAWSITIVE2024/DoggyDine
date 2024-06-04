@@ -30,11 +30,9 @@
             android:contentDescription="메인으로이동"
             app:srcCompat="@drawable/shopping" />
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/d_f_recyclerView"
-        android:layout_width="367dp"
-        android:layout_height="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@id/button_layout"
         android:layout_below="@id/top_layer"
         android:layout_centerHorizontal="true"
@@ -43,7 +41,15 @@
         android:layout_marginBottom="15dp"
         android:background="@drawable/rounded_button_recycler"
         android:elevation="10dp">
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/d_f_recyclerView"
+            android:layout_width="367dp"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+
     <RelativeLayout
         android:id="@+id/button_layout"
         android:layout_width="match_parent"
