@@ -5,21 +5,31 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieComposition;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth mFirebaseAuth;
+    public static LottieComposition mainAnimationComposition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +50,51 @@ public class MainActivity extends AppCompatActivity {
         lottieAnimationView_back.loop(true);
         lottieAnimationView_back.playAnimation();
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine");
         CircleImageView settingBtn = findViewById(R.id.setting_btn);
 
         ImageButton feed_btn = findViewById(R.id.feed_btn);
-        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
         Button detecting_btn = findViewById(R.id.btn_detecting);
 
         detecting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, DetectedFace.class);
-                startActivity(intent);
+                AppCompatDialog dialog = new AppCompatDialog(MainActivity.this, R.style.TransparentDialog);
+                dialog.setContentView(R.layout.detecting);
+                dialog.setCancelable(true);
+
+                LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_detecting_animation);
+                lottieAnimationView.setAnimation(R.raw.loading_animation); // .json 파일을 로드
+                lottieAnimationView.loop(true);
+                lottieAnimationView.playAnimation();
+
+                dialog.show();
+
+                mFirebaseAuth = FirebaseAuth.getInstance();
+                String uid = mFirebaseAuth.getCurrentUser().getUid();
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid).child("Detected");
+
+                // start 값을 True로 설정
+                databaseReference.child("start").setValue(true);
+                // Detected_name 값이 None이 아닐 때 액티비티 전환
+                databaseReference.child("Detected_name").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String detectedName = snapshot.getValue(String.class);
+                        if (detectedName != null && !detectedName.isEmpty()) {
+                            Intent intent = new Intent(MainActivity.this, DetectedFace.class);
+                            startActivity(intent);
+                            finish();
+                            dialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // 에러 처리 로직
+                        Toast.makeText(MainActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
             }
         });
 

@@ -58,7 +58,6 @@ public class Login extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 AppCompatDialog dialog = new AppCompatDialog(Login.this, R.style.TransparentDialog);
                 dialog.setContentView(R.layout.loading);
                 dialog.setCancelable(true);
