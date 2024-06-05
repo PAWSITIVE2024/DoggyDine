@@ -41,6 +41,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class DogSignUp extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -235,11 +236,13 @@ public class DogSignUp extends AppCompatActivity {
                                     pet_account.setAllergy(pet_allergy);
                                     pet_account.setDog_food(pet_food);
                                     pet_account.setActive_rate(pet_activation);
-                                    pet_account.setProfile1(imageuri_1);
-                                    pet_account.setProfile2(imageuri_2);
-                                    pet_account.setProfile3(imageuri_3);
-                                    pet_account.setProfile4(imageuri_4);
-                                    pet_account.setProfile5(imageuri_5);
+
+                                    PetAccount pet_image = new PetAccount();
+                                    pet_image.setProfile1(imageuri_1);
+                                    pet_image.setProfile2(imageuri_2);
+                                    pet_image.setProfile3(imageuri_3);
+                                    pet_image.setProfile4(imageuri_4);
+                                    pet_image.setProfile5(imageuri_5);
 
 
                                     //DB에 저장한다
@@ -247,9 +250,16 @@ public class DogSignUp extends AppCompatActivity {
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    Toast.makeText(DogSignUp.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                                                    dialog.dismiss();
-                                                    finish();
+                                                    mDatabaseRef.child("pet").child(pet_name).child("profile").setValue(pet_image)
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void unused) {
+                                                                            Toast.makeText(DogSignUp.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                                                                            dialog.dismiss();
+                                                                            finish();
+
+                                                                        }
+                                                                    });
                                                 }
                                             });
                                 } else {
