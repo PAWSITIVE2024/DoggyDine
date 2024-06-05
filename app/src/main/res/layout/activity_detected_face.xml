@@ -214,12 +214,27 @@
                 android:textColorHint="#808080"
                 android:textSize="20dp"/>
         </LinearLayout>
-        <Button
-            android:id="@+id/btn_ok"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="40dp"
-            android:text="급여하기"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp">
+            <Button
+                android:id="@+id/btn_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="다시하기"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"/>
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="급여하기"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"/>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
