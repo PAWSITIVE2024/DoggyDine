@@ -143,7 +143,7 @@ public class ChatBot extends AppCompatActivity {
 
         JSONObject object = new JSONObject();
         try{
-            object.put("model", "gpt-3.5-turbo");
+            object.put("model", "gpt-4o");
             JSONObject messageObj = new JSONObject();
             messageObj.put("role", "user");
             messageObj.put("content", question);
