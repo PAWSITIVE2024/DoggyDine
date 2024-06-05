@@ -250,16 +250,10 @@ public class DogSignUp extends AppCompatActivity {
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    mDatabaseRef.child("pet").child(pet_name).child("profile").setValue(pet_image)
-                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                        @Override
-                                                                        public void onSuccess(Void unused) {
-                                                                            Toast.makeText(DogSignUp.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                                                                            dialog.dismiss();
-                                                                            finish();
-
-                                                                        }
-                                                                    });
+                                                    mDatabaseRef.child("pet").child(pet_name).child("profile").setValue(pet_image);
+                                                    Toast.makeText(DogSignUp.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                                                    dialog.dismiss();
+                                                    finish();
                                                 }
                                             });
                                 } else {
