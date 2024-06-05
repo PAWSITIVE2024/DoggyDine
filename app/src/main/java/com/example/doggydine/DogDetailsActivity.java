@@ -107,6 +107,7 @@ public class DogDetailsActivity extends AppCompatActivity {
         String uid = mFirebaseAuth.getCurrentUser().getUid();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid);
 
+        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡDB에 저장된 Data 가져오기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
         Intent intent = getIntent();
         if(intent != null){
              dogName = intent.getStringExtra("dog_name");
@@ -126,6 +127,7 @@ public class DogDetailsActivity extends AppCompatActivity {
                             activeTextView.setText(pet.getActive_rate());
                             dog_food_text.setText(pet.getDog_food());
                             mAllergy.setText(pet.getAllergy());
+                            how_much_text.setText(pet.getFeeding_num());
 
                             Map<String, String> profileMap = pet.getProfile();
                             if (profileMap != null) {
@@ -264,6 +266,9 @@ public class DogDetailsActivity extends AppCompatActivity {
                 openGalleryForImageView5();
             }
         });
+
+
+        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ수정 processㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

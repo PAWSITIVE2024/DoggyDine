@@ -198,8 +198,7 @@ public class DogSignUp extends AppCompatActivity {
                 String pet_age = selectedDateTextView.getText().toString();
                 String pet_weight = mWeight.getText().toString();
                 String pet_activation = activeTextView.getText().toString();
-                //활동수치 부분은 만드시는중인거 같아서 그대로 뒀습니다!!
-                //활동수치 등록 필요!!!!!
+                String feeding_num = how_much_text.getText().toString();
                 String pet_allergy = mAllergy.getText().toString();
                 String pet_food = dog_food_text.getText().toString();
 
@@ -236,6 +235,7 @@ public class DogSignUp extends AppCompatActivity {
                                     pet_account.setAllergy(pet_allergy);
                                     pet_account.setDog_food(pet_food);
                                     pet_account.setActive_rate(pet_activation);
+                                    pet_account.setFeeding_num(feeding_num);
 
                                     PetAccount pet_image = new PetAccount();
                                     pet_image.setProfile1(imageuri_1);
