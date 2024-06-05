@@ -110,7 +110,7 @@ public class DogDetailsActivity extends AppCompatActivity {
         // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡDB에 저장된 Data 가져오기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
         Intent intent = getIntent();
         if(intent != null){
-             dogName = intent.getStringExtra("dog_name");
+            dogName = intent.getStringExtra("dog_name");
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             String userId = firebaseUser.getUid();
             if(dogName != null) {
@@ -288,8 +288,7 @@ public class DogDetailsActivity extends AppCompatActivity {
                 String pet_age = selectedDateTextView.getText().toString();
                 String pet_weight = mWeight.getText().toString();
                 String pet_activation = activeTextView.getText().toString();
-                //활동수치 부분은 만드시는중인거 같아서 그대로 뒀습니다!!
-                //활동수치 등록 필요!!!!!
+                String feeding_num = how_much_text.getText().toString();
                 String pet_allergy = mAllergy.getText().toString();
                 String pet_food = dog_food_text.getText().toString();
 
@@ -306,65 +305,76 @@ public class DogDetailsActivity extends AppCompatActivity {
 
                 // 모든 업로드 작업이 완료될 때까지 기다림
 
-                    Tasks.whenAllComplete(uploadTask1, uploadTask2, uploadTask3, uploadTask4, uploadTask5)
-                            .addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
-                                @Override
-                                public void onComplete(@NonNull Task<List<Task<?>>> task) {
-                                    if (task.isSuccessful()) {
-                                        // 모든 업로드 작업이 성공적으로 완료된 경우
-                                        // 이미지 URL 가져오기
-                                        imageuri_1 = uploadTask1.getResult();
-                                        imageuri_2 = uploadTask2.getResult();
-                                        imageuri_3 = uploadTask3.getResult();
-                                        imageuri_4 = uploadTask4.getResult();
-                                        imageuri_5 = uploadTask5.getResult();
+                Tasks.whenAllComplete(uploadTask1, uploadTask2, uploadTask3, uploadTask4, uploadTask5)
+                        .addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
+                            @Override
+                            public void onComplete(@NonNull Task<List<Task<?>>> task) {
+                                if (task.isSuccessful()) {
+                                    // 모든 업로드 작업이 성공적으로 완료된 경우
+                                    // 이미지 URL 가져오기
+                                    imageuri_1 = uploadTask1.getResult();
+                                    imageuri_2 = uploadTask2.getResult();
+                                    imageuri_3 = uploadTask3.getResult();
+                                    imageuri_4 = uploadTask4.getResult();
+                                    imageuri_5 = uploadTask5.getResult();
 
-                                        if(imageuri_1.equals("")) {
-                                            imageuri_1 = profileImageUrl1;
-                                        }
-                                        if(imageuri_2.equals("")){
-                                            imageuri_2 = profileImageUrl2;
-                                        }
-                                        if(imageuri_3.equals("")){
-                                            imageuri_3 = profileImageUrl3;
-                                        }
-                                        if(imageuri_4.equals("")){
-                                            imageuri_4 =profileImageUrl4;
-                                        }
-                                        if(imageuri_5.equals("")){
-                                            imageuri_5=profileImageUrl5;
-                                        }
-
-                                        PetAccount pet_account = new PetAccount();
-                                        pet_account.setDog_name(pet_name);
-                                        pet_account.setDog_age(pet_age);
-                                        pet_account.setDog_weight(pet_weight);
-                                        pet_account.setAllergy(pet_allergy);
-                                        pet_account.setDog_food(pet_food);
-                                        pet_account.setActive_rate(pet_activation);
-                                        pet_account.setProfile1(imageuri_1);
-                                        pet_account.setProfile2(imageuri_2);
-                                        pet_account.setProfile3(imageuri_3);
-                                        pet_account.setProfile4(imageuri_4);
-                                        pet_account.setProfile5(imageuri_5);
-
-
-                                        //DB에 저장한다
-                                        mDatabaseRef.child("pet").child(pet_name).setValue(pet_account)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void unused) {
-                                                        Toast.makeText(DogDetailsActivity.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                                                        dialog.dismiss();
-                                                        finish();
-                                                    }
-                                                });
-                                    } else {
-                                        // 업로드 작업 중 실패한 경우
-                                        Toast.makeText(DogDetailsActivity.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                    if(imageuri_1.equals("")) {
+                                        imageuri_1 = profileImageUrl1;
                                     }
+                                    if(imageuri_2.equals("")){
+                                        imageuri_2 = profileImageUrl2;
+                                    }
+                                    if(imageuri_3.equals("")){
+                                        imageuri_3 = profileImageUrl3;
+                                    }
+                                    if(imageuri_4.equals("")){
+                                        imageuri_4 =profileImageUrl4;
+                                    }
+                                    if(imageuri_5.equals("")){
+                                        imageuri_5=profileImageUrl5;
+                                    }
+
+                                    PetAccount pet_account = new PetAccount();
+                                    pet_account.setDog_name(pet_name);
+                                    pet_account.setDog_age(pet_age);
+                                    pet_account.setDog_weight(pet_weight);
+                                    pet_account.setAllergy(pet_allergy);
+                                    pet_account.setDog_food(pet_food);
+                                    pet_account.setFeeding_num(feeding_num);
+                                    pet_account.setActive_rate(pet_activation);
+
+
+                                    PetAccount pet_image = new PetAccount();
+                                    pet_image.setProfile1(imageuri_1);
+                                    pet_image.setProfile2(imageuri_2);
+                                    pet_image.setProfile3(imageuri_3);
+                                    pet_image.setProfile4(imageuri_4);
+                                    pet_image.setProfile5(imageuri_5);
+
+
+                                    //수정된 data DB에 저장한다
+                                    mDatabaseRef.child("pet").child(pet_name).setValue(pet_account)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    mDatabaseRef.child("pet").child(pet_name).child("profile").setValue(pet_image)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void unused) {
+                                                                    Toast.makeText(DogDetailsActivity.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                                                                    dialog.dismiss();
+                                                                    finish();
+
+                                                                }
+                                                            });
+                                                }
+                                            });
+                                } else {
+                                    // 업로드 작업 중 실패한 경우
+                                    Toast.makeText(DogDetailsActivity.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
                                 }
-                            });
+                            }
+                        });
 
 
             }
@@ -391,15 +401,15 @@ public class DogDetailsActivity extends AppCompatActivity {
             editor.putString("allergy", "");
             editor.apply();
         } else if (!averageValue.isEmpty()) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        activeTextView.setText(averageValue);
-        editor.putString("averageValue", "");
-        editor.apply();
-         }else if (!numberValue.isEmpty()){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        how_much_text.setText(numberValue);
-        editor.putString("numberValue", "");
-        editor.apply();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            activeTextView.setText(averageValue);
+            editor.putString("averageValue", "");
+            editor.apply();
+        }else if (!numberValue.isEmpty()){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            how_much_text.setText(numberValue);
+            editor.putString("numberValue", "");
+            editor.apply();
         }
         Log.d("dog_food", foodName);
     }
