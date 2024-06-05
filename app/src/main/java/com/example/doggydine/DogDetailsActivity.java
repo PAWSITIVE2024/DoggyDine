@@ -48,11 +48,13 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DogDetailsActivity extends AppCompatActivity {
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5,dog_food;
+    private int maxnumber;
     private Button mBtnRegister,mBtnDelete;
     private ImageButton activeButton,calendarButton, allergyButton;
     private ImageButton food_num;
@@ -63,10 +65,12 @@ public class DogDetailsActivity extends AppCompatActivity {
     private int count = 1;
     private static final  int PICK_IMAGE_REQUEST = 1;
     private String dogName;
+    private Map<String, String> pretimeMap = new HashMap<>();
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference,mDatabaseRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +82,7 @@ public class DogDetailsActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         mName = findViewById(R.id.Et_dt_name);
         mWeight = findViewById(R.id.Et_dt_weight);
         selectedDateTextView = findViewById(R.id.dt_selectedDateTextView);
@@ -128,6 +133,7 @@ public class DogDetailsActivity extends AppCompatActivity {
                             dog_food_text.setText(pet.getDog_food());
                             mAllergy.setText(pet.getAllergy());
                             how_much_text.setText(pet.getFeeding_num());
+                            pretimeMap = pet.getTime();
 
                             Map<String, String> profileMap = pet.getProfile();
                             if (profileMap != null) {
@@ -343,13 +349,39 @@ public class DogDetailsActivity extends AppCompatActivity {
                                     pet_account.setFeeding_num(feeding_num);
                                     pet_account.setActive_rate(pet_activation);
 
+                                    PetAccount pet_time = new PetAccount();
+                                    SharedPreferences sharedPreferences = getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
 
-                                    PetAccount pet_image = new PetAccount();
-                                    pet_image.setProfile1(imageuri_1);
-                                    pet_image.setProfile2(imageuri_2);
-                                    pet_image.setProfile3(imageuri_3);
-                                    pet_image.setProfile4(imageuri_4);
-                                    pet_image.setProfile5(imageuri_5);
+                                    //시간정보 저장
+                                    Map<String, String> timeMap = new HashMap<>();
+                                    for (int i = 1; i <= maxnumber; i++) {
+                                        String tmp = sharedPreferences.getString("time" + i, "");
+
+                                        // 시간 정보가 비어있지 않다면 timeMap에 추가
+                                        if (!tmp.isEmpty()) {
+                                            timeMap.put("time" + i, tmp);
+                                            Log.d("Time", "Time: " + tmp);
+                                            // sharedPreferences에 있는 해당 키 값을 ""로 초기화
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("time" + i, "");
+                                            editor.apply();
+                                        }
+                                    }
+                                    if (maxnumber == 0 ){
+                                        pet_account.setTime(pretimeMap);
+                                    }
+                                    else{
+                                        pet_account.setTime(timeMap);
+                                    }
+                                    Map<String,String> photoMap = new HashMap<>();
+                                    photoMap.put("profile1",imageuri_1);
+                                    photoMap.put("profile2",imageuri_2);
+                                    photoMap.put("profile3",imageuri_3);
+                                    photoMap.put("profile4",imageuri_4);
+                                    photoMap.put("profile5",imageuri_5);
+                                    pet_account.setProfile(photoMap);
+
+
 
 
                                     //수정된 data DB에 저장한다
@@ -357,7 +389,7 @@ public class DogDetailsActivity extends AppCompatActivity {
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    mDatabaseRef.child("pet").child(pet_name).child("profile").setValue(pet_image);
+
                                                     Toast.makeText(DogDetailsActivity.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
                                                     dialog.dismiss();
                                                     finish();
@@ -383,6 +415,8 @@ public class DogDetailsActivity extends AppCompatActivity {
         String allergy = sharedPreferences.getString("allergy","");
         String averageValue = sharedPreferences.getString("averageValue","");
         String numberValue = sharedPreferences.getString("numberValue","");
+        maxnumber = Integer.parseInt(numberValue.isEmpty() ? "0" : numberValue);
+
         if (!foodName.isEmpty()) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             dog_food_text.setText(foodName);

@@ -2,6 +2,7 @@ package com.example.doggydine;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TimePickerAdapter extends RecyclerView.Adapter<TimePickerAdapter.TimePickerViewHolder> {
-    private List<Integer> timePickerList = new ArrayList<>();
+    private List<String> timeList = new ArrayList<>();
     private Context context;
 
     public TimePickerAdapter(Context context) {
@@ -32,18 +33,19 @@ public class TimePickerAdapter extends RecyclerView.Adapter<TimePickerAdapter.Ti
 
     @Override
     public void onBindViewHolder(@NonNull TimePickerViewHolder holder, int position) {
-        // 여기서 필요한 경우 holder의 데이터 설정 가능
+        String time = timeList.get(position);
+        holder.time_txt.setText(time);
     }
 
     @Override
     public int getItemCount() {
-        return timePickerList.size();
+        return timeList.size();
     }
 
     public void setTimePickers(int count) {
-        timePickerList.clear();
+        timeList.clear();
         for (int i = 0; i < count; i++) {
-            timePickerList.add(i);
+            timeList.add(""); // 초기값은 빈 문자열로 설정
         }
         notifyDataSetChanged();
     }
@@ -58,12 +60,12 @@ public class TimePickerAdapter extends RecyclerView.Adapter<TimePickerAdapter.Ti
             time_txt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showTimePickerDialog();
+                    showTimePickerDialog(getAdapterPosition()); // 현재 아이템의 위치 전달
                 }
             });
         }
 
-        private void showTimePickerDialog() {
+        private void showTimePickerDialog(final int position) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             LayoutInflater inflater = LayoutInflater.from(context);
             View dialogView = inflater.inflate(R.layout.time_picker, null);
@@ -79,7 +81,16 @@ public class TimePickerAdapter extends RecyclerView.Adapter<TimePickerAdapter.Ti
                 public void onClick(View v) {
                     int hour = timePicker.getCurrentHour();
                     int minute = timePicker.getCurrentMinute();
-                    time_txt.setText(String.format("%02d:%02d", hour, minute));
+                    String time = String.format("%02d:%02d", hour, minute);
+                    timeList.set(position, time); // 선택된 시간을 리스트에 저장
+                    notifyDataSetChanged(); // 변경 사항을 반영하여 UI 갱신
+
+                    // SharedPreferences에 저장
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("time" + (position+1), time); // 위치별로 다른 key 사용
+                    editor.apply();
+
                     timeDialog.dismiss();
                 }
             });

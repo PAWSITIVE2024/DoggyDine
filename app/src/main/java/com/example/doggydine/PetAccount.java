@@ -4,6 +4,7 @@ import java.security.PrivateKey;
 import java.util.Map;
 
 public class PetAccount {
+    private Map<String, String> time;
     private String dog_name;
     private String feeding_num;
     private String dog_food;
@@ -119,5 +120,13 @@ public class PetAccount {
 
     public void setFeeding_num(String feeding_num) {
         this.feeding_num = feeding_num;
+    }
+
+    public Map<String, String> getTime() {
+        return time;
+    }
+
+    public void setTime(Map<String, String> time) {
+        this.time = time;
     }
 }
