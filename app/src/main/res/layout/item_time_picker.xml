@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:padding="8dp"
     android:background="@drawable/rounder_coner"
-    android:elevation="10dp"
+    android:elevation="5dp"
     android:layout_margin="5dp">
     <ImageView
         android:layout_width="wrap_content"
