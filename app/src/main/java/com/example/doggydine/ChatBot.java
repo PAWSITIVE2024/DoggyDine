@@ -132,7 +132,7 @@ public class ChatBot extends AppCompatActivity {
         JSONObject userMsg = new JSONObject();
         try{
             baseAi.put("role", "user");
-            baseAi.put("content", "You are a kind and sweet dog expert. I would like to ask about dogs. Answer always first whether it is possible or not, and then explain in detail under <<설명>> If you ask about sheep, please explain under <<적정량>>. Please answer in Korean.");
+            baseAi.put("content", "You are a kind AI assistance about dog. Answer questions about dogs. \nBegin each response with '가능합니다' or '안됩니다', then provide a detailed explanation under 《설명》. Answer in Korean.");
             userMsg.put("role", "user");
             userMsg.put("content", question);
             arr.put(baseAi);
