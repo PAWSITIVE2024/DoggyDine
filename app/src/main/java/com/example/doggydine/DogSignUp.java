@@ -40,11 +40,13 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DogSignUp extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
+    private int maxnumber;
     private DatabaseReference mDatabaseRef;
     private EditText  mName, mWeight;
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5;
@@ -237,12 +239,32 @@ public class DogSignUp extends AppCompatActivity {
                                     pet_account.setActive_rate(pet_activation);
                                     pet_account.setFeeding_num(feeding_num);
 
-                                    PetAccount pet_image = new PetAccount();
-                                    pet_image.setProfile1(imageuri_1);
-                                    pet_image.setProfile2(imageuri_2);
-                                    pet_image.setProfile3(imageuri_3);
-                                    pet_image.setProfile4(imageuri_4);
-                                    pet_image.setProfile5(imageuri_5);
+                                    Map<String,String> photoMap = new HashMap<>();
+                                    photoMap.put("profile1",imageuri_1);
+                                    photoMap.put("profile2",imageuri_2);
+                                    photoMap.put("profile3",imageuri_3);
+                                    photoMap.put("profile4",imageuri_4);
+                                    photoMap.put("profile5",imageuri_5);
+                                    pet_account.setProfile(photoMap);
+
+                                    SharedPreferences sharedPreferences = getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
+
+
+                                    Map<String, String> timeMap = new HashMap<>();
+                                    for (int i = 1; i <= maxnumber; i++) {
+                                        String tmp = sharedPreferences.getString("time" + i, "");
+
+                                        // 시간 정보가 비어있지 않다면 timeMap에 추가
+                                        if (!tmp.isEmpty()) {
+                                            timeMap.put("time" + i, tmp);
+                                            Log.d("Time", "Time: " + tmp);
+                                            // sharedPreferences에 있는 해당 키 값을 ""로 초기화
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("time" + i, "");
+                                            editor.apply();
+                                        }
+                                    }
+                                    pet_account.setTime(timeMap);
 
 
                                     //DB에 저장한다
@@ -250,7 +272,6 @@ public class DogSignUp extends AppCompatActivity {
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    mDatabaseRef.child("pet").child(pet_name).child("profile").setValue(pet_image);
                                                     Toast.makeText(DogSignUp.this, "강아지 정보가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
                                                     dialog.dismiss();
                                                     finish();
@@ -274,6 +295,7 @@ public class DogSignUp extends AppCompatActivity {
         String allergy = sharedPreferences.getString("allergy","");
         String averageValue = sharedPreferences.getString("averageValue","");
         String numberValue = sharedPreferences.getString("numberValue","");
+        maxnumber = Integer.parseInt(numberValue.isEmpty() ? "0" : numberValue);
         if (!foodName.isEmpty()) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             dog_food_text.setText(foodName);

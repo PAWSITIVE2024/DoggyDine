@@ -54,11 +54,14 @@ import java.util.Map;
 
 public class DogDetailsActivity extends AppCompatActivity {
     private ImageView mImageview,mImageview2,mImageview3,mImageview4,mImageview5,dog_food;
+
     private int maxnumber;
     private Button mBtnRegister,mBtnDelete;
     private ImageButton activeButton,calendarButton, allergyButton;
     private ImageButton food_num;
-    private TextView selectedDateTextView,dog_food_text,activeTextView, how_much_text,mName,mWeight,mAllergy;
+    private TextView selectedDateTextView,dog_food_text,activeTextView, how_much_text,mAllergy;
+    private EditText mName,mWeight;
+
     private Calendar calendar;
     private String imageuri_1,imageuri_2,imageuri_3,imageuri_4,imageuri_5,profileImageUrl1,profileImageUrl2,profileImageUrl3,profileImageUrl4,profileImageUrl5;
     private Uri selectedImageUri,selectedImageUrl_1,selectedImageUrl_2,selectedImageUrl_3,selectedImageUrl_4,selectedImageUrl_5;
@@ -341,7 +344,13 @@ public class DogDetailsActivity extends AppCompatActivity {
                                     }
 
                                     PetAccount pet_account = new PetAccount();
-                                    pet_account.setDog_name(pet_name);
+                                    if (!pet_name.equals(dogName)) {
+                                        mDatabaseRef.child("pet").child(dogName).removeValue();
+                                        pet_account.setDog_name(pet_name);
+                                    } else {
+                                        pet_account.setDog_name(pet_name);
+                                    }
+
                                     pet_account.setDog_age(pet_age);
                                     pet_account.setDog_weight(pet_weight);
                                     pet_account.setAllergy(pet_allergy);
@@ -349,7 +358,7 @@ public class DogDetailsActivity extends AppCompatActivity {
                                     pet_account.setFeeding_num(feeding_num);
                                     pet_account.setActive_rate(pet_activation);
 
-                                    PetAccount pet_time = new PetAccount();
+
                                     SharedPreferences sharedPreferences = getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
 
                                     //시간정보 저장
