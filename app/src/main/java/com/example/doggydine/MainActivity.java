@@ -24,6 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AppCompatDialog dialog = new AppCompatDialog(MainActivity.this, R.style.TransparentDialog);
-                dialog.setContentView(R.layout.detecting);
+                dialog.setContentView(R.layout.loading);
                 dialog.setCancelable(true);
 
-                LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_detecting_animation);
+                LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_loading_animation);
                 lottieAnimationView.setAnimation(R.raw.loading_animation); // .json 파일을 로드
                 lottieAnimationView.loop(true);
                 lottieAnimationView.playAnimation();
@@ -73,9 +76,13 @@ public class MainActivity extends AppCompatActivity {
                 String uid = mFirebaseAuth.getCurrentUser().getUid();
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid).child("Detected");
 
-                // start 값을 True로 설정
-                databaseReference.child("start").setValue(true);
-                // Detected_name 값이 None이 아닐 때 액티비티 전환
+                // 업데이트할 데이터 설정
+                Map<String, Object> updates = new HashMap<>();
+                updates.put("start", true);
+                updates.put("Detected_name", null);
+
+                // 해당 항목만 업데이트
+                databaseReference.updateChildren(updates);
                 databaseReference.child("Detected_name").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -87,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         // 에러 처리 로직

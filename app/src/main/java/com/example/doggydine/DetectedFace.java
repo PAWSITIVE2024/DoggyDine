@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DetectedFace extends AppCompatActivity {
     TextView detectedName;
     TextView metabolic_rate, one_day_cal, once_cal, one_day_food, once_food, left_food, going_food;
@@ -81,10 +84,13 @@ public class DetectedFace extends AppCompatActivity {
                 String uid = mFirebaseAuth.getCurrentUser().getUid();
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid).child("Detected");
 
-                // start 값을 True로 설정하고, detected_name None으로 변경
-                databaseReference.child("start").setValue(true);
-                databaseReference.child("Detected_name").setValue(null);
-                // Detected_name 값이 None이 아닐 때 액티비티 전환
+                // 업데이트할 데이터 설정
+                Map<String, Object> updates = new HashMap<>();
+                updates.put("start", true);
+                updates.put("Detected_name", null);
+
+                // 해당 항목만 업데이트
+                databaseReference.updateChildren(updates);
                 databaseReference.child("Detected_name").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
