@@ -278,6 +278,8 @@ public class DogSignUp extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
         String foodName = sharedPreferences.getString("foodName", "");
         String allergy = sharedPreferences.getString("allergy","");
+        String averageValue = sharedPreferences.getString("averageValue","");
+        String numberValue = sharedPreferences.getString("numberValue","");
         if (!foodName.isEmpty()) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             dog_food_text.setText(foodName);
@@ -289,8 +291,16 @@ public class DogSignUp extends AppCompatActivity {
             mAllergy.setText(allergy);
             editor.putString("allergy", "");
             editor.apply();
-
-
+        } else if (!averageValue.isEmpty()) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            activeTextView.setText(averageValue);
+            editor.putString("averageValue", "");
+            editor.apply();
+        }else if (!numberValue.isEmpty()){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            how_much_text.setText(numberValue);
+            editor.putString("numberValue", "");
+            editor.apply();
         }
         Log.d("dog_food", foodName);
     }
@@ -299,11 +309,11 @@ public class DogSignUp extends AppCompatActivity {
 
     private void showNumberDialog() {
         Intent intent = new Intent(this, PickNumber.class);
-        startActivityForResult(intent, 2);
+        startActivity(intent);
     }
     private void showActivationDialog() {
         Intent intent = new Intent(this, Activation.class);
-        startActivityForResult(intent, 1);
+        startActivity(intent);
     }
     private void showDatePickerDialog() {
         int year = calendar.get(Calendar.YEAR);
@@ -381,6 +391,7 @@ public class DogSignUp extends AppCompatActivity {
                     break;
             }
         }
+        /*
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             float averageValue = data.getFloatExtra("averageValue", 0.0f);
             String activationRate = String.valueOf(averageValue);
@@ -391,7 +402,7 @@ public class DogSignUp extends AppCompatActivity {
                 String numberRate = String.valueOf(numberValue);
                 how_much_text.setText(numberRate);
             }
-        }
+        }*/
     }
 
     private Task<String> uploadImageToFirebase(Uri imageUri,String dog_name ) {

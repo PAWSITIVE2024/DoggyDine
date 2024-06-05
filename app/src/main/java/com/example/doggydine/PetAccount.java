@@ -1,9 +1,11 @@
 package com.example.doggydine;
 
+import java.security.PrivateKey;
 import java.util.Map;
 
 public class PetAccount {
     private String dog_name;
+    private String feeding_num;
     private String dog_food;
     private String dog_age;
     private String dog_weight;
@@ -109,5 +111,13 @@ public class PetAccount {
 
     public void setProfile(Map<String, String> profile) {
         this.profile = profile;
+    }
+
+    public String getFeeding_num() {
+        return feeding_num;
+    }
+
+    public void setFeeding_num(String feeding_num) {
+        this.feeding_num = feeding_num;
     }
 }

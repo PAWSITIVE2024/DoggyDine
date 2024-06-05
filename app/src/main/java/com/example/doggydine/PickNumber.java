@@ -1,8 +1,10 @@
 package com.example.doggydine;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -91,9 +93,10 @@ public class PickNumber extends AppCompatActivity {
     public void onSaveActivationClicked(View view) {
         if (isAllSectionsSelected()) {
             int numberValue = number_Value;
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("numberValue", numberValue);
-            setResult(RESULT_OK, resultIntent);
+            SharedPreferences sharedPreferences = getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("numberValue", String.valueOf(numberValue));
+            editor.apply();
             finish();
         } else {
             showDialog("선택을 완료해주세요");

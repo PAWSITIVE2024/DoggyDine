@@ -2,8 +2,10 @@ package com.example.doggydine;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,9 +122,10 @@ public class Activation extends AppCompatActivity{
     public void onSaveActivationClicked(View view) {
         if (isAllSectionsSelected()) {
             float averageValue = (dietValue + activeValue + genderValue + pragValue + pupValue) / 5;
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("averageValue", averageValue);
-            setResult(RESULT_OK, resultIntent);
+            SharedPreferences sharedPreferences = getSharedPreferences("FromSelectDogFood", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("averageValue", String.valueOf(averageValue));
+            editor.apply();
             finish(); // 현재 액티비티 종료
         } else {
             showDialog("선택을 완료해주세요");
