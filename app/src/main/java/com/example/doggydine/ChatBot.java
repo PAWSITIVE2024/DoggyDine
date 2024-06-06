@@ -25,6 +25,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,6 +68,18 @@ public class ChatBot extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        LottieAnimationView lottieAnimationView_back = findViewById(R.id.lottieAnimationView_back);
+        //만약 캐시된 애니메이션이 있으면->그걸쓰자 !
+        if (Login.mainAnimationComposition != null) {
+            lottieAnimationView_back.setComposition(Login.mainAnimationComposition); //이 mainAnimationComposition은 login화면에서 미리 메인 애니메이션을 캐시해놓고,
+        } else {                                                                      //main화면 진입시 처음부터 애니메이션을 로드하는게아니라 미리 로드한 애니메이션을 가져오는형식입니다
+            // 만약 캐시된 애니메이션이 없으면 처음부터 다시 로드합니다.                                  거기서 미리 로드한걸 여기서도 쓰고싶어서 해봤어요
+            lottieAnimationView_back.setAnimation(R.raw.background_main);
+        }
+        lottieAnimationView_back.loop(true);
+        lottieAnimationView_back.playAnimation();
+
         messageList = new ArrayList<>();
         recyclerView = findViewById(R.id.chat_view);
         welcomeTextView = findViewById(R.id.welcome_text);
