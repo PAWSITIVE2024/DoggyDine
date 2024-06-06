@@ -1,6 +1,8 @@
 package com.example.doggydine;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +56,9 @@ public class Login extends AppCompatActivity {
         mEtEmail = findViewById(R.id.editTextText);
         mEtPwd = findViewById(R.id.editTextNumberPassword);
 
+        // 저장된 로그인 정보가 있으면 자동으로 로그인 시도
+        attemptAutoLogin();
+
         Button btn_login = findViewById(R.id.go_to_login_btn);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +82,9 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            // 로그인 성공 시, 로그인 정보 저장
+                            saveLoginInfo(strEmail, strPwd);
+
                             Intent intent = new Intent(Login.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -98,5 +106,31 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private void attemptAutoLogin() {
+        SharedPreferences sharedPref = getSharedPreferences("login_info", Context.MODE_PRIVATE);
+        String email = sharedPref.getString("email", null);
+        String password = sharedPref.getString("password", null);
+
+        if (email != null && password != null) {
+            mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            });
+        }
+    }
+
+    private void saveLoginInfo(String email, String password) {
+        SharedPreferences sharedPref = getSharedPreferences("login_info", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("email", email);
+        editor.putString("password", password);
+        editor.apply();
     }
 }

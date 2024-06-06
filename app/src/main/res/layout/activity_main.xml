@@ -103,7 +103,7 @@
                     android:text="19:46"
                     android:textColor="@color/black"
                     android:fontFamily="@font/maplestorylight"
-                    android:textSize="20dp"
+                    android:textSize="40dp"
                     android:textAlignment="center"/>
             <Button
                 android:id="@+id/btn_detecting"
