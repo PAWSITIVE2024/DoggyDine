@@ -62,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AppCompatDialog dialog = new AppCompatDialog(MainActivity.this, R.style.TransparentDialog);
-                dialog.setContentView(R.layout.loading);
+                dialog.setContentView(R.layout.detecting);
                 dialog.setCancelable(true);
 
-                LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_loading_animation);
+                LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_detecting_animation);
                 lottieAnimationView.setAnimation(R.raw.loading_animation); // .json 파일을 로드
                 lottieAnimationView.loop(true);
                 lottieAnimationView.playAnimation();
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 // 업데이트할 데이터 설정
                 Map<String, Object> updates = new HashMap<>();
                 updates.put("start", true);
-                updates.put("Detected_name", null);
+                updates.put("Detected_name", "");
 
                 // 해당 항목만 업데이트
                 databaseReference.updateChildren(updates);

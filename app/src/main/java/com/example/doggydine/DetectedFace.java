@@ -65,7 +65,7 @@ public class DetectedFace extends AppCompatActivity {
         double basalMetabolicRate = PetCalorieCalculator.calculateBasalMetabolicRate(weight);
 
         // 기초대사량을 텍스트뷰에 설정
-        metabolic_rate.setText("기초대사량: " + basalMetabolicRate + " kcal");
+        metabolic_rate.setText(basalMetabolicRate + " kcal");
         no_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,12 +84,10 @@ public class DetectedFace extends AppCompatActivity {
                 String uid = mFirebaseAuth.getCurrentUser().getUid();
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid).child("Detected");
 
-                // 업데이트할 데이터 설정
                 Map<String, Object> updates = new HashMap<>();
                 updates.put("start", true);
-                updates.put("Detected_name", null);
+                updates.put("Detected_name", "");
 
-                // 해당 항목만 업데이트
                 databaseReference.updateChildren(updates);
                 databaseReference.child("Detected_name").addValueEventListener(new ValueEventListener() {
                     @Override
