@@ -1,5 +1,8 @@
 package com.example.doggydine;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -192,7 +196,8 @@ public class MainActivity extends AppCompatActivity {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
                 sdf.setTimeZone(TimeZone.getDefault());
-                Date currentTime = new Date();
+                // Date currentTime = new Date();
+                Calendar now = Calendar.getInstance();
 
                 for (DataSnapshot petSnapshot : dataSnapshot.getChildren()) {
                     String dogName = petSnapshot.child("dog_name").getValue(String.class);
@@ -203,18 +208,18 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             Date feedingTime = sdf.parse(timeValue);
 
+                            Calendar feedingCalendar = Calendar.getInstance();
+                            feedingCalendar.setTime(feedingTime);
+                            feedingCalendar.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                            feedingCalendar.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                            feedingCalendar.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
 
-                            Date now = new Date();
-                            feedingTime.setYear(now.getYear());
-                            feedingTime.setMonth(now.getMonth());
-                            feedingTime.setDate(now.getDate());
-
-                            if (feedingTime.before(currentTime)) {
+                            if (feedingCalendar.before(now)) {
                                 continue;
                             }
 
                             timeFound = true;
-                            long diff = feedingTime.getTime() - currentTime.getTime();
+                            long diff = feedingCalendar.getTimeInMillis() - now.getTimeInMillis();
 
                             if (diff < closestTimeDiff) {
                                 closestTimeDiff = diff;
@@ -240,6 +245,8 @@ public class MainActivity extends AppCompatActivity {
                     timeBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 67);
                     profileName.setText(closestDogName);
                     Glide.with(MainActivity.this).load(closestProfileImg).into(profileImg);
+
+                    setAlarmForFeedingTime(closestTime, closestDogName);
                 }
             }
 
@@ -248,5 +255,28 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void setAlarmForFeedingTime(String time, String dogName) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        try {
+            Date feedingTime = sdf.parse(time);
+
+            Calendar feedingCalendar = Calendar.getInstance();
+            feedingCalendar.setTime(feedingTime);
+            feedingCalendar.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
+            feedingCalendar.set(Calendar.MONTH, Calendar.getInstance().get(Calendar.MONTH));
+            feedingCalendar.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+
+            Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
+            intent.putExtra("dog_name", dogName);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE); // FLAG_CANCEL_CURRENT 플래그 사용
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, feedingCalendar.getTimeInMillis(), pendingIntent);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

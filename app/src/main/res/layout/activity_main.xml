@@ -92,10 +92,7 @@
                     android:layout_marginTop="2dp"
                     android:textColor="@color/black"
                     android:layout_gravity="center"/>
-
-
             </LinearLayout>
-
                 <TextView
                     android:id="@+id/time_box"
                     android:layout_width="0dp"
@@ -106,8 +103,16 @@
                     android:text="19:46"
                     android:textColor="@color/black"
                     android:fontFamily="@font/maplestorylight"
-                    android:textSize="55dp"
+                    android:textSize="20dp"
                     android:textAlignment="center"/>
+            <Button
+                android:id="@+id/btn_detecting"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner_main"
+                android:text="밥 주기"/>
+
         </LinearLayout>
 
     </LinearLayout>
@@ -116,12 +121,12 @@
         android:id="@+id/bottom_layout"
         android:layout_width="330dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginLeft="25dp"
         android:background="@drawable/rounded_corner_main"
         android:padding="10dp"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/btn_detecting">
+        android:layout_alignParentBottom="true" >
 
 
         <LinearLayout
@@ -209,13 +214,5 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_detecting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/rounded_corner_main"
-        android:text="밥 주기"/>
+
 </RelativeLayout>
