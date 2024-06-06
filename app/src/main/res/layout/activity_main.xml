@@ -76,14 +76,16 @@
                 android:orientation="vertical"
                 android:layout_gravity="center">
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/profile_img"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
+                    android:scaleType="centerCrop"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_launcher_background"
                     app:srcCompat="@drawable/ic_launcher_background"
                     android:layout_gravity="center"/>
                 <TextView
+                    android:id="@+id/profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="강아지이름"
@@ -95,15 +97,16 @@
             </LinearLayout>
 
                 <TextView
+                    android:id="@+id/time_box"
                     android:layout_width="0dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="3dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="19:46"
                     android:textColor="@color/black"
                     android:fontFamily="@font/maplestorylight"
-                    android:textSize="67dp"
+                    android:textSize="55dp"
                     android:textAlignment="center"/>
         </LinearLayout>
 

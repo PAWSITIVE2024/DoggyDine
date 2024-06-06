@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,9 +15,7 @@ import androidx.appcompat.app.AppCompatDialog;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -33,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth mFirebaseAuth;
     public static LottieComposition mainAnimationComposition;
+    private TextView timeBox;
+    private TextView profileName;
+    private CircleImageView profileImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         LottieAnimationView lottieAnimationView_back = findViewById(R.id.lottieAnimationView_back);
 
@@ -57,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton feed_btn = findViewById(R.id.feed_btn);
         Button detecting_btn = findViewById(R.id.btn_detecting);
+        timeBox = findViewById(R.id.time_box);
+        profileName = findViewById(R.id.profile_name);
+        profileImg = findViewById(R.id.profile_img);
 
         detecting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
         feed_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(MainActivity.this, Feeding.class);
                 startActivity(intent);
             }
@@ -136,6 +144,65 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calender.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid).child("pet");
+            fetchClosestFeedingTime();
+        }
+    }
+
+    private void fetchClosestFeedingTime() {
+        mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long closestTimeDiff = Long.MAX_VALUE;
+                String closestTime = "";
+                String closestDogName = "";
+                String closestProfileImg = "";
+
+                for (DataSnapshot petSnapshot : dataSnapshot.getChildren()) {
+                    String dogName = petSnapshot.child("dog_name").getValue(String.class);
+                    String profileImg = petSnapshot.child("profile").child("profile1").getValue(String.class);
+
+                    for (DataSnapshot timeSnapshot : petSnapshot.child("time").getChildren()) {
+                        String timeValue = timeSnapshot.getValue(String.class);
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                        try {
+                            Date currentTime = new Date();
+                            Date feedingTime = sdf.parse(timeValue);
+                            long diff = Math.abs(currentTime.getTime() - feedingTime.getTime());
+
+                            if (diff < closestTimeDiff) {
+                                closestTimeDiff = diff;
+                                closestTime = timeValue;
+                                closestDogName = dogName;
+                                closestProfileImg = profileImg;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                if (!closestTime.isEmpty()) {
+                    timeBox.setText(closestTime);
+                    profileName.setText(closestDogName);
+                    Glide.with(MainActivity.this).load(closestProfileImg).into(profileImg);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(MainActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
