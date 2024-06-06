@@ -54,6 +54,8 @@ public class DetectedFace extends AppCompatActivity {
         going_food = findViewById(R.id.tx_going_food);
         ok_btn = findViewById(R.id.btn_ok);
         no_btn = findViewById(R.id.btn_no);
+
+        String target_weight = "50";
         // 여기서 데이터 베이스에서 Detected/detected_name 받아옴.
         // 받아온 detected_name을 PetCalorieCalculator로 넣어줌
         // 이름 기반으로 몸무게, 활동수치 등을 받아옴.
@@ -107,6 +109,21 @@ public class DetectedFace extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+            }
+        });
+        ok_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFirebaseAuth = FirebaseAuth.getInstance();
+                String uid = mFirebaseAuth.getCurrentUser().getUid();
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid).child("Detected");
+
+                Map<String, Object> updates = new HashMap<>();
+                updates.put("Target_weight", target_weight);
+
+                databaseReference.updateChildren(updates);
+                Intent intent = new Intent(DetectedFace.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
