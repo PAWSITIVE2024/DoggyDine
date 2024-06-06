@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Feeding">
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView_back"
         android:layout_width="match_parent"
@@ -41,20 +40,18 @@
         android:layout_above="@id/button_layout"
         android:layout_below="@id/top_layer"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
+        android:layout_margin="10dp"
         android:background="@drawable/rounded_button_recycler"
         android:elevation="10dp">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/d_f_recyclerView"
             android:layout_width="367dp"
             android:layout_height="match_parent"
-            android:layout_margin="15dp">
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp">
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
-
-
     <RelativeLayout
         android:id="@+id/button_layout"
         android:layout_width="match_parent"
@@ -79,7 +76,6 @@
             android:text="추천보기"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
     </RelativeLayout>
     <LinearLayout
         android:layout_marginTop="5dp"
