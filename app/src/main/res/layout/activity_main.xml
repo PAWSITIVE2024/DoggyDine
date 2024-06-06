@@ -52,6 +52,63 @@
 
     </RelativeLayout>
     <LinearLayout
+        android:id="@+id/timebar_container"
+        android:layout_width="330dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="25dp"
+        android:background="@drawable/rounded_corner_main"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/bottom_layout">
+        <LinearLayout
+            android:id="@+id/timebar_total"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <LinearLayout
+                android:id="@+id/timebar_dog_info"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_launcher_background"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="강아지이름"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="19:46"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/maplestorylight"
+                    android:textSize="67dp"
+                    android:textAlignment="center"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
 
         android:id="@+id/bottom_layout"
         android:layout_width="330dp"
