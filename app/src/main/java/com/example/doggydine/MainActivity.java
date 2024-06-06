@@ -2,10 +2,11 @@ package com.example.doggydine;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +28,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView timeBox;
     private TextView profileName;
     private CircleImageView profileImg;
+    private Handler handler;
+    private Runnable updateRunnable;
+    private static final int CHECK_INTERVAL = 1000; // 1초
+    private String currentClosestTime = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +109,9 @@ public class MainActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        // 에러 처리 로직
-                        Toast.makeText(MainActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
                     }
                 });
             }
@@ -146,6 +150,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        handler = new Handler();
+        updateRunnable = new Runnable() {
+            @Override
+            public void run() {
+                fetchClosestFeedingTime();
+                handler.postDelayed(this, CHECK_INTERVAL); // 1초마다 실행
+            }
+        };
     }
 
     @Override
@@ -157,7 +170,14 @@ public class MainActivity extends AppCompatActivity {
             String uid = currentUser.getUid();
             mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid).child("pet");
             fetchClosestFeedingTime();
+            handler.post(updateRunnable); // 시간 업데이트 시작
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(updateRunnable); // 시간 업데이트 중지
     }
 
     private void fetchClosestFeedingTime() {
@@ -168,6 +188,11 @@ public class MainActivity extends AppCompatActivity {
                 String closestTime = "";
                 String closestDogName = "";
                 String closestProfileImg = "";
+                boolean timeFound = false;
+
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                sdf.setTimeZone(TimeZone.getDefault());
+                Date currentTime = new Date();
 
                 for (DataSnapshot petSnapshot : dataSnapshot.getChildren()) {
                     String dogName = petSnapshot.child("dog_name").getValue(String.class);
@@ -175,11 +200,21 @@ public class MainActivity extends AppCompatActivity {
 
                     for (DataSnapshot timeSnapshot : petSnapshot.child("time").getChildren()) {
                         String timeValue = timeSnapshot.getValue(String.class);
-                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
                         try {
-                            Date currentTime = new Date();
                             Date feedingTime = sdf.parse(timeValue);
-                            long diff = Math.abs(currentTime.getTime() - feedingTime.getTime());
+
+
+                            Date now = new Date();
+                            feedingTime.setYear(now.getYear());
+                            feedingTime.setMonth(now.getMonth());
+                            feedingTime.setDate(now.getDate());
+
+                            if (feedingTime.before(currentTime)) {
+                                continue;
+                            }
+
+                            timeFound = true;
+                            long diff = feedingTime.getTime() - currentTime.getTime();
 
                             if (diff < closestTimeDiff) {
                                 closestTimeDiff = diff;
@@ -193,8 +228,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                if (!closestTime.isEmpty()) {
+                // UI 업데이트가 필요한 경우에만 업데이트
+                if (!timeFound) {
+                    timeBox.setText("설정된 시간 없음");
+                    timeBox.setTextSize(TypedValue.COMPLEX_UNIT_PX, 47);
+                    profileName.setText("강아지 이름");
+                    profileImg.setImageResource(R.drawable.ic_launcher_background);
+                } else if (!closestTime.isEmpty() && !closestTime.equals(currentClosestTime)) {
+                    currentClosestTime = closestTime;
                     timeBox.setText(closestTime);
+                    timeBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 67);
                     profileName.setText(closestDogName);
                     Glide.with(MainActivity.this).load(closestProfileImg).into(profileImg);
                 }
