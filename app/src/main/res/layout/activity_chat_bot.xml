@@ -6,8 +6,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ChatBot">
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/lottieAnimationView_back"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="centerCrop"/>
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -102,6 +106,7 @@
         android:textSize="30dp"
         android:textAlignment="center"
         android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/maplestorybold" />
   </RelativeLayout>
 
