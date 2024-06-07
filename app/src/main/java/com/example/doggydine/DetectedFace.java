@@ -76,7 +76,7 @@ public class DetectedFace extends AppCompatActivity {
             public void onClick(View view) {
                 AppCompatDialog dialog = new AppCompatDialog(DetectedFace.this, R.style.TransparentDialog);
                 dialog.setContentView(R.layout.detecting);
-                dialog.setCancelable(true);
+                dialog.setCancelable(false);
 
                 LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_detecting_animation);
                 lottieAnimationView.setAnimation(R.raw.loading_animation); // .json 파일을 로드
