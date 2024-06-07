@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="사료 검색 및 비교"
+            android:text="      사료 검색 및 비교"
             android:textSize="30dp"
             android:textAlignment="center"
             android:textColor="@color/black"
