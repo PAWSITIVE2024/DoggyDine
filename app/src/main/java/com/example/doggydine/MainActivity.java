@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         CircleImageView settingBtn = findViewById(R.id.setting_btn);
 
         ImageButton feed_btn = findViewById(R.id.feed_btn);
-        Button detecting_btn = findViewById(R.id.btn_detecting);
+        ImageButton detecting_btn = findViewById(R.id.btn_detecting);
         timeBox = findViewById(R.id.time_box);
         profileName = findViewById(R.id.profile_name);
         profileImg = findViewById(R.id.profile_img);
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (!closestTime.isEmpty() && !closestTime.equals(currentClosestTime)) {
                     currentClosestTime = closestTime;
                     timeBox.setText(closestTime);
-                    timeBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 67);
+                    timeBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 37);
                     profileName.setText(closestDogName);
                     Glide.with(MainActivity.this).load(closestProfileImg).into(profileImg);
 

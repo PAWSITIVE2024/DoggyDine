@@ -105,13 +105,33 @@
                     android:fontFamily="@font/maplestorylight"
                     android:textSize="40dp"
                     android:textAlignment="center"/>
-            <Button
-                android:id="@+id/btn_detecting"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_corner_main"
-                android:text="밥 주기"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <ImageButton
+                    android:id="@+id/btn_detecting"
+                    android:layout_width="66dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@color/zxing_transparent"
+                    android:contentDescription="밥주기버튼"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/givefood_btn" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/maplestorybold"
+                    android:textColor="@color/black"
+                    android:text="밥주기"
+                    android:textAlignment="center"
+                    android:textSize="13dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
