@@ -118,13 +118,13 @@ public class Login extends AppCompatActivity {
         lottieAnimationView.loop(true);
         lottieAnimationView.playAnimation();
 
-        dialog.show();
 
         SharedPreferences sharedPref = getSharedPreferences("login_info", Context.MODE_PRIVATE);
         String email = sharedPref.getString("email", null);
         String password = sharedPref.getString("password", null);
 
         if (email != null && password != null) {
+            dialog.show();
             mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
