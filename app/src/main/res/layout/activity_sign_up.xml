@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -14,21 +14,17 @@
         android:layout_height="48dp"
         android:layout_marginTop="30dp"
         android:text="회원가입"
-        app:layout_constraintEnd_toEndOf="@+id/Tv_s_go"
-        app:layout_constraintStart_toStartOf="@+id/Tv_s_go"
-        app:layout_constraintTop_toBottomOf="@+id/Tv_s_go" />
+        android:layout_below="@id/linearLayout3"
+        android:layout_centerHorizontal="true"/>
+
 
     <ImageView
         android:id="@+id/doggy_dine"
-        android:layout_width="193dp"
-        android:layout_height="47dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginEnd="218dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="25dp"
         app:srcCompat="@drawable/doggy_dine" />
-
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/Lt_grass"
@@ -36,39 +32,26 @@
         android:layout_height="130dp"
         android:layout_marginTop="20dp"
         android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Btn_s_register" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_alignParentBottom="true"
+        app:layout_constraintHorizontal_bias="0.0" />
+    <ImageView
         android:id="@+id/imageView"
-        android:layout_width="170dp"
-        android:layout_height="171dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="10dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_launcher_background"
-        app:civ_border_color="#90721AFF"
-        app:civ_border_overlay="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.519"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doggy_dine"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@drawable/final_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/doggy_dine"/>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="282dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.573"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        android:layout_below="@id/imageView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -159,25 +142,10 @@
                 android:ems="10"
 
                 android:hint="유저이름"
-                android:textColor="@color/black"
                 android:inputType="text"
+                android:textColor="@color/black"
                 android:textColorHint="#90000000" />
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/Tv_s_go"
-        android:layout_width="136dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/maplestorybold"
-        android:text="활동수치보러가기"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.465"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

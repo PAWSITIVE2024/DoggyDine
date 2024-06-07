@@ -37,10 +37,7 @@ public class Sign_up extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseRef;
     private EditText mEtEmail, mEtPwd, mName;
-
-    private ImageView mImageview;
     private Button mBtnRegister;
-    private TextView mTextview;
     private TextView alertText;
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -61,31 +58,12 @@ public class Sign_up extends AppCompatActivity {
         mEtPwd = findViewById(R.id.Et_s_pw);
         mName = findViewById(R.id.Et_s_name);
         mBtnRegister = findViewById(R.id.Btn_s_register);
-        mImageview = findViewById(R.id.imageView);
-        mTextview = findViewById(R.id.Tv_s_go);
         alertText = findViewById(R.id.tv_alert_email);
 
         LottieAnimationView lottieAnimationView = findViewById(R.id.Lt_grass);
         lottieAnimationView.setAnimation(R.raw.grass); // .json 파일을 로드
         lottieAnimationView.loop(true);
         lottieAnimationView.playAnimation();
-
-
-
-        mTextview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Sign_up.this, ActivateRate.class);
-                startActivity(intent);
-            }
-        });
-
-        mImageview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
-            }
-        });
 
         mEtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -200,15 +178,6 @@ public class Sign_up extends AppCompatActivity {
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            selectedImageUri = data.getData();
-            mImageview.setImageURI(selectedImageUri);
-        }
     }
 
     private Task<String> uploadImageToFirebase(Uri imageUri) {
