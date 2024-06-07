@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -271,7 +272,7 @@ public class Feeding extends AppCompatActivity {
             // AlertDialog 생성 및 표시
             AlertDialog.Builder builder = new AlertDialog.Builder(Feeding.this);
             builder.setTitle("알림");
-            builder.setMessage("등록하시겠습니까?");
+            builder.setMessage("해당 사료 페이지로 이동하시겠습니까?");
             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -293,7 +294,7 @@ public class Feeding extends AppCompatActivity {
     // 바코드 처리 메서드
     private void processBarcode(String barcode) {
         if (barcode != null && !barcode.isEmpty()) {
-            DatabaseReference barcodeRef = database.getReference("DoggyDine").child("Barcode");
+            DatabaseReference barcodeRef = database.getReference("DoggyDine").child("Food");
             barcodeRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -303,13 +304,16 @@ public class Feeding extends AppCompatActivity {
                         String number = foodSnapshot.child("number").getValue(String.class);
                         if (barcode.equals(number)) {
                             Log.d("Barcode", "Processed Barcode Number: " + barcode + ", Food Name: " + foodName);
-                            saveFoodData(foodSnapshot, foodName);
+                            Intent intent = new Intent(Feeding.this, FoodDetailsActivity.class);
+                            intent.putExtra("foodName",foodName);
                             found = true;
+                            startActivity(intent);
                             break;
                         }
                     }
                     if (!found) {
-                        Log.d("Barcode", "Barcode not found in database.");
+                        Toast.makeText(Feeding.this, "등록된 사료가 없습니다", Toast.LENGTH_SHORT).show();
+
                     }
                 }
 
@@ -321,34 +325,7 @@ public class Feeding extends AppCompatActivity {
         }
     }
 
-    // Food DB에 데이터 저장 메서드
-    private void saveFoodData(DataSnapshot foodSnapshot, String foodName) {
-        DatabaseReference foodRef = database.getReference("DoggyDine").child("Food").child(foodName);
 
-        Map<String, Object> foodData = new HashMap<>();
-        foodData.put("kcal", foodSnapshot.child("kcal").getValue(String.class));
-        foodData.put("manu", foodSnapshot.child("manu").getValue(String.class));
-        foodData.put("name", foodSnapshot.child("name").getValue(String.class));
-        foodData.put("number", foodSnapshot.child("number").getValue(String.class));
-        foodData.put("price", foodSnapshot.child("price").getValue(String.class));
-        foodData.put("profile", foodSnapshot.child("profile").getValue(String.class));
-        foodData.put("sales_Volume", foodSnapshot.child("sales_Volume").getValue(String.class));
-        foodData.put("score", foodSnapshot.child("score").getValue(String.class));
-        foodData.put("wright", foodSnapshot.child("wright").getValue(String.class));
 
-        // GenericTypeIndicator를 사용하여 material과 nutrient 필드를 읽음
-        GenericTypeIndicator<Map<String, Boolean>> materialType = new GenericTypeIndicator<Map<String, Boolean>>() {};
-        GenericTypeIndicator<Map<String, String>> nutrientType = new GenericTypeIndicator<Map<String, String>>() {};
-
-        Map<String, Boolean> materialMap = foodSnapshot.child("material").getValue(materialType);
-        Map<String, String> nutrientMap = foodSnapshot.child("nutrient").getValue(nutrientType);
-
-        foodData.put("material", materialMap);
-        foodData.put("nutrient", nutrientMap);
-
-        foodRef.setValue(foodData)
-                .addOnSuccessListener(aVoid -> Log.d("Database", "Food data saved successfully."))
-                .addOnFailureListener(e -> Log.d("Database", "Failed to save food data: " + e.getMessage()));
-    }
 
 }
