@@ -87,6 +87,7 @@ public class Login extends AppCompatActivity {
 
                             Intent intent = new Intent(Login.this, MainActivity.class);
                             startActivity(intent);
+                            dialog.dismiss();
                             finish();
                         } else {
                             Toast.makeText(Login.this, "로그인 실패", Toast.LENGTH_SHORT).show();
@@ -108,6 +109,17 @@ public class Login extends AppCompatActivity {
         });
     }
     private void attemptAutoLogin() {
+        AppCompatDialog dialog = new AppCompatDialog(Login.this, R.style.TransparentDialog);
+        dialog.setContentView(R.layout.loading);
+        dialog.setCancelable(true);
+
+        LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.LT_loading_animation);
+        lottieAnimationView.setAnimation(R.raw.loading_animation); // .json 파일을 로드
+        lottieAnimationView.loop(true);
+        lottieAnimationView.playAnimation();
+
+        dialog.show();
+
         SharedPreferences sharedPref = getSharedPreferences("login_info", Context.MODE_PRIVATE);
         String email = sharedPref.getString("email", null);
         String password = sharedPref.getString("password", null);
@@ -119,6 +131,7 @@ public class Login extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         startActivity(intent);
+                        dialog.dismiss();
                         finish();
                     }
                 }
