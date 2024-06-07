@@ -112,15 +112,22 @@
             android:text="상품순위:"
             android:textColor="@color/black"
             android:textSize="25dp" />
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:textColor="@color/black"
-            android:theme="@style/SpinnerDropdownStyle"
-            android:backgroundTint="@color/black"
-            android:entries="@array/drop_down_option"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_button_recycler">
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_gravity="left"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:theme="@style/SpinnerDropdownStyle"
+                android:backgroundTint="@color/black"
+                android:entries="@array/drop_down_option"/>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

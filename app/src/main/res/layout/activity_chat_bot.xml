@@ -67,6 +67,7 @@
       android:layout_alignParentBottom="true"
       app:layout_constraintBottom_toBottomOf="parent"
       android:padding="8dp"
+      android:background="@color/white"
       android:id="@+id/bottom_layout">
     <EditText
         android:layout_width="match_parent"
