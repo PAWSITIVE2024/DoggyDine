@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="280dp"
-            android:text="등록하기"/>
+            android:text="바코드"/>
     </RelativeLayout>
 
     <LinearLayout
