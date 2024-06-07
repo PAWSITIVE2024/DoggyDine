@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         LottieAnimationView lottieAnimationView_back = findViewById(R.id.lottieAnimationView_back);
+        LottieAnimationView lottieAnimationView_dog_1 = findViewById(R.id.dog_sitting_1);
+        LottieAnimationView lottieAnimationView_dog_2 = findViewById(R.id.dog_sitting_2);
+        LottieAnimationView lottieAnimationView_dog_3 = findViewById(R.id.dog_sitting_3);
 
         // 캐시된 애니메이션을 설정합니다.
         if (Login.mainAnimationComposition != null) {
@@ -68,6 +71,19 @@ public class MainActivity extends AppCompatActivity {
 
         lottieAnimationView_back.loop(true);
         lottieAnimationView_back.playAnimation();
+
+        lottieAnimationView_dog_1.setAnimation(R.raw.dog_1);
+        lottieAnimationView_dog_1.loop(true);
+        lottieAnimationView_dog_1.playAnimation();
+
+        lottieAnimationView_dog_2.setAnimation(R.raw.dog_2);
+        lottieAnimationView_dog_2.loop(true);
+        lottieAnimationView_dog_2.playAnimation();
+
+        lottieAnimationView_dog_3.setAnimation(R.raw.dog_3);
+        lottieAnimationView_dog_3.loop(true);
+        lottieAnimationView_dog_3.playAnimation();
+
 
         CircleImageView settingBtn = findViewById(R.id.setting_btn);
 
