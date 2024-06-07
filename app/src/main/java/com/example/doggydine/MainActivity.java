@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         lottieAnimationView_dog_3.playAnimation();
 
 
-        CircleImageView settingBtn = findViewById(R.id.setting_btn);
+        ImageButton settingBtn = findViewById(R.id.setting_btn);
 
         ImageButton feed_btn = findViewById(R.id.feed_btn);
         ImageButton detecting_btn = findViewById(R.id.btn_detecting);
