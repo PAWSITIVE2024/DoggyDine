@@ -1,18 +1,24 @@
 package com.example.doggydine;
 
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -21,14 +27,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.UUID;
 
 public class Setting extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -38,7 +48,13 @@ public class Setting extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth mFirebaseAuth;
     Button logOut, connecting;
-
+    private static final String TAG = "BluetoothApp";
+    private static final String DEVICE_ADDRESS = "00:14:03:05:59:43"; // 라즈베리파이 블루투스 MAC 주소
+    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private BluetoothAdapter bluetoothAdapter;
+    private BluetoothSocket bluetoothSocket;
+    private OutputStream outputStream;
+    String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +79,7 @@ public class Setting extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        String uid = mFirebaseAuth.getCurrentUser().getUid();
+        uid = mFirebaseAuth.getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid).child("pet");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -81,13 +97,11 @@ public class Setting extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged(); // 데이터 변경을 어댑터에 알림
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,11 +134,65 @@ public class Setting extends AppCompatActivity {
                 dialog.show();
             }
         });
-
         adapter = new DogInfoAdapter(arrayList,this);
         recyclerView.setAdapter(adapter);
-
-
-
+        connecting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                connectBluetooth();
+            }
+        });
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null) {
+            Toast.makeText(this, "Bluetooth not supported", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+    }
+    private void connectBluetooth() {
+        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(DEVICE_ADDRESS);
+        try {
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            bluetoothSocket = device.createRfcommSocketToServiceRecord(MY_UUID);
+            bluetoothSocket.connect();
+            Toast.makeText(this, "Bluetooth connected", Toast.LENGTH_SHORT).show();
+            sendData(uid);
+        } catch (IOException e) {
+            Log.e(TAG, "Error connecting to Bluetooth", e);
+            Toast.makeText(this, "Bluetooth connection failed", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void sendData(String data) {
+        try {
+            outputStream = bluetoothSocket.getOutputStream();
+            outputStream.write(data.getBytes());
+            Toast.makeText(this, "Data sent", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Log.e(TAG, "Error sending data", e);
+            Toast.makeText(this, "Failed to send data", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            if (outputStream != null) {
+                outputStream.close();
+            }
+            if (bluetoothSocket != null) {
+                bluetoothSocket.close();
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Error closing Bluetooth connection", e);
+        }
     }
 }
