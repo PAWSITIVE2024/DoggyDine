@@ -30,8 +30,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private Runnable updateRunnable;
     private static final int CHECK_INTERVAL = 1000; // 1초
     private String currentClosestTime = "";
+    private List<FeedingTime> feedingTimes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,12 +114,12 @@ public class MainActivity extends AppCompatActivity {
                 String uid = mFirebaseAuth.getCurrentUser().getUid();
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid).child("Detected");
 
-                // 업데이트할 데이터 설정
+
                 Map<String, Object> updates = new HashMap<>();
                 updates.put("start", true);
                 updates.put("Detected_name", "");
 
-                // 해당 항목만 업데이트
+
                 databaseReference.updateChildren(updates);
                 databaseReference.child("Detected_name").addValueEventListener(new ValueEventListener() {
                     @Override
@@ -175,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         updateRunnable = new Runnable() {
             @Override
             public void run() {
-                fetchClosestFeedingTime();
+                calculateClosestFeedingTime();
                 handler.postDelayed(this, CHECK_INTERVAL); // 1초마다 실행
             }
         };
@@ -189,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser != null) {
             String uid = currentUser.getUid();
             mDatabaseRef = FirebaseDatabase.getInstance().getReference("DoggyDine").child("UserAccount").child(uid).child("pet");
-            fetchClosestFeedingTime();
+            fetchFeedingTimesFromDatabase();
             handler.post(updateRunnable); // 시간 업데이트 시작
         }
     }
@@ -200,70 +203,21 @@ public class MainActivity extends AppCompatActivity {
         handler.removeCallbacks(updateRunnable); // 시간 업데이트 중지
     }
 
-    private void fetchClosestFeedingTime() {
-        mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void fetchFeedingTimesFromDatabase() {
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long closestTimeDiff = Long.MAX_VALUE;
-                String closestTime = "";
-                String closestDogName = "";
-                String closestProfileImg = "";
-                boolean timeFound = false;
-
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                sdf.setTimeZone(TimeZone.getDefault());
-                // Date currentTime = new Date();
-                Calendar now = Calendar.getInstance();
-
+                feedingTimes.clear();
                 for (DataSnapshot petSnapshot : dataSnapshot.getChildren()) {
                     String dogName = petSnapshot.child("dog_name").getValue(String.class);
                     String profileImg = petSnapshot.child("profile").child("profile1").getValue(String.class);
 
                     for (DataSnapshot timeSnapshot : petSnapshot.child("time").getChildren()) {
                         String timeValue = timeSnapshot.getValue(String.class);
-                        try {
-                            Date feedingTime = sdf.parse(timeValue);
-
-                            Calendar feedingCalendar = Calendar.getInstance();
-                            feedingCalendar.setTime(feedingTime);
-                            feedingCalendar.set(Calendar.YEAR, now.get(Calendar.YEAR));
-                            feedingCalendar.set(Calendar.MONTH, now.get(Calendar.MONTH));
-                            feedingCalendar.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
-
-                            if (feedingCalendar.before(now)) {
-                                continue;
-                            }
-
-                            timeFound = true;
-                            long diff = feedingCalendar.getTimeInMillis() - now.getTimeInMillis();
-
-                            if (diff < closestTimeDiff) {
-                                closestTimeDiff = diff;
-                                closestTime = timeValue;
-                                closestDogName = dogName;
-                                closestProfileImg = profileImg;
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                        feedingTimes.add(new FeedingTime(dogName, profileImg, timeValue));
                     }
                 }
-
-                // UI 업데이트가 필요한 경우에만 업데이트
-                if (!timeFound) {
-                    timeBox.setText("설정된 시간 없음");
-                    timeBox.setTextSize(TypedValue.COMPLEX_UNIT_PX, 47);
-                    profileName.setText("강아지 이름");
-                    profileImg.setImageResource(R.drawable.ic_launcher_background);
-                } else if (!closestTime.isEmpty() && !closestTime.equals(currentClosestTime)) {
-                    currentClosestTime = closestTime;
-                    timeBox.setText(closestTime);
-                    timeBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 37);
-                    profileName.setText(closestDogName);
-                    Glide.with(MainActivity.this).load(closestProfileImg).into(profileImg);
-
-                    setAlarmForFeedingTime(closestTime, closestDogName);
-                }
+                calculateClosestFeedingTime();
             }
 
             @Override
@@ -272,6 +226,63 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void calculateClosestFeedingTime() {
+        long closestTimeDiff = Long.MAX_VALUE;
+        String closestTime = "";
+        String closestDogName = "";
+        String closestProfileImg = "";
+        boolean timeFound = false;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getDefault());
+        Calendar now = Calendar.getInstance();
+
+        for (FeedingTime feedingTime : feedingTimes) {
+            try {
+                Date time = sdf.parse(feedingTime.time);
+
+                Calendar feedingCalendar = Calendar.getInstance();
+                feedingCalendar.setTime(time);
+                feedingCalendar.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                feedingCalendar.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                feedingCalendar.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+
+                if (feedingCalendar.before(now)) {
+                    continue;
+                }
+
+                timeFound = true;
+                long diff = feedingCalendar.getTimeInMillis() - now.getTimeInMillis();
+
+                if (diff < closestTimeDiff) {
+                    closestTimeDiff = diff;
+                    closestTime = feedingTime.time;
+                    closestDogName = feedingTime.dogName;
+                    closestProfileImg = feedingTime.profileImg;
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // UI 업데이트가 필요한 경우에만 업데이트
+        if (!timeFound) {
+            timeBox.setText("설정된 시간 없음");
+            timeBox.setTextSize(TypedValue.COMPLEX_UNIT_PX, 47);
+            profileName.setText("강아지 이름");
+            profileImg.setImageResource(R.drawable.ic_launcher_background);
+        } else if (!closestTime.isEmpty() && !closestTime.equals(currentClosestTime)) {
+            currentClosestTime = closestTime;
+            timeBox.setText(closestTime);
+            timeBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 37);
+            profileName.setText(closestDogName);
+            Glide.with(MainActivity.this).load(closestProfileImg).into(profileImg);
+
+            setAlarmForFeedingTime(closestTime, closestDogName);
+        }
+    }
+
     private void setAlarmForFeedingTime(String time, String dogName) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
         try {
@@ -293,6 +304,18 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+    }
+
+    private class FeedingTime {
+        String dogName;
+        String profileImg;
+        String time;
+
+        FeedingTime(String dogName, String profileImg, String time) {
+            this.dogName = dogName;
+            this.profileImg = profileImg;
+            this.time = time;
         }
     }
 }
