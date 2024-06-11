@@ -139,6 +139,8 @@ public class Setting extends AppCompatActivity {
         connecting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(Setting.this, CodeGenerator.class);
+                startActivity(intent);
                 connectBluetooth();
             }
         });

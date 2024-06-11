@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CodeGenerator">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/qrCodeImageView"
+        android:layout_marginBottom="20dp"
+        android:text="기기에 아래의 QR코드를 찍어주세요!"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"/>
+
+    <ImageView
+        android:id="@+id/qrCodeImageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true" />
+    <Button
+        android:id="@+id/end_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/qrCodeImageView"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp"
+        android:text="완료"/>
+</RelativeLayout>
